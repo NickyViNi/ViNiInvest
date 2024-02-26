@@ -1,6 +1,6 @@
 # Flask React Project
 
-This is the starter for the Flask React project.
+ViNiInvest -- Run your money, invest in Stocks, Options, and ETFs Commissions-free.
 
 ## Getting started
 
