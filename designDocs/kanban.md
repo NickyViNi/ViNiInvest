@@ -97,8 +97,8 @@ Return the stock purchased order  and add it to specified portfolio
 
 - [ ] An authenticated user is required for a successful response
 - [ ] New stock purchased order exists in the database after request
-- [ ] Stock purchased order data returned includes the `id`, `portfolio_id`, `portfolio_name`, `user_id`,`username`, `stock_id`, `stock_name`, `stock_symbol`, `quantity`, `price_per_unit`,  `transaction_type`, `created_at`, `updated_at`
-- [ ] Error response with status 400 is given when body validations for the `quantity` is violated
+- [ ] Stock purchased order data returned includes the `id`, `portfolio_id`, `portfolio_name`, `user_id`,`username`, `stock_id`, `stock_name`, `stock_symbol`, `shares`, `price_per_unit`,  `transaction_type`, `created_at`, `updated_at`
+- [ ] Error response with status 400 is given when body validations for the `transaction_type` and `shares` is violated
 - [ ] Error response with status 404 is given when a stock does not exist with the provided `id`
 - [ ] Error response with status 404 is given when a portfolio does not exist with the provided `id`
 
@@ -110,9 +110,9 @@ Updates and returns an existing stock purchased order
 - [ ] An authenticated user is required for a successful response
 - [ ] Only the owner of the order is authorized to update
 - [ ] Stock transaction record is updated from an existing order in the database after request
-- [ ] Stock order data returned includes the `id`, `portfolio_id`, `portfolio_name`, `user_id`, `username`, `stock_id`, `stock_name`, `stock_symbol`, `quantity`, `price_per_unit`, `transaction_type`, `created_at`, `updated_at`
-- [ ] Error response with status 400 is given when body validations for the `transaction_type` and `quantity` are violated
-- [ ] Error response with status 404 is given when `stock_name`, `stock_symbol` not found.
+- [ ] Stock order data returned includes the `id`, `portfolio_id`, `portfolio_name`, `user_id`, `username`, `stock_id`, `stock_name`, `stock_symbol`,  `shares`, `price_per_unit`, `transaction_type`, `created_at`, `updated_at`
+- [ ] Error response with status 400 is given when body validations for the `transaction_type` and  `shares`are violated
+- [ ] Error response with status 404 is given when a stock does not exist with the provided `id`
 - [ ] Error response with status 404 is given when a portfolio does not exist with the provided `id`
 - [ ] Error response with status 404 is given when a transaction does not exist with the provided `id`
 

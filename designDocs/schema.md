@@ -14,6 +14,21 @@
 | created_at        | date      |                       |
 | updated-at        | date      |                       |
 
+
+## `portfolios`
+
+| column name | data type | details               |
+|-------------|-----------|-----------------------|
+| id          | integer   | not null, primary key |
+| name        | string    |                       |
+| user_id     | integer   | not null, foreign key |
+| fake_money_balance| float|                      |
+| created_at  | date      |                       |
+| updated-at  | date      |                       |
+
+* `user_id` references `users` table
+
+
 ## `stocks`
 
 | column name | data type | details               |
@@ -24,19 +39,37 @@
 | created_at  | date      |                       |
 | updated-at  | date      |                       |
 
-## `portfolios`
+
+## `transactions`
 
 | column name | data type | details               |
 |-------------|-----------|-----------------------|
 | id          | integer   | not null, primary key |
-| user_id     | integer   | not null, foreign key |
+| portfolio_id| integer   | not null, foreign key |
 | stock_id    | integer   | not null, foreign key |
 | shares      | float     | not null              |
+| type        | string    | not null, "sell"/"buy"|
+| price_per_unit| float   | not null              |
 | created_at  | date      |                       |
 | updated-at  | date      |                       |
 
-* `user_id` references `users` table
 * `stock_id` references `stocks` table
+* `portfolio_id` references `portfolios` table
+
+## `portfolio_stocks`
+
+| column name | data type | details               |
+|-------------|-----------|-----------------------|
+| id          | integer   | not null, primary key |
+| stock_id    | integer   | not null, foreign key |
+| portfolio_id| integer   | not null, foreign key |
+| quantity    | float     | not null              |
+| created_at  | date      |                       |
+| updated-at  | date      |                       |
+
+* `stock_id` references `stocks` table
+* `portfolio_id` references `portfolios` table
+
 
 ## `watchlists`
 
@@ -70,7 +103,7 @@
 | id          | integer   | not null, primary key |
 | stock_id    | integer   | not null, foreign key |
 | max_price   | float     | not null              |
-| prices      | float     | not null              |
+| price       | float     | not null              |
 | min_price   | float     | not null              |
 | created_at  | date      |                       |
 | updated-at  | date      |                       |
