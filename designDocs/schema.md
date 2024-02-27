@@ -2,15 +2,14 @@
 
 ## `users`
 
-| column name | data type | details               |
-|-------------|-----------|-----------------------|
+| column name | data type | details                     |
+|-------------|-----------|-----------------------------|
 | id                | integer   | not null, primary key |
 | first_name        | string(50)| not null              |
 | last_name         | string(50)| not null              |
 | username          | string(50)| not null, unique      |
 | hashed_password   | string    | not null              |
 | email             | string    | not null, unique      |
-| fund              | float     |
 | profile_image_url | string    | not null              |
 | created_at        | date      |                       |
 | updated-at        | date      |                       |
