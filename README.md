@@ -8,7 +8,7 @@ ViNiInvest -- Run your money, invest in Stocks, Options, and ETFs Commissions-fr
 
 ![viniinvest-database-schema]
 
-[viniinvest-database-schema]: ./react-vite/public/images/viniinvest_schema.JPG
+[viniinvest-database-schema]: ./react-vite/public/images/vini_invest_schema.jpg
 
 ## Getting started
 

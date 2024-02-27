@@ -15,7 +15,7 @@ ViNiInvest, a Ronbinhood clone, is a website for users to run their money, inves
 * Users should be able to view their portfolio.
 * Users should be able to create a new portfolio.
 * Users should be able to update their portfolio (add fake money).
-* Users should be able to delete their portfolio (selling stocks).
+* Users should be able to delete their portfolio (selling all stocks).
 
 ## 3. Stock Details
 
@@ -35,7 +35,7 @@ ViNiInvest, a Ronbinhood clone, is a website for users to run their money, inves
 * Users should be able to search for a stock by name.
 * Users should be able to view the results of their search.
 
-## 6. Bonus: Transactions
+## 6. Transactions
 
 * Users should be able to view their transaction history.
 * Users should be able to "order" stocks at a certain time/frequency.
