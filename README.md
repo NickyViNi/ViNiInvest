@@ -2,6 +2,12 @@
 
 ViNiInvest -- Run your money, invest in Stocks, Options, and ETFs Commissions-free.
 
+## Database Schema Design
+
+![viniinvest-database-schema]
+
+[viniinvest-database-schema]: ./react-vite/public/images/viniinvest_schema.JPG
+
 ## Getting started
 
 1. Clone this repository (only this branch).
