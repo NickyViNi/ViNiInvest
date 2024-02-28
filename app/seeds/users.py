@@ -14,6 +14,14 @@ def seed_users():
             "profile_image_url": "https://static.wikia.nocookie.net/disney/images/8/82/LinaBell.jpg/revision/latest/thumbnail/width/360/height/360?cb=20210917045304"
         },
         {
+            "first_name": "Vince",
+            "last_name": "Deng",
+            "username": "vincedeng",
+            "password": "password",
+            "email": "vincedeng@user.io",
+            "profile_image_url": "https://pic.baike.soso.com/ugc/baikepic2/1284/20230223223505-485846233_jpeg_1302_868_220111.jpg/1284"
+        },
+        {
             "first_name": "Hao",
             "last_name": "Lam",
             "username": "haolam",
