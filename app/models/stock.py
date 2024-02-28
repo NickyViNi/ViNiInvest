@@ -12,6 +12,7 @@ class Stock(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
     symbol = db.Column(db.String, nullable=False, unique=True)
+    category = db.Column(db.String, nullable=False) #stock, option, ETFs
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
@@ -35,5 +36,6 @@ class Stock(db.Model):
             "id": self.id,
             "name": self.name,
             "symbol": self.symbol,
+            "category": self.category,
             "created_at": str(self.created_at)
         }
