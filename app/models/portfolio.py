@@ -18,7 +18,12 @@ class Portfolio(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     """ one-to-one """
-    owner = db.relationship("User", back_populates="user_portfolio", cascade="all, delete-orphan")
+    owner = db.relationship("User", back_populates="user_portfolio")
+
+    """ one-to-many """
+    transactions = db.relationship("Transaction", back_populates="portfolio_t", cascade="all, delete-orphan")
+    portfolio_stocks = db.relationship("Portfolio_stock", back_populates="portfolio_pk", cascade="all, delete-orphan")
+
 
 
     @classmethod

@@ -19,3 +19,7 @@ class Transaction(db.Model):
     price_per_unit = db.Column(db.Float, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
+
+    """ many-to-one """
+    portfolio_t = db.relationship("Portfolio", back_populates="transactions")
+    stock_t = db.relationship("Stock", back_populates="transactions")

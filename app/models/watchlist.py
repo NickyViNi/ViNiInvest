@@ -14,3 +14,6 @@ class Watchlist(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
+
+    """ one-to-many """
+    watchlist_stocks = db.relationship("Watchlist_stock", back_populates="watchlist", cascade="all, delete-orphan")

@@ -15,3 +15,7 @@ class Watchlist_stock(db.Model):
     stock_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("stocks.id")), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
+
+    """ many-to-one """
+    watchlist = db.relationship("Watchlist", back_populates="watchlist_stocks")
+    srock = db.relationship("Stock", back_populates="watchlist_stocks")

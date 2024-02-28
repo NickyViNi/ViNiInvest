@@ -15,3 +15,6 @@ class Price(db.Model):
     price = db.Column(db.Float, nullable=False)
     min_price = db.Column(db.Float, nullable=False)
     date = db.Column(db.DateTime)
+
+    """ many-to-one """
+    prices = db.relationship("Stock", back_populates="stock_p")

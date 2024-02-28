@@ -22,7 +22,7 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     """ one-to-one """
-    user_portfolio = db.relationship("Portfolio", back_populates="owner", cascade="all, delete-orphan")
+    user_portfolio = db.relationship("Portfolio", back_populates="owner", uselist=False, cascade="all, delete-orphan")
     # portfolio = db.relationship("Portfolio", uselist=False, backref="user", cascade="all, delete-orphan")
 
 

@@ -16,3 +16,7 @@ class Portfolio_stock(db.Model):
     quantity = db.Column(db.Float, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
+
+    """ many-to-one """
+    portfolio_pk = db.relationship("Portfolio", back_populates="portfolio_stocks")
+    stock_pk = db.relationship("Stock", back_populates="portfolio_stocks")

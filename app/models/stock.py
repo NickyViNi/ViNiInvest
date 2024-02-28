@@ -15,6 +15,12 @@ class Stock(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
+    """ one-to-many """
+    transactions = db.relationship("Transaction", back_populates="stock_t")
+    prices = db.relationship("Price", back_populates="stock_p", cascade="all, delete-orphan")
+    portfolio_stocks = db.relationship("Portfolio_stock", back_populates="stock_pk")
+    watchlist_stocks = db.relationship("Watchlist_stock", back_populates="stock", cascade="all, delete-orphan")
+
 
     @classmethod
     def validate(cls, data):
