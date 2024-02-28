@@ -19,3 +19,11 @@ class Watchlist_stock(db.Model):
     """ many-to-one """
     watchlist = db.relationship("Watchlist", back_populates="watchlist_stocks")
     srock = db.relationship("Stock", back_populates="watchlist_stocks")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "watchlist_id": self.watchlist_id,
+            "stock_id": self.stock_id,
+            "created_at": str(self.created_at)
+        }

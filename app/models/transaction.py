@@ -14,7 +14,7 @@ class Transaction(db.Model):
     portfolio_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("portfolios.id")), nullable=False)
     stock_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("stocks.id")), nullable=False)
     shares = db.Column(db.Float, nullable=False)
-    type = db.Column(db.String, nullable=False, )
+    type = db.Column(db.String, nullable=False)
     is_completed = db.Column(db.Boolean, nullable=False)
     price_per_unit = db.Column(db.Float, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now)
@@ -23,3 +23,15 @@ class Transaction(db.Model):
     """ many-to-one """
     portfolio_t = db.relationship("Portfolio", back_populates="transactions")
     stock_t = db.relationship("Stock", back_populates="transactions")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "portfolio_id": self.portfolio_id,
+            "stock_id": self.stock_id,
+            "shares": self.shares,
+            "type": self.type,
+            "is_completed": self.is_completed,
+            "price_per_unit": self.price_per_unit,
+            "created_at": self.created_at
+        }

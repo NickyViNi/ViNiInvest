@@ -18,3 +18,13 @@ class Price(db.Model):
 
     """ many-to-one """
     stock_p = db.relationship("Stock", back_populates="prices")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "stock_id": self.stock_id,
+            "max_price": self.max_price,
+            "price": self.price,
+            "min_price": self.min_price,
+            "date": self.date
+        }

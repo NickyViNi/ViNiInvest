@@ -20,3 +20,11 @@ class Watchlist(db.Model):
 
     """ many-to-one """
     user = db.relationship("Watchlist", back_populates="watchlists")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "user_id": self.user_id,
+            "created_at": str(self.created_at)
+        }
