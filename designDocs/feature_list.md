@@ -1,41 +1,41 @@
 # MVP List
 
-ViNiInvest, a Ronbinhood clone, is a website for users to run their money, investing on stocks, options, and ETFs.
+ViNiInvest, a Robinhood clone, is a website for users to run their money, investing in stocks, options, and ETFs.
 
-## 1. New account creation, log in, log out, and guest/demo login
+## 0. Users
 
 * Users can sign up, log in, and log out.
-* Users can use a demo log in to try the site.
-* Users can't use certain features without logging in (like create a new portfolio and sell stocks).
-* Logged in users are directed to their profile page which displays their portfolio.
-* Logged out users are directed to a page displaying several recent stocks.
+* Users can use a demo log-in to try the site.
+* Users can't use certain features without logging in (like creating a new portfolio and selling stocks).
+* Logged-in users are directed to their profile page which displays their portfolio.
+* Logged-out users are directed to a page displaying several recent stocks.
 
-## 2. Portfolios
+## 1. Portfolios
 
-* Users should be able to view their portfolio.
+* Users should be able to view their portfolios.
 * Users should be able to create a new portfolio.
 * Users should be able to update their portfolio (add fake money).
 * Users should be able to delete their portfolio (selling all stocks).
 
-## 3. Stock Details
+## 2. Stock Details
 
 * Users should be able to view details of selected stocks.
-* Users should be able to purchase stocks and add them to their portfolio.
+* Users should be able to purchase stocks and add them to their portfolios.
 * Users should be able to update the amount of stocks they want to purchase.
-* Users should be able to delete stocks from their order.
+* Users should be able to delete stocks from their orders.
 
-## 4. Watchlist
+## 3. Watchlist
 
 * Users should be able to view all of their watched stocks.
 * Users should be able to add a stock to their watchlist.
 * Users should be able to remove a stock from their watchlist.
 
-## 5. Search
+## 4. Search
 
 * Users should be able to search for a stock by name.
 * Users should be able to view the results of their search.
 
-## 6. Transactions
+## 5. Transactions
 
 * Users should be able to view their transaction history.
 * Users should be able to "order" stocks at a certain time/frequency.

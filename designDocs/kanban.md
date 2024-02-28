@@ -2,16 +2,14 @@
 
 All endpoints that require a current user to be logged in receive a standard authentication response.
 
-- [ ] Authentication middleware responds with error status 401 when
-  authentication is not provided
+- [ ] Authentication middleware responds with error status 401 when authentication is not provided
 
 
 ### Authorization Required
 
 All endpoints that require a current user to have the correct role(s) or permission(s) receive a standard authorization response.
 
-- [ ] Authorization middleware responds with error status 403 when
-  an authenticated user does not have the correct role(s) or permission(s)
+- [ ] Authorization middleware responds with error status 403 when an authenticated user does not have the correct role(s) or permission(s)
 
 ### Sign Up a User (Feature 0)
 
