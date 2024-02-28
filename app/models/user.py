@@ -1,4 +1,4 @@
-from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .db import db, environment, SCHEMA
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
@@ -20,6 +20,10 @@ class User(db.Model, UserMixin):
     profile_image_url = db.Column(db.String(255))
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
+
+    """ one-to-one """
+    user_portfolio = db.relationship("Portfolio", back_populates="owner", cascade="all, delete-orphan")
+    # portfolio = db.relationship("Portfolio", uselist=False, backref="user", cascade="all, delete-orphan")
 
 
     @validates('first_name')
