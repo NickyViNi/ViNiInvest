@@ -4,16 +4,34 @@ from sqlalchemy.sql import text
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
-    demo = User(
-        username='Demo', email='demo@aa.io', password='password')
-    marnie = User(
-        username='marnie', email='marnie@aa.io', password='password')
-    bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password')
+    users = [
+        {
+            "first_name": "Nicky",
+            "last_name": "Li",
+            "username": "nickyli",
+            "password": "password",
+            "email": "nickyli@user.io",
+            "profile_image_url": "https://static.wikia.nocookie.net/disney/images/8/82/LinaBell.jpg/revision/latest/thumbnail/width/360/height/360?cb=20210917045304"
+        },
+        {
+            "first_name": "Hao",
+            "last_name": "Lam",
+            "username": "haolam",
+            "password": "password",
+            "email": "haolam@user.io",
+            "profile_image_url": "https://www.orangestreetmall.com/cdn/shop/products/58f6f9fa27639_1.jpg?v=1665820397"
+        },
+        {
+            "first_name": "Nick",
+            "last_name": "Leger",
+            "username": "nickleger",
+            "password": "password",
+            "email": "nickleger@user.io",
+            "profile_image_url": "https://media.karousell.com/media/photos/products/2024/1/9/olu__disneyland_duffy_and_frie_1704786918_89466923_progressive.jpg"
+        }
+     ]
 
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
+    [db.session.add(User(**user)) for user in users]
     db.session.commit()
 
 
@@ -28,5 +46,5 @@ def undo_users():
         db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM users"))
-        
+
     db.session.commit()
