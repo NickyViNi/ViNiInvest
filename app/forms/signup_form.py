@@ -1,7 +1,11 @@
+import re
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField
 from wtforms.validators import DataRequired, Email, ValidationError
+from urllib.request import urlopen
 from app.models import User
+from ..api.aws_helpers import ALLOWED_EXTENSIONS
 
 
 def user_exists(form, field):
@@ -21,7 +25,9 @@ def username_exists(form, field):
 
 
 class SignUpForm(FlaskForm):
-    username = StringField(
-        'username', validators=[DataRequired(), username_exists])
-    email = StringField('email', validators=[DataRequired(), user_exists])
-    password = StringField('password', validators=[DataRequired()])
+    first_name = StringField("First name", validators=[DataRequired()])
+    last_name = StringField("Last name", validators=[DataRequired()])
+    username = StringField('Username', validators=[DataRequired(), username_exists])
+    email = StringField('Email', validators=[DataRequired(), user_exists])
+    password = StringField('Password', validators=[DataRequired()])
+    profile_image_url = FileField("Profile Image Url", validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
