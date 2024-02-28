@@ -17,3 +17,6 @@ class Watchlist(db.Model):
 
     """ one-to-many """
     watchlist_stocks = db.relationship("Watchlist_stock", back_populates="watchlist", cascade="all, delete-orphan")
+
+    """ many-to-one """
+    user = db.relationship("Watchlist", back_populates="watchlists")

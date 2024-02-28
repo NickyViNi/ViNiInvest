@@ -25,6 +25,9 @@ class User(db.Model, UserMixin):
     user_portfolio = db.relationship("Portfolio", back_populates="owner", uselist=False, cascade="all, delete-orphan")
     # portfolio = db.relationship("Portfolio", uselist=False, backref="user", cascade="all, delete-orphan")
 
+    """ one-to-many """
+    watchlists = db.relationship("Watchlist", back_populates="user", cascade="all, delete-orphan")
+
 
     # @validates('first_name')
     # def validate_first_name(self, _, val):
