@@ -17,4 +17,4 @@ class Price(db.Model):
     date = db.Column(db.DateTime)
 
     """ many-to-one """
-    prices = db.relationship("Stock", back_populates="stock_p")
+    stock_p = db.relationship("Stock", back_populates="prices")
