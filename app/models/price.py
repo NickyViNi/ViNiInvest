@@ -14,7 +14,7 @@ class Price(db.Model):
     max_price = db.Column(db.Float, nullable=False)
     price = db.Column(db.Float, nullable=False)
     min_price = db.Column(db.Float, nullable=False)
-    date = db.Column(db.DateTime)
+    date = db.Column(db.Date)
 
     """ many-to-one """
     stock_p = db.relationship("Stock", back_populates="prices")

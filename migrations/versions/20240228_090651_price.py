@@ -28,7 +28,7 @@ def upgrade():
     sa.Column('max_price', sa.Float(), nullable=False),
     sa.Column('price', sa.Float(), nullable=False),
     sa.Column('min_price', sa.Float(), nullable=False),
-    sa.Column('date', sa.DateTime(), nullable=True),
+    sa.Column('date', sa.Date(), nullable=True),
     sa.ForeignKeyConstraint(['stock_id'], ['stocks.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

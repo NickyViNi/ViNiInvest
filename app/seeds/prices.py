@@ -1,5 +1,6 @@
 from app.models import db, Price, environment, SCHEMA
 from sqlalchemy.sql import text
+from datetime import date
 
 
 # Adds a demo user, you can add other users here if you want
@@ -10,7 +11,7 @@ def seed_prices():
             "max_price": 180,
             "price": 180,
             "min_price": 180,
-            "date": "2023-12-23"
+            "date": date.fromisoformat("2024-02-28")
         },
      ]
 
