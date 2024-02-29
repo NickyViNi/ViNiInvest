@@ -44,7 +44,9 @@ function SignupFormModal() {
     formData.append("username", username)
     formData.append("password", password)
 
-  if (profileImageUrl) formData.append("profile_image_url", profileImageUrl);
+    if (profileImageUrl) formData.append("profile_image_url", profileImageUrl);
+
+    console.log(formData, "sddddssssssaaaasddddd", firstName, lastName, email, username, profileImageUrl)
 
     const serverResponse = await dispatch(thunkSignup(formData));
 
@@ -151,47 +153,6 @@ function SignupFormModal() {
         >
           Submit
         </button>
-        {/* <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Username
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </label>
-        {errors.username && <p>{errors.username}</p>}
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <label>
-          Confirm Password
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button> */}
       </form>
     </>
   );

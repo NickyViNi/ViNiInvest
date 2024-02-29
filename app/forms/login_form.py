@@ -7,7 +7,7 @@ from app.models import User
 def user_exists(form, field):
     # Checking if user exists
     email_username = field.data
-    user = User.query.filter(User.email == email_username or User.username == email_username).first()
+    user = User.query.filter((User.email == email_username) | (User.username == email_username)).first()
     if not user:
         raise ValidationError('Email or Username provided not found.')
 
@@ -16,7 +16,7 @@ def password_matches(form, field):
     # Checking if password matches
     password = field.data
     email_username = form.data['email_username']
-    user = User.query.filter(User.email == email_username or User.username == email_username).first()
+    user = User.query.filter((User.email == email_username) | (User.username == email_username)).first()
     if not user:
         raise ValidationError('No such user exists.')
     if not user.check_password(password):
