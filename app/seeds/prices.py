@@ -8,9 +8,10 @@ def seed_prices():
     prices = [
         {
             "stock_id": 1,
-            "max_price": 180,
-            "price": 180,
-            "min_price": 180,
+            "high_price": 180,
+            "low_price": 180,
+            "open_price": 180,
+            "close_price": 180,
             "date": date.fromisoformat("2024-02-28")
         },
      ]

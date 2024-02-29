@@ -11,9 +11,10 @@ class Price(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     stock_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("stocks.id")), nullable=False)
-    max_price = db.Column(db.Float, nullable=False)
-    price = db.Column(db.Float, nullable=False)
-    min_price = db.Column(db.Float, nullable=False)
+    high_price = db.Column(db.Float, nullable=False)
+    low_price = db.Column(db.Float, nullable=False)
+    open_price = db.Column(db.Float, nullable=False)
+    close_price = db.Column(db.Float, nullable=False)
     date = db.Column(db.Date)
 
     """ many-to-one """

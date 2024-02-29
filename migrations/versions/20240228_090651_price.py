@@ -25,9 +25,10 @@ def upgrade():
     op.create_table('prices',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('stock_id', sa.Integer(), nullable=False),
-    sa.Column('max_price', sa.Float(), nullable=False),
-    sa.Column('price', sa.Float(), nullable=False),
-    sa.Column('min_price', sa.Float(), nullable=False),
+    sa.Column('high_price', sa.Float(), nullable=False),
+    sa.Column('low_price', sa.Float(), nullable=False),
+    sa.Column('open_price', sa.Float(), nullable=False),
+    sa.Column('close_price', sa.Float(), nullable=False),
     sa.Column('date', sa.Date(), nullable=True),
     sa.ForeignKeyConstraint(['stock_id'], ['stocks.id'], ),
     sa.PrimaryKeyConstraint('id')
