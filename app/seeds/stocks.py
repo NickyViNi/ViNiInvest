@@ -46,6 +46,21 @@ def seed_stocks():
             "category": "stock"
         },
         {
+            "name": "Meta Platforms",
+            "symbol": "META",
+            "category": "stocks"
+        },
+        {
+            "name": "Costco",
+            "symbol": "COST",
+            "category": "stocks"
+        },
+        {
+            "name": "Walmart",
+            "symbol": "WMT",
+            "category": "stocks"
+        },
+        {
             "name": "Technology Select Sector SPDR",
             "symbol": "XLK",
             "category": "ETFs"
