@@ -1,6 +1,7 @@
 import boto3
 import os
 import uuid
+# import botocore
 
 BUCKET_NAME = os.environ.get("S3_BUCKET")
 S3_LOCATION = f"https://{BUCKET_NAME}.s3.amazonaws.com/"
