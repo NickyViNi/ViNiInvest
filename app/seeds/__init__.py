@@ -1,6 +1,8 @@
 from flask.cli import AppGroup
 from .users import seed_users, undo_users
-
+from .portfolios import seed_portfolios, undo_portfolio
+from .stocks import seed_stocks, undo_stocks
+from .prices import seed_prices, undo_prices
 from app.models.db import db, environment, SCHEMA
 
 # Creates a seed group to hold our commands

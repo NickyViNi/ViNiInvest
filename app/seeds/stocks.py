@@ -3,7 +3,7 @@ from sqlalchemy.sql import text
 
 
 # Adds a demo user, you can add other users here if you want
-def seed_users():
+def seed_stocks():
     stocks = [
         {
             "name": "Apple",
@@ -61,7 +61,7 @@ def seed_users():
     db.session.commit()
 
 
-def undo_users():
+def undo_stocks():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.stocks RESTART IDENTITY CASCADE;")
     else:
