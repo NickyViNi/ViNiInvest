@@ -12,13 +12,15 @@ class Portfolio(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False, unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     fake_money_balance = db.Column(db.Float, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     """ one-to-one """
-    owner = db.relationship("User", back_populates="user_portfolio")
+    # owner = db.relationship("User", back_populates="user_portfolio")
+    """ many-to-one """
+    owner = db.relationship("User", back_populates="user_portfolios")
 
     """ one-to-many """
     transactions = db.relationship("Transaction", back_populates="portfolio_t", cascade="all, delete-orphan")
