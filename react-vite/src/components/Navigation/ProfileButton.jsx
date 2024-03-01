@@ -46,10 +46,11 @@ function ProfileButton({user}) {
   return (
     <div>
       <button id='profile-button'  onClick={toggleMenu}>
-        {/* <FaUserCircle/> */}
-        <i className="fa-solid fa-house"></i>
-        <i id='menu-bar' className='fas fa-bars'></i>
-        <i id='profile-icon' className="fas fa-user-circle fa-lg" />
+        {user? <img id="logo" src={user.profile_image_url} alt="user profile" /> : (
+        <>
+          <i id='menu-bar' className='fas fa-bars' />
+          <i id='profile-icon' className="fas fa-user-circle fa-lg" />
+        </> )}
       </button>
 
       <div id='dropdown-menu' className={ulClassName} ref={ulRef}>

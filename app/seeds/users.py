@@ -11,7 +11,7 @@ def seed_users():
             "username": "nickyli",
             "password": "password",
             "email": "nickyli@user.io",
-            "profile_image_url": "https://static.wikia.nocookie.net/disney/images/8/82/LinaBell.jpg/revision/latest/thumbnail/width/360/height/360?cb=20210917045304"
+            "profile_image_url": "https://viniinvest-bucket.s3.us-west-2.amazonaws.com/linnabellavatar.jpg"
         },
         {
             "first_name": "Vince",
@@ -19,7 +19,7 @@ def seed_users():
             "username": "vincedeng",
             "password": "password",
             "email": "vincedeng@user.io",
-            "profile_image_url": "https://pic.baike.soso.com/ugc/baikepic2/1284/20230223223505-485846233_jpeg_1302_868_220111.jpg/1284"
+            "profile_image_url": "https://viniinvest-bucket.s3.us-west-2.amazonaws.com/dafei.jpg"
         },
         {
             "first_name": "Hao",
@@ -27,7 +27,7 @@ def seed_users():
             "username": "haolam",
             "password": "password",
             "email": "haolam@user.io",
-            "profile_image_url": "https://www.orangestreetmall.com/cdn/shop/products/58f6f9fa27639_1.jpg?v=1665820397"
+            "profile_image_url": "https://viniinvest-bucket.s3.us-west-2.amazonaws.com/tuoni.jpg"
         },
         {
             "first_name": "Nick",
@@ -35,7 +35,7 @@ def seed_users():
             "username": "nickleger",
             "password": "password",
             "email": "nickleger@user.io",
-            "profile_image_url": "https://media.karousell.com/media/photos/products/2024/1/9/olu__disneyland_duffy_and_frie_1704786918_89466923_progressive.jpg"
+            "profile_image_url": "https://viniinvest-bucket.s3.us-west-2.amazonaws.com/oulu.jpg"
         }
      ]
 
