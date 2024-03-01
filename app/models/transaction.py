@@ -25,7 +25,7 @@ class Transaction(db.Model):
     stock_t = db.relationship("Stock", back_populates="transactions")
 
     def to_dict(self):
-        return {
+        result = {
             "id": self.id,
             "portfolio_id": self.portfolio_id,
             "stock_id": self.stock_id,
@@ -35,3 +35,7 @@ class Transaction(db.Model):
             "price_per_unit": self.price_per_unit,
             "created_at": self.created_at
         }
+
+        result["stock"] = self.stock_t.to_dict()
+
+        return result

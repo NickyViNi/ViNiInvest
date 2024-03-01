@@ -38,11 +38,18 @@ class Portfolio(db.Model):
             return { "money": "Money can't be negative number" }, 400
         return True
 
-    def to_dict(self):
-        return {
+    def to_dict(self, transactions=False):
+        result = {
             "id": self.id,
             "name": self.name,
             "user_id": self.user_id,
             "fake_money_balance": self.fake_money_balance,
             "created_at": str(self.created_at)
         }
+
+        if transactions:
+            result["transactions"] = []
+            for tran in self.transactions:
+                result["transactions"].append(tran.to_dict())
+
+        return result

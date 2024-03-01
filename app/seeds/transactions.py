@@ -14,24 +14,24 @@ def seed_transactions():
             "price_per_unit": 180.98
         },
         {
-            "portfolio_id": 2,
-            "stock_id": 1,
+            "portfolio_id": 1,
+            "stock_id": 3,
             "shares": 8,
             "type": "buy",
             "is_completed": True,
             "price_per_unit": 175.98
         },
         {
-            "portfolio_id": 3,
-            "stock_id": 1,
+            "portfolio_id": 1,
+            "stock_id": 2,
             "shares": 20,
             "type": "buy",
             "is_completed": True,
             "price_per_unit": 168.88
         },
         {
-            "portfolio_id": 3,
-            "stock_id": 1,
+            "portfolio_id": 1,
+            "stock_id": 2,
             "shares": 10,
             "type": "sell",
             "is_completed": True,
