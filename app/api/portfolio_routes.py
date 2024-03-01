@@ -35,7 +35,7 @@ def create_portfolio():
     form["csrf_token"].data = request.cookies["csrf_token"]
 
     if form.validate_on_submit():
-        result = Portfolio.validate(form.data)
+        result = Portfolio.validate(form.data, current_user.id)
         owner_id = current_user.to_dict()["id"]
 
         if (result != True):

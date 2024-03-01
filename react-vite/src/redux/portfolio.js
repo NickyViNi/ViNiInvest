@@ -5,38 +5,92 @@ const CREATE_PORTFOLIO = "portfolio/createPortfolio";
 
 
 // (2) Action Creator
-export const getPortfoliosAction = (portfilos) => {
+export const getPortfoliosAction = (portfolio) => {
     return {
         type: GET_PORTFOLIOS,
-        portfilos
+        portfolio
     }
 }
 
-export const getPortfolioByIdAction = (portfilo) => {
+export const getPortfolioByIdAction = (portfolio) => {
     return {
         type: GET_PORTFOLIO_BY_ID,
-        portfilo
+        portfolio
     }
 }
 
-export const createPortfolioAction = (portfilo) => {
+export const createPortfolioAction = (portfolio) => {
     return {
         type: CREATE_PORTFOLIO,
-        portfilo
+        portfolio
     }
 }
 
 // (3) Thunk
 export const getPortfoliosThunk = () => async (dispatch) => {
     const res = await fetch("/api/portfolios");
-    if (res.ok) {
-        const portfilos = await res.json();
-        if (DataTransfer.errors) {
-            return;
-        }
-        dispatch(getPortfoliosAction(portfilos))
+    const data = await res.json();
+
+    if (!res.ok) {
+        return {errors: data.errors}
     }
+
+    dispatch(getPortfoliosAction(data.Portfolios));
+}
+
+export const getPortfolioByIdThunk = (id) => async (dispatch) => {
+    const res = await fetch(`/api/portfolios/${id}`);
+    const data = await res.json();
+    if (!res.ok) {
+        return {errors: data}
+    }
+
+    dispatch(getPortfolioByIdAction(data));
+}
+
+export const createPortfolioThunk = (portfolio) => async (dispatch) => {
+    const res = await fetch("/api/portfolios", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(portfolio)
+    })
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        return {errors: data};
+    }
+
+    dispatch(createPortfolioAction(data));
 }
 
 
 // (4) Reducer
+const initialState = { allPortfolios: {}, currentPortfolio: {} }
+const portfolioReducer = (state = initialState, action) => {
+    switch(action.type) {
+        case GET_PORTFOLIOS: {
+            const allPortfolios = {};
+            action.portfolios.forEach(p => allPortfolios[p.id] = p);
+            return {...state, allPortfolios: allPortfolios}
+        }
+
+        case GET_PORTFOLIO_BY_ID: {
+            return {
+                ...state,
+                currentPortfolio: action.portfolio
+            }
+        }
+
+        case CREATE_PORTFOLIO: {
+            return {
+                ...state,
+                allPortfolios: {
+                    ...state.allPortfolios,
+                    [action.portfolio.id]: action.portfolio
+                },
+                currentPortfolio: action.portfolio
+            }
+        }
+    }
+}

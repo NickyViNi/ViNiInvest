@@ -29,7 +29,7 @@ class Portfolio(db.Model):
 
 
     @classmethod
-    def validate(cls, data):
+    def validate(cls, data, current_user_id, new_name=True):
         if "name" not in data:
             return { "name": "Name is required" }, 400
         if len(data["name"]) < 4:
@@ -38,6 +38,10 @@ class Portfolio(db.Model):
         #     return {"fake_money_balance": "Money must be a positive number!"}
         if float(data["fake_money_balance"]) < 0:
             return { "fake_money_balance": "Money can't be negative number" }, 400
+        if new_name:
+            portfolio = cls.query.filter(cls.name == data["name"]).first()
+            if portfolio and portfolio.user_id == current_user_id:
+                return {"name":  "This name is already taken"}, 409
         return True
 
     def to_dict(self, transactions=False):

@@ -30,6 +30,7 @@ def upgrade():
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.UniqueConstraint('name', 'user_id'),
     sa.PrimaryKeyConstraint('id'),
     # sa.UniqueConstraint('user_id')
     )
