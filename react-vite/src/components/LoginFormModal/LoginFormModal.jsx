@@ -11,13 +11,13 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, cred, pass) => {
     e.preventDefault();
 
     const serverResponse = await dispatch(
       thunkLogin({
-        email_username: emailUsername,
-        password,
+        email_username: cred || emailUsername,
+        password: pass || password
       })
     );
 
@@ -31,7 +31,7 @@ function LoginFormModal() {
   return (
     <>
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="sign-in-form">
         <label>
           Email / Username
           <input
@@ -41,7 +41,7 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.email_username && <p className="modal-errors">{errors.email_username}</p>}
+        {errors.email_username && <p className="credential-errors">{errors.email_username}</p>}
         <label>
           Password
           <input
@@ -55,6 +55,7 @@ function LoginFormModal() {
         </label>
         {errors.password && <p className="modal-errors">{errors.password}</p>}
         <button type="submit">Log In</button>
+        <div id='demo-user-btn' onClick={e => handleSubmit(e, 'nickyli', 'password')}>Demo User</div>
       </form>
     </>
   );
