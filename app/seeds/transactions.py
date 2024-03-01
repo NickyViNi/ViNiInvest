@@ -13,6 +13,30 @@ def seed_transactions():
             "is_completed": True,
             "price_per_unit": 180.98
         },
+        {
+            "portfolio_id": 2,
+            "stock_id": 1,
+            "shares": 8,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 175.98
+        },
+        {
+            "portfolio_id": 3,
+            "stock_id": 1,
+            "shares": 20,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 168.88
+        },
+        {
+            "portfolio_id": 3,
+            "stock_id": 1,
+            "shares": 10,
+            "type": "sell",
+            "is_completed": True,
+            "price_per_unit": 178.88
+        },
      ]
 
     [db.session.add(Transaction(**transaction)) for transaction in transactions]

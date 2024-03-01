@@ -1,0 +1,40 @@
+form {
+    /* display: grid; */
+    min-width: 370px;
+    min-height: 600px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+form > label {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+form > input {
+    background-color: rgb(204, 219, 237);
+    padding-left: 5px;
+    border-radius: 3px;
+    font-size: 15px;
+    border: 1px solid gray;
+    margin-bottom: 10px;
+}
+
+.sign-up {
+    color: rgb(19, 4, 227);
+    text-align: center;
+}
+
+.modal-errors  {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    color: red;
+}
+
+.btn-submit {
+    margin: 1em 0 1em;
+    border-radius: 3px;
+    border: 1px solid gray;
+    font-size: 15px;
+    background-color: rgb(233, 244, 205);
+}

@@ -34,7 +34,7 @@ function SignupFormModal() {
       });
     }
 
-    setImageIsUploading(true);
+    if (profileImageUrl) setImageIsUploading(true);
 
     const formData = new FormData();
 
@@ -70,10 +70,10 @@ function SignupFormModal() {
 
   return (
     <>
-      <h1>Sign Up</h1>
-      {errors.server && <p>{errors.server}</p>}
+      {errors.server && <p className='modal-errors'>{errors.server}</p>}
       <form onSubmit={handleSubmit} encType="multipart/form-data">
-      <label>First Name</label>
+        <h2 className="sign-up">Sign Up</h2>
+        <label>First Name</label>
         <input
           type="text"
           spellCheck={false}
