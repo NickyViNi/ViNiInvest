@@ -7,6 +7,8 @@ def name_check_len(form, field):
         raise ValidationError("Portfolio Name must be at least 4 characters")
 
 def money_check_amount(form, field):
+    # if not field.data.replace(".", "").isnumeric():
+    #     raise ValidationError("Money must be a positive number")
     if field.data < 0:
         raise ValidationError("Money shouldn't be less than 0")
 

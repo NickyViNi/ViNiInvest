@@ -1,5 +1,6 @@
 from app.models import db, Transaction, environment, SCHEMA
 from sqlalchemy.sql import text
+from datetime import datetime
 
 
 # Adds a demo user, you can add other users here if you want
@@ -11,7 +12,8 @@ def seed_transactions():
             "shares": 5.55,
             "type": "buy",
             "is_completed": True,
-            "price_per_unit": 180.98
+            "price_per_unit": 180.98,
+            "created_at": datetime.fromisoformat("2024-02-05T13:14:25")
         },
         {
             "portfolio_id": 1,
@@ -19,7 +21,8 @@ def seed_transactions():
             "shares": 8,
             "type": "buy",
             "is_completed": True,
-            "price_per_unit": 175.98
+            "price_per_unit": 110.98,
+            "created_at": datetime.fromisoformat("2024-02-06T13:14:25")
         },
         {
             "portfolio_id": 1,
@@ -27,7 +30,8 @@ def seed_transactions():
             "shares": 20,
             "type": "buy",
             "is_completed": True,
-            "price_per_unit": 168.88
+            "price_per_unit": 168.88,
+            "created_at": datetime.fromisoformat("2024-02-07T13:14:25")
         },
         {
             "portfolio_id": 1,
@@ -35,7 +39,44 @@ def seed_transactions():
             "shares": 10,
             "type": "sell",
             "is_completed": True,
-            "price_per_unit": 178.88
+            "price_per_unit": 200.88,
+            "created_at": datetime.fromisoformat("2024-02-08T13:14:25")
+        },
+         {
+            "portfolio_id": 2,
+            "stock_id": 4,
+            "shares": 6.55,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 180.98,
+            "created_at": datetime.fromisoformat("2024-02-12T13:14:25")
+        },
+        {
+            "portfolio_id": 2,
+            "stock_id": 5,
+            "shares": 8,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 130.98,
+            "created_at": datetime.fromisoformat("2024-02-13T13:14:25")
+        },
+        {
+            "portfolio_id": 2,
+            "stock_id": 4,
+            "shares": 20,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 368.88,
+            "created_at": datetime.fromisoformat("2024-02-14T13:14:25")
+        },
+        {
+            "portfolio_id": 2,
+            "stock_id": 4,
+            "shares": 10,
+            "type": "sell",
+            "is_completed": True,
+            "price_per_unit": 413.88,
+            "created_at": datetime.fromisoformat("2024-02-29T13:14:25")
         },
      ]
 

@@ -34,8 +34,10 @@ class Portfolio(db.Model):
             return { "name": "Name is required" }, 400
         if len(data["name"]) < 4:
             return { "name": "Name must be at least 4 characters" }, 400
-        if "fake_money_balance" < 0:
-            return { "money": "Money can't be negative number" }, 400
+        # if not data["fake_money_balance"].replace(".", "").isnumeric():
+        #     return {"fake_money_balance": "Money must be a positive number!"}
+        if float(data["fake_money_balance"]) < 0:
+            return { "fake_money_balance": "Money can't be negative number" }, 400
         return True
 
     def to_dict(self, transactions=False):
