@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaUserCircle } from 'react-icons/fa';
+// import { FaUserCircle } from 'react-icons/fa';
 import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
@@ -42,11 +42,12 @@ function ProfileButton({user}) {
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+  const profileClassName = "profile-button " + (user ? "avatar-button" : "")
 
   return (
     <div>
-      <button id='profile-button'  onClick={toggleMenu}>
-        {user? <img id="logo" src={user.profile_image_url} alt="user profile" /> : (
+      <button className={profileClassName}  onClick={toggleMenu}>
+        {user? <img id="profile-image" src={user.profile_image_url ? user.profile_image_url : "https://viniinvest-bucket.s3.us-west-2.amazonaws.com/xingdailu.jpg"} alt="user profile" /> : (
         <>
           <i id='menu-bar' className='fas fa-bars' />
           <i id='profile-icon' className="fas fa-user-circle fa-lg" />

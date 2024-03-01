@@ -46,7 +46,7 @@ function SignupFormModal() {
 
     if (profileImageUrl) formData.append("profile_image_url", profileImageUrl);
 
-    console.log(formData, "sddddssssssaaaasddddd", firstName, lastName, email, username, profileImageUrl)
+    // console.log(formData, "sddddssssssaaaasddddd", firstName, lastName, email, username, profileImageUrl)
 
     const serverResponse = await dispatch(thunkSignup(formData));
 
