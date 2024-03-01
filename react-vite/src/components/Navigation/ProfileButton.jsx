@@ -5,11 +5,12 @@ import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import { useNavigate } from "react-router-dom";
 
-function ProfileButton() {
+function ProfileButton({user}) {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [showMenu, setShowMenu] = useState(false);
-  const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
 
   const toggleMenu = (e) => {
@@ -37,18 +38,55 @@ function ProfileButton() {
     e.preventDefault();
     dispatch(thunkLogout());
     closeMenu();
+    navigate("/");
   };
 
+  const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+
   return (
-    <>
-      <button onClick={toggleMenu}>
-        <FaUserCircle />
+    <div>
+      <button id='profile-button'  onClick={toggleMenu}>
+        {/* <FaUserCircle/> */}
+        <i className="fa-solid fa-house"></i>
+        <i id='menu-bar' className='fas fa-bars'></i>
+        <i id='profile-icon' className="fas fa-user-circle fa-lg" />
       </button>
-      {showMenu && (
+
+      <div id='dropdown-menu' className={ulClassName} ref={ulRef}>
+        {user ? (
+          <>
+            <div>Hello, {user.username}</div>
+            <div>{user.email}</div>
+
+            <div>
+              <button id='logout-button' onClick={logout}>Log Out</button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className='sign-up-menu'>
+              <OpenModalMenuItem
+                itemText="Sign Up"
+                onItemClick={closeMenu}
+                modalComponent={<SignupFormModal />}
+              />
+            </div>
+            <div className='log-in-menu'>
+              <OpenModalMenuItem
+                itemText="Log In"
+                onItemClick={closeMenu}
+                modalComponent={<LoginFormModal />}
+              />
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* {showMenu && (
         <ul className={"profile-dropdown"} ref={ulRef}>
           {user ? (
             <>
-              <li>{user.username}</li>
+              <li>Hello, {user.username}</li>
               <li>{user.email}</li>
               <li>
                 <button onClick={logout}>Log Out</button>
@@ -69,8 +107,8 @@ function ProfileButton() {
             </>
           )}
         </ul>
-      )}
-    </>
+      )} */}
+    </div>
   );
 }
 
