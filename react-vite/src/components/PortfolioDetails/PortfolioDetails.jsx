@@ -4,6 +4,7 @@ import { getPortfolioByIdThunk, getPortfoliosThunk } from "../../redux/portfolio
 import "./PortfolioDetails.css";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import { stockDataCalculate } from "../../helpers/portfolioStockDataCalculate";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -22,36 +23,13 @@ const PortfolioDetails = () => {
   console.log("current portfolio id:", portfolioId)
   console.log("current portfolio: ", currentPortfolio)
 
-  const stockDataCalculate = (transactions) => {
-    const stockData = {};
-    transactions?.forEach(order => {
-      let stockName = order.stock.name
-      if (!stockData[stockName]) {
-        stockData[stockName] = {};
-        stockData[stockName].name = stockName;
-        stockData[stockName].shares = order.shares;
-        stockData[stockName].value = order.shares * order.price_per_unit;
-      } else {
-        if (order.type === "buy") {
-          stockData[stockName].shares += order.shares;
-          stockData[stockName].value += order.shares * order.price_per_unit;
-        } else {
-          stockData[stockName].shares -= order.shares;
-          stockData[stockName].value -= order.shares * order.price_per_unit;
-        }
-      }
-    })
-    return stockData;
-  }
-
-  console.log("stockkkkkkk: ", stockDataCalculate(currentPortfolio.transactions))
-
+  const currentStockData = Object.values(stockDataCalculate(currentPortfolio.transactions));
 
   const chartData = {
-    labels: ['Label 1', 'Label 2', 'Label 3'],
+    labels: Object.keys(currentStockData),
     datasets: [
       {
-        data: [30, 50, 20], // replace with your data
+        data: Object.values(currentStockData), // replace with your data
         backgroundColor: ['rgba(153, 102, 255, 0.2)', '#36A2EB', '#FFCE56'],
         hoverBackgroundColor: ['rgba(153, 102, 255, 0.2)', '#36A2EB', '#FFCE56'],
       },
@@ -103,11 +81,11 @@ const PortfolioDetails = () => {
             </tr>
           </thead>
           <tbody>
-            {currentPortfolio &&
-              currentPortfolio?.transactions?.map(c => <tr key={c?.id}>
-                <th scope="row">{c.stock.name}</th>
+            {currentStockData.length > 0 &&
+              currentStockData.map(c => <tr key={c.id}>
+                <th scope="row">{c.name}</th>
                 <td>{c.shares}</td>
-                <td>{c.shares * c.price_per_unit}</td>
+                <td>{c.value}</td>
               </tr>)
             }
           </tbody>
