@@ -22,6 +22,7 @@ const PortfolioDetails = () => {
   console.log("current portfolio id:", portfolioId)
   console.log("current portfolio: ", currentPortfolio)
 
+
   const chartData = {
     labels: ['Label 1', 'Label 2', 'Label 3'],
     datasets: [
@@ -63,13 +64,13 @@ const PortfolioDetails = () => {
         <button>Delete</button>
       </div>
       <div className="current-portfolio-detals">
-        <div className="portfolio-pie-charts">portfolio pie charts
+        <div className="portfolio-pie-chart">
+          <Pie data={chartData} />
         </div>
-        <Pie data={chartData} />
-        <table className="portfolio-stocks">
+        { Object.values(currentPortfolio).length > 0 && <table className="portfolio-stocks">
           <thead>
             <tr>
-              <th scope="col">Stocks</th>
+              <th scope="col" className="table-header" colSpan={3} >Stocks</th>
             </tr>
             <tr>
               <th scope="col">Name</th>
@@ -86,12 +87,12 @@ const PortfolioDetails = () => {
               </tr>)
             }
           </tbody>
-        </table>
+        </table> }
 
-        <table className="portfolio-transactions">
+        { Object.values(currentPortfolio).length > 0 && <table className="portfolio-transactions">
           <thead>
             <tr>
-              <th scope="col">Transactions</th>
+              <th scope="col" className="table-header" colSpan={5}>Transactions</th>
             </tr>
             <tr>
               <th scope="col">Stock Name</th>
@@ -112,8 +113,7 @@ const PortfolioDetails = () => {
               </tr>)
             }
           </tbody>
-        </table>
-
+        </table> }
       </div>
     </div>
   )
