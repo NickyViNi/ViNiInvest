@@ -30,7 +30,6 @@ export const createPortfolioAction = (portfolio) => {
 export const getPortfoliosThunk = () => async (dispatch) => {
     const res = await fetch("/api/portfolios/");
     const data = await res.json();
-    console.log("jsjskskksksks", data.Portfolios)
 
     if (!res.ok) {
         return {errors: data.errors}
