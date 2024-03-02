@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPortfolioByIdThunk, getPortfoliosThunk } from "../../redux/portfolio";
+import "./PortfolioDetails.css";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Pie } from 'react-chartjs-2';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 
 const PortfolioDetails = () => {
@@ -17,8 +22,29 @@ const PortfolioDetails = () => {
   console.log("current portfolio id:", portfolioId)
   console.log("current portfolio: ", currentPortfolio)
 
+  const chartData = {
+    labels: ['Label 1', 'Label 2', 'Label 3'],
+    datasets: [
+      {
+        data: [30, 50, 20], // replace with your data
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+      },
+    ],
+  };
+
+  useEffect(() => {
+    const chartInstance = document.getElementById('myChart')?.chartInstance;
+    return () => {
+      if (chartInstance) {
+        chartInstance.destroy();
+      }
+    };
+  }, []);
+
+
   return (
-    <div style={{marginTop:"100px"}} className="portfolio-details-container">
+    <div className="portfolio-details-container">
       <div className="portfolios-list-create">
         <div className="portfolios-list-container">
           <label htmlFor="portfolio-select">Choose a Portfolio:</label>
@@ -37,7 +63,9 @@ const PortfolioDetails = () => {
         <button>Delete</button>
       </div>
       <div className="current-portfolio-detals">
-        <div className="portfolio-pie-charts">portfolio pie charts</div>
+        <div className="portfolio-pie-charts">portfolio pie charts
+        </div>
+        <Pie data={chartData} />
         <table className="portfolio-stocks">
           <thead>
             <tr>
