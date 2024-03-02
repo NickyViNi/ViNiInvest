@@ -22,14 +22,38 @@ const PortfolioDetails = () => {
   console.log("current portfolio id:", portfolioId)
   console.log("current portfolio: ", currentPortfolio)
 
+  const stockDataCalculate = (transactions) => {
+    const stockData = {};
+    transactions?.forEach(order => {
+      let stockName = order.stock.name
+      if (!stockData[stockName]) {
+        stockData[stockName] = {};
+        stockData[stockName].name = stockName;
+        stockData[stockName].shares = order.shares;
+        stockData[stockName].value = order.shares * order.price_per_unit;
+      } else {
+        if (order.type === "buy") {
+          stockData[stockName].shares += order.shares;
+          stockData[stockName].value += order.shares * order.price_per_unit;
+        } else {
+          stockData[stockName].shares -= order.shares;
+          stockData[stockName].value -= order.shares * order.price_per_unit;
+        }
+      }
+    })
+    return stockData;
+  }
+
+  console.log("stockkkkkkk: ", stockDataCalculate(currentPortfolio.transactions))
+
 
   const chartData = {
     labels: ['Label 1', 'Label 2', 'Label 3'],
     datasets: [
       {
         data: [30, 50, 20], // replace with your data
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+        backgroundColor: ['rgba(153, 102, 255, 0.2)', '#36A2EB', '#FFCE56'],
+        hoverBackgroundColor: ['rgba(153, 102, 255, 0.2)', '#36A2EB', '#FFCE56'],
       },
     ],
   };
