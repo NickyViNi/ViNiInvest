@@ -5,10 +5,10 @@ const CREATE_PORTFOLIO = "portfolio/createPortfolio";
 
 
 // (2) Action Creator
-export const getPortfoliosAction = (portfolio) => {
+export const getPortfoliosAction = (portfolios) => {
     return {
         type: GET_PORTFOLIOS,
-        portfolio
+        portfolios
     }
 }
 
@@ -28,8 +28,9 @@ export const createPortfolioAction = (portfolio) => {
 
 // (3) Thunk
 export const getPortfoliosThunk = () => async (dispatch) => {
-    const res = await fetch("/api/portfolios");
+    const res = await fetch("/api/portfolios/");
     const data = await res.json();
+    console.log("jsjskskksksks", data.Portfolios)
 
     if (!res.ok) {
         return {errors: data.errors}
@@ -92,5 +93,9 @@ const portfolioReducer = (state = initialState, action) => {
                 currentPortfolio: action.portfolio
             }
         }
+        default:
+            return state;
     }
 }
+
+export default portfolioReducer;
