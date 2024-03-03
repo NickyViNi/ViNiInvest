@@ -32,8 +32,8 @@ const PortfolioDetails = () => {
     datasets: [
       {
         data: Object.values(currentStockData), // replace with your data
-        backgroundColor: generateRandomColors(currentStockData.length),
-        hoverBackgroundColor: generateRandomColors(currentStockData.length),
+        backgroundColor: generateRandomColors(currentStockData.length, 150),
+        hoverBackgroundColor: generateRandomColors(currentStockData.length, 150),
       },
     ],
   };
