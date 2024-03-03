@@ -49,7 +49,7 @@ export const getPortfolioByIdThunk = (id) => async (dispatch) => {
 }
 
 export const createPortfolioThunk = (portfolio) => async (dispatch) => {
-    const res = await fetch("/api/portfolios", {
+    const res = await fetch("/api/portfolios/", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(portfolio)

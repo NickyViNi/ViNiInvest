@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Navigate } from "react-router-dom";
 import { getPortfolioByIdThunk, getPortfoliosThunk } from "../../redux/portfolio";
 import "./PortfolioDetails.css";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { stockDataCalculate } from "../../helpers/portfolioStockDataCalculate";
 import { generateRandomColors } from "../../helpers/generateRandomColors";
+import { useModal } from "../../context/Modal";
+import CreateNewPortfolio from "./CreateNewPortfolio";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -13,21 +16,29 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const PortfolioDetails = () => {
   const dispatch = useDispatch();
   const [portfolioId, setPortfolioId] = useState();
+  // const navigate = useNavigate();
+  const { setModalContent, closeModal } = useModal();
+  const user = useSelector(state => state.session.user);
   const allPortfolioObj = useSelector(state => state.portfolios.allPortfolios);
   const portfolios = Object.values(allPortfolioObj);
   const currentPortfolio = useSelector(state => state.portfolios.currentPortfolio);
+
+  if (!user) {
+    alert("Please Log in");
+    return <Navigate to='/' replace={true} />;
+  }
 
   useEffect(() => {
     dispatch(getPortfoliosThunk());
     dispatch(getPortfolioByIdThunk(portfolioId))
   }, [dispatch, portfolioId])
 
-  console.log("current portfolio id:", portfolioId)
-  console.log("current portfolio: ", currentPortfolio)
+  // console.log("current portfolio id:", portfolioId)
+  // console.log("current portfolio: ", currentPortfolio)
 
   const currentStockDataObj = stockDataCalculate(currentPortfolio.transactions);
   const currentStockData = Object.values(currentStockDataObj);
-  console.log("dddddddddd: ", currentStockData)
+  // console.log("dddddddddd: ", currentStockData)
 
   const chartData = {
     labels: Object.keys(currentStockDataObj),
@@ -61,7 +72,7 @@ const PortfolioDetails = () => {
           </select>
         </div>
         <div>
-          <button className="create-new-portfolio-btn">Create a New Portfolio</button>
+          <button className="create-new-portfolio-btn" onClick={() => setModalContent(<CreateNewPortfolio />)}>Create a New Portfolio</button>
         </div>
       </div>
       {currentPortfolio.name && <div className="portfolio-managment">
