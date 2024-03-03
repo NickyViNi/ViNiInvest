@@ -27,6 +27,7 @@ const PortfolioDetails = () => {
 
   const currentStockDataObj = stockDataCalculate(currentPortfolio.transactions);
   const currentStockData = Object.values(currentStockDataObj);
+  console.log("dddddddddd: ", currentStockData)
 
   const chartData = {
     labels: Object.keys(currentStockDataObj),
