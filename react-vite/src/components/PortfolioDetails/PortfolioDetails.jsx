@@ -65,8 +65,8 @@ const PortfolioDetails = () => {
       </div>
       {currentPortfolio.name && <div className="portfolio-managment">
         <label>Money Balance: ${currentPortfolio.fake_money_balance}</label>
-        <button>Update</button>
-        <button>Delete</button>
+        <button><i className="fa-solid fa-gear" title="Update"></i></button>
+        <button><i className="fa-solid fa-trash-can delete-portfolio-btn" title="Delete: Sell All"></i></button>
       </div> }
       <div className="current-portfolio-detals">
         <div className="portfolio-pie-chart">
@@ -111,7 +111,7 @@ const PortfolioDetails = () => {
           </thead>
           <tbody>
             {currentPortfolio &&
-              currentPortfolio?.transactions?.map(c => <tr key={c?.id}>
+              currentPortfolio?.transactions?.sort((a, b) =>b.id - a.id).map(c => <tr key={c?.id}>
                 <th scope="row">{c.stock.name}</th>
                 <td>{c.shares}</td>
                 <td>{c.type}</td>
