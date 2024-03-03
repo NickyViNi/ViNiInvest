@@ -5,6 +5,7 @@ import "./PortfolioDetails.css";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { stockDataCalculate } from "../../helpers/portfolioStockDataCalculate";
+import { generateRandomColors } from "../../helpers/generateRandomColors";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -31,8 +32,8 @@ const PortfolioDetails = () => {
     datasets: [
       {
         data: Object.values(currentStockData), // replace with your data
-        backgroundColor: ['rgba(153, 102, 255, 0.2)', '#36A2EB', '#FFCE56'],
-        hoverBackgroundColor: ['rgba(153, 102, 255, 0.2)', '#36A2EB', '#FFCE56'],
+        backgroundColor: generateRandomColors(currentStockData.length),
+        hoverBackgroundColor: generateRandomColors(currentStockData.length),
       },
     ],
   };
