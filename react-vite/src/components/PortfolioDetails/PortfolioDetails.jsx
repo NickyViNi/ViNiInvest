@@ -23,10 +23,11 @@ const PortfolioDetails = () => {
   console.log("current portfolio id:", portfolioId)
   console.log("current portfolio: ", currentPortfolio)
 
-  const currentStockData = Object.values(stockDataCalculate(currentPortfolio.transactions));
+  const currentStockDataObj = stockDataCalculate(currentPortfolio.transactions);
+  const currentStockData = Object.values(currentStockDataObj);
 
   const chartData = {
-    labels: Object.keys(currentStockData),
+    labels: Object.keys(currentStockDataObj),
     datasets: [
       {
         data: Object.values(currentStockData), // replace with your data
