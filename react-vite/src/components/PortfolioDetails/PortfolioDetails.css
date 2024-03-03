@@ -9,10 +9,12 @@
 
 table {
     border-collapse: collapse;
-    border: 2px solid rgb(140 140 140);
+    border-spacing: 0;
+    border: 2px solid rgb(207, 203, 203);
     font-family: sans-serif;
     font-size: 0.8rem;
     letter-spacing: 1px;
+    border-radius: 10px;
 }
 
 
@@ -95,7 +97,7 @@ tbody > tr:nth-of-type(even) {
 }
 
 .transactions-table {
-    /* margin: 20px; */
-    display: flex;
-    justify-content: center;
+    margin: 20px;
+    /* display: flex;
+    justify-content: center; */
 }
