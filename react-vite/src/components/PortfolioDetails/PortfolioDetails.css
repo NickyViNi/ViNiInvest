@@ -101,3 +101,27 @@ tbody > tr:nth-of-type(even) {
     /* display: flex;
     justify-content: center; */
 }
+
+/* create a new portfolio: */
+.create-new-portfolio-container > h2 {
+    text-align: center;
+    color: purple;
+}
+
+.create-new-portfolio-form {
+    min-height: 300px;
+}
+
+.create-new-portfolio-form > button {
+    margin: 20px 0px;
+}
+
+.create-new-portfolio-form > button:hover {
+    color: rgb(1, 74, 28);
+    font-weight: bolder;
+}
+
+.success-alert {
+    color: rgb(1, 74, 28);
+    margin: 10px 30px;
+}

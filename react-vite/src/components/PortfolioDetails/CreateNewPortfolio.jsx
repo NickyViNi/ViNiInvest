@@ -8,7 +8,7 @@ const CreateNewPortfolio = () => {
     const dispatch = useDispatch();
     const { setModalContent } = useModal();
     const [name, setName] = useState("");
-    const [balance, setBalance] = useState(0);
+    const [balance, setBalance] = useState();
     const [error, setError] = useState("");
 
     const handleSubmit = async (e) => {
@@ -28,9 +28,9 @@ const CreateNewPortfolio = () => {
     }
 
     return (
-        <div>
+        <div className="create-new-portfolio-container">
             <h2>Create a New Portfolio</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="create-new-portfolio-form">
                 <label>Portfolio Name</label>
                 <input
                     type="text"
@@ -40,7 +40,7 @@ const CreateNewPortfolio = () => {
                     onChange={e => setName(e.target.value)}
                 />
                 {error && <p className="modal-errors">{error.name}</p>}
-                <label>Fake Money Balance</label>
+                <label>Fake Money Amount $</label>
                 <input
                     type="number"
                     placeholder="Greater than 0"
