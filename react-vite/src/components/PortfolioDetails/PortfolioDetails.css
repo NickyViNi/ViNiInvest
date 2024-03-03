@@ -3,8 +3,8 @@
 }
 
 .portfolio-pie-chart {
-    height: 400px;
-    width: 400px;
+    max-height: 400px;
+    max-width: 400px;
 }
 
 table {
@@ -36,4 +36,66 @@ tbody > tr:nth-of-type(even) {
 
 .table-header {
     background-color: antiquewhite;
+}
+
+.portfolios-list-create {
+    display: flex;
+    flex-direction: row;
+}
+
+.portfolios-list-container {
+    margin: 0 20px 5px 20px;
+}
+
+.portfolios-list-container > label {
+    color: purple;
+    margin-right: 5px;
+}
+
+.portfolios-list-container > select {
+    color: rgb(249, 137, 156);
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 5px 12px;
+    border-color: rgb(4, 165, 214);
+}
+
+.create-new-portfolio-btn {
+    color: green;
+    background-color: var(--chart-blue);
+    border: 1px solid var(--chart-blue);
+    box-shadow: 3px 3px 2px lightgray;
+    border-radius: 10px;
+    padding: 5px 12px;
+}
+
+.portfolio-managment {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: rgb(249, 137, 156);
+    align-items: center;
+}
+
+.portfolio-managment > button {
+    margin-left: 15px;
+    color: green;
+    background-color: var(--chart-blue);
+    border: 1px solid var(--chart-blue);
+    box-shadow: 3px 3px 2px lightgray;
+    border-radius: 10px;
+    padding: 5px 12px;
+}
+
+.current-portfolio-detals {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px
+}
+
+.transactions-table {
+    /* margin: 20px; */
+    display: flex;
+    justify-content: center;
 }

@@ -16,6 +16,7 @@ const PortfolioDetails = () => {
   const allPortfolioObj = useSelector(state => state.portfolios.allPortfolios);
   const portfolios = Object.values(allPortfolioObj);
   const currentPortfolio = useSelector(state => state.portfolios.currentPortfolio);
+
   useEffect(() => {
     dispatch(getPortfoliosThunk());
     dispatch(getPortfolioByIdThunk(portfolioId))
@@ -31,47 +32,47 @@ const PortfolioDetails = () => {
     labels: Object.keys(currentStockDataObj),
     datasets: [
       {
-        data: Object.values(currentStockData), // replace with your data
+        data: Object.values(currentStockData),
         backgroundColor: generateRandomColors(currentStockData.length, 150),
         hoverBackgroundColor: generateRandomColors(currentStockData.length, 150),
       },
     ],
   };
 
-  useEffect(() => {
-    const chartInstance = document.getElementById('myChart')?.chartInstance;
-    return () => {
-      if (chartInstance) {
-        chartInstance.destroy();
-      }
-    };
-  }, []);
+  // useEffect(() => {
+  //   const chartInstance = document.getElementById('myChart')?.chartInstance;
+  //   return () => {
+  //     if (chartInstance) {
+  //       chartInstance.destroy();
+  //     }
+  //   };
+  // }, []);
 
 
   return (
     <div className="portfolio-details-container">
       <div className="portfolios-list-create">
         <div className="portfolios-list-container">
-          <label htmlFor="portfolio-select">Choose a Portfolio:</label>
+          <label htmlFor="portfolio-select">Choose a Portfolio: </label>
           <select name="portfolios" value={portfolioId} onChange={e => setPortfolioId(e.target.value)}>
             <option value="">--Please choose a Portfolio--</option>
             {portfolios.map(p => <option key={p.id} value={p.id}> {p.name} </option>)}
           </select>
         </div>
         <div>
-          <button>Create a New Portfolio</button>
+          <button className="create-new-portfolio-btn">Create a New Portfolio</button>
         </div>
       </div>
-      <div className="portfolio-managment">
+      {currentPortfolio.name && <div className="portfolio-managment">
         <label>Money Balance: ${currentPortfolio.fake_money_balance}</label>
         <button>Update</button>
         <button>Delete</button>
-      </div>
+      </div> }
       <div className="current-portfolio-detals">
         <div className="portfolio-pie-chart">
           <Pie data={chartData} />
         </div>
-        { Object.values(currentPortfolio).length > 0 && <table className="portfolio-stocks">
+        { currentStockData.length > 0 && <table className="portfolio-stocks">
           <thead>
             <tr>
               <th scope="col" className="table-header" colSpan={3} >Stocks</th>
@@ -81,19 +82,21 @@ const PortfolioDetails = () => {
               <th scope="col">Shares</th>
               <th scope="col">Value</th>
             </tr>
-          </thead>
-          <tbody>
-            {currentStockData.length > 0 &&
-              currentStockData.map(c => <tr key={c.id}>
+            </thead>
+            <tbody>
+              {currentStockData.length > 0 &&
+               currentStockData.map(c => <tr key={c.id}>
                 <th scope="row">{c.name}</th>
                 <td>{c.shares}</td>
                 <td>{c.value}</td>
-              </tr>)
-            }
-          </tbody>
-        </table> }
+                </tr>)
+              }
+            </tbody>
+          </table> }
+        </div>
 
-        { Object.values(currentPortfolio).length > 0 && <table className="portfolio-transactions">
+
+        <div className="transactions-table"> { currentStockData.length > 0 && <table className="portfolio-transactions">
           <thead>
             <tr>
               <th scope="col" className="table-header" colSpan={5}>Transactions</th>
