@@ -58,12 +58,12 @@ def create_portfolio():
 
 @portfolio_routes.route("/<int:id>", methods=["PUT"])
 @login_required
-def update_portfolio():
+def update_portfolio(id):
     """Update an existing portfolio by id"""
     form = PortfolioForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     portfolio = Portfolio.query.get(id)
-    current_user_id = current_user.to_dict()["id"]
+    current_user_id = current_user.id
 
     if form.validate_on_submit():
         if not portfolio:

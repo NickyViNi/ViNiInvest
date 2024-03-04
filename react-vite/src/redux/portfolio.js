@@ -64,6 +64,22 @@ export const createPortfolioThunk = (portfolio) => async (dispatch) => {
     dispatch(createPortfolioAction(data));
 }
 
+export const updatePortfolioThunk = (portfolioId, portfolio) => async (dispatch) => {
+    const res = await fetch(`/api/portfolios/${portfolioId}`, {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(portfolio)
+    })
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        return {errors: data};
+    }
+
+    dispatch(createPortfolioAction(data))
+}
+
 
 // (4) Reducer
 const initialState = { allPortfolios: {}, currentPortfolio: {} }
