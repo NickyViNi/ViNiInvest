@@ -1,0 +1,10 @@
+#confirm-delete {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  #delete-btns {
+    display: flex;
+    gap: 10px;
+  }
