@@ -86,6 +86,6 @@ def update_portfolio(id):
 
         db.session.commit()
 
-        return portfolio.to_dict(), 200
+        return portfolio.to_dict(transactions=True), 200
 
     return form.errors, 400

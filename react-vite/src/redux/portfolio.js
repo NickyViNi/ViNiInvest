@@ -2,6 +2,7 @@
 const GET_PORTFOLIOS = "portfolio/getPortfolios";
 const GET_PORTFOLIO_BY_ID = "portfolio/getPortfolioById";
 const CREATE_PORTFOLIO = "portfolio/createPortfolio";
+const UPDATE_PORTFOLIO = "portfolio/updatePortfolio";
 
 
 // (2) Action Creator
@@ -22,6 +23,13 @@ export const getPortfolioByIdAction = (portfolio) => {
 export const createPortfolioAction = (portfolio) => {
     return {
         type: CREATE_PORTFOLIO,
+        portfolio
+    }
+}
+
+export const updatePortfolioAction = (portfolio) => {
+    return {
+        type: UPDATE_PORTFOLIO,
         portfolio
     }
 }
@@ -77,7 +85,7 @@ export const updatePortfolioThunk = (portfolioId, portfolio) => async (dispatch)
         return {errors: data};
     }
 
-    dispatch(createPortfolioAction(data))
+    dispatch(updatePortfolioAction(data))
 }
 
 
@@ -99,6 +107,16 @@ const portfolioReducer = (state = initialState, action) => {
         }
 
         case CREATE_PORTFOLIO: {
+            return {
+                ...state,
+                allPortfolios: {
+                    ...state.allPortfolios,
+                    [action.portfolio.id]: action.portfolio
+                },
+                currentPortfolio: action.portfolio
+            }
+        }
+        case UPDATE_PORTFOLIO: {
             return {
                 ...state,
                 allPortfolios: {

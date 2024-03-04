@@ -9,6 +9,8 @@ import { stockDataCalculate } from "../../helpers/portfolioStockDataCalculate";
 import { generateRandomColors } from "../../helpers/generateRandomColors";
 import { useModal } from "../../context/Modal";
 import CreateNewPortfolio from "./CreateNewPortfolio";
+import OpenModalButton from "../OpenModalButton";
+import UpdatePortfolio from "./UpdatePortfolio";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -77,7 +79,12 @@ const PortfolioDetails = () => {
       </div>
       {currentPortfolio.name && <div className="portfolio-managment">
         <label>Money Balance: ${currentPortfolio.fake_money_balance}</label>
-        <button><i className="fa-solid fa-gear" title="Update"></i></button>
+        <button>
+          <OpenModalButton
+            buttonText={<i className="fa-solid fa-gear" title="Update"></i>}
+            modalComponent={<UpdatePortfolio portfolioName={currentPortfolio?.name} portfolioId={currentPortfolio?.id} />}
+          />
+        </button>
         <button><i className="fa-solid fa-trash-can delete-portfolio-btn" title="Delete: Sell All"></i></button>
       </div> }
       <div className="current-portfolio-detals">
