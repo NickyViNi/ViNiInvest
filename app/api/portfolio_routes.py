@@ -51,7 +51,7 @@ def create_portfolio():
         db.session.add(new_portfolio)
         db.session.commit()
 
-        return new_portfolio.to_dict(portfolio_stocks=True), 201
+        return new_portfolio.to_dict(transactions=True, portfolio_stocks=True), 201
 
     return form.errors, 400
 
@@ -77,12 +77,12 @@ def update_portfolio(id):
             if result != True:
                 return result
             portfolio.name = form.data["name"]
-            portfolio.fake_money_balance += form.data["fake_money_balance"]
+            # portfolio.fake_money_balance += form.data["fake_money_balance"]
 
-        if form.data["name"] == portfolio.name:
-            if float(form.data["fake_money_balance"]) < 0:
-                return { "fake_money_balance": "Money can't be negative number" }, 400
-            portfolio.fake_money_balance += form.data["fake_money_balance"]
+        # if form.data["name"] == portfolio.name:
+        if float(form.data["fake_money_balance"]) < 0:
+            return { "fake_money_balance": "Money can't be negative number" }, 400
+        portfolio.fake_money_balance += form.data["fake_money_balance"]
 
         db.session.commit()
 

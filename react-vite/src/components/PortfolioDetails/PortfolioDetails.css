@@ -82,7 +82,8 @@ tbody > tr:nth-of-type(even) {
 
 .portfolio-managment > button,
 .fa-gear,
-.fa-trash-can {
+.fa-trash-can,
+.fa-ban {
     margin-left: 15px;
     color: green;
     background-color: var(--chart-blue);
@@ -133,4 +134,8 @@ tbody > tr:nth-of-type(even) {
 {
     border: none;
     background-color: transparent;
+}
+
+.fa-ban {
+    font-size: small;
 }

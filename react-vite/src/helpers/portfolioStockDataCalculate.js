@@ -5,7 +5,10 @@ export const stockDataCalculate = (stocks) => {
     // stockData[stockName] = {};
     // stockData[stockName].id = s.stock_id;
     // stockData[stockName].name = s.stock.name;
-    stockData[stockName] = (s.quantity * s.stock?.newest_price.close_price).toFixed(2)
+    if ( s.quantity > 0) {
+      stockData[stockName] = (s.quantity * s.stock?.newest_price.close_price).toFixed(2)
+    }
+
   })
 
   return stockData;

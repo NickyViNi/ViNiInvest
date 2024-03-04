@@ -27,11 +27,9 @@ const PortfolioDetails = () => {
   const portfolios = Object.values(allPortfolioObj);
 
   const currentPortfolio = useSelector(state => state.portfolios.currentPortfolio);
-  const portfolioStocks = currentPortfolio.portfolio_stocks;
-  let portfolioStocksArray = [];
-  if (portfolioStocks) {
-    portfolioStocksArray = Object.values(portfolioStocks);
-  }
+  const portfolioTransactions = currentPortfolio.transactions;
+  const portfolioStocksArray = currentPortfolio.portfolio_stocks;
+
 
   if (!user) {
     alert("Please Log in");
@@ -43,15 +41,13 @@ const PortfolioDetails = () => {
     dispatch(getPortfolioByIdThunk(portfolioId))
   }, [dispatch, portfolioId])
 
-  // console.log("current portfolio id:", portfolioId)
-  // console.log("current portfolio: ", Object.values(portfolioStocks))
+
   let currentStockDataObj = {}
-  if (portfolioStocks) {
-    currentStockDataObj = stockDataCalculate(portfolioStocks);
+  if (portfolioStocksArray) {
+    currentStockDataObj = stockDataCalculate(portfolioStocksArray);
   }
   const currentStockData = Object.values(currentStockDataObj);
 
-  // console.log("dddddddddd: ", currentStockDataObj)
 
   const chartData = {
     labels: Object.keys(currentStockDataObj),
@@ -97,7 +93,7 @@ const PortfolioDetails = () => {
         </div>
       </div>
       {currentPortfolio.name && <div className="portfolio-managment">
-        <label>Money Balance: ${currentPortfolio.fake_money_balance}</label>
+        <label>Money Balance: ${(currentPortfolio.fake_money_balance).toFixed(2)}</label>
         <div className="update-icon">
           <OpenModalButton
             buttonText={<i className="fa-solid fa-gear" title="Update"></i>}
@@ -105,7 +101,7 @@ const PortfolioDetails = () => {
           />
         </div>
         <div className="clear-portfolio">
-          <OpenModalButton
+          { currentStockData[0] > 0 ? <OpenModalButton
             buttonText={<i className="fa-solid fa-trash-can" title="Delete: Sell All"></i>}
             modalComponent={
               <ConfirmDeleteFormModal
@@ -114,14 +110,14 @@ const PortfolioDetails = () => {
                 cancelDeleteCb={closeModal}
               />
             }
-          />
+          /> : <i className="fa-solid fa-ban" title="No Stocks to Sell"></i>}
 
         </div>
       </div> }
       <div className="current-portfolio-detals">
-        <div className="portfolio-pie-chart">
+        { currentStockData.length > 0 && <div className="portfolio-pie-chart">
           <Pie data={chartData} />
-        </div>
+        </div>}
         { currentStockData.length > 0 && <table className="portfolio-stocks">
           <thead>
             <tr>
@@ -146,7 +142,7 @@ const PortfolioDetails = () => {
         </div>
 
 
-        <div className="transactions-table"> { currentStockData.length > 0 && <table className="portfolio-transactions">
+        <div className="transactions-table"> { portfolioTransactions?.length > 0 && <table className="portfolio-transactions">
           <thead>
             <tr>
               <th scope="col" className="table-header" colSpan={5}>Transactions</th>

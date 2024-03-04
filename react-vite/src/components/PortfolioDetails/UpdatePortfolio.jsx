@@ -7,7 +7,7 @@ const UpdatePortfolio = ({portfolioName, portfolioId}) => {
     const dispatch = useDispatch();
     const { setModalContent } = useModal();
     const [name, setName] = useState(portfolioName);
-    const [money, setMoney] = useState();
+    const [money, setMoney] = useState(0);
     const [errors, setErrors] = useState("");
 
     const handleSubmit = async (e) => {
