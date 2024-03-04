@@ -31,11 +31,22 @@ class Stock(db.Model):
             return { "symbol": "Symbol is required" }, 400
         return True
 
-    def to_dict(self):
-        return {
+    def to_dict(self, prices=False):
+        result = {
             "id": self.id,
             "name": self.name,
             "symbol": self.symbol,
             "category": self.category,
             "created_at": str(self.created_at)
         }
+
+        for price in self.prices:
+            result["newest_price"] = price.to_dict()
+            break
+
+        if prices:
+            result["prices"] = []
+            for price in self.prices:
+                result["prices"].append(price.to_dict())
+
+        return result

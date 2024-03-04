@@ -3,6 +3,7 @@ const GET_PORTFOLIOS = "portfolio/getPortfolios";
 const GET_PORTFOLIO_BY_ID = "portfolio/getPortfolioById";
 const CREATE_PORTFOLIO = "portfolio/createPortfolio";
 const UPDATE_PORTFOLIO = "portfolio/updatePortfolio";
+const DELETE_PORTFOLIO = "portfolio/deletePortfolio";
 
 
 // (2) Action Creator
@@ -30,6 +31,13 @@ export const createPortfolioAction = (portfolio) => {
 export const updatePortfolioAction = (portfolio) => {
     return {
         type: UPDATE_PORTFOLIO,
+        portfolio
+    }
+}
+
+export const deletePortfolioAction = (portfolio) => {
+    return {
+        type: DELETE_PORTFOLIO,
         portfolio
     }
 }
@@ -85,7 +93,20 @@ export const updatePortfolioThunk = (portfolioId, portfolio) => async (dispatch)
         return {errors: data};
     }
 
-    dispatch(updatePortfolioAction(data))
+    dispatch(updatePortfolioAction(data));
+}
+
+export const deletePortfolioThunk = (portfolioId, portfolio) => async (dispatch) => {
+    const res = await fetch(`/api/portfolios/${portfolioId}`, {
+        method: "DELETE" })
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        return {errors: data};
+    }
+
+    dispatch(updatePortfolioAction(portfolio));
 }
 
 

@@ -24,8 +24,9 @@ class Price(db.Model):
         return {
             "id": self.id,
             "stock_id": self.stock_id,
-            "max_price": self.max_price,
-            "price": self.price,
-            "min_price": self.min_price,
+            "high_price": self.high_price,
+            "low_price": self.low_price,
+            "open_price": self.open_price,
+            "close_price": self.close_price,
             "date": self.date
         }

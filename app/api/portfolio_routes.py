@@ -1,6 +1,6 @@
 from flask import Blueprint, request, redirect
 from flask_login import login_required, current_user
-from ..models import db, Portfolio, Transaction
+from ..models import db, Portfolio, Transaction, Portfolio_stock
 from ..forms import PortfolioForm, TransactionForm
 
 portfolio_routes = Blueprint("portfolios", __name__)
@@ -25,7 +25,7 @@ def portfolio(id):
     if current_user.id != portfolio.user_id:
         return redirect("/api/auth/forbidden")
 
-    return portfolio.to_dict(transactions=True), 200
+    return portfolio.to_dict(transactions=True, portfolio_stocks=True), 200
 
 
 @portfolio_routes.route("/", methods=["POST"])
@@ -104,17 +104,25 @@ def delete_portfolio(id):
         return {"message": "Portfolio couldn't be found"}, 404
     if current_user.id != portfolio.user_id:
         return redirect("/api/auth/forbidden")
-    for stock in portfolio_stocks_list:
-        new_transaction = Transaction(
-            portfolio_id = id,
-            stock_id = stock["stock_id"],
-            shares = stock["quantity"],
-            type = "sell",
-            is_completed = True,
-            price_per_unit = 100
-        )
-        db.session.add(new_transaction)
-    db.session.commit()
+    for sto in portfolio_stocks_list:
+        if sto["quantity"] > 0:
+            """add all sell order in Transaction"""
+            new_transaction = Transaction(
+                portfolio_id = id,
+                stock_id = sto["stock_id"],
+                shares = sto["quantity"],
+                type = "sell",
+                is_completed = True,
+                price_per_unit = sto["stock"]["newest_price"]["close_price"]
+            )
+            db.session.add(new_transaction)
+            """update the stock quantity in Portfolio_stocks"""
+            portfolio_stock = Portfolio_stock.query.get(sto["id"])
+            portfolio_stock.quantity = 0
+            db.session.commit()
 
-    return { "message": f"Successfully sold all stocks in {portfolio.name} portfolio" }, 200
+    new_portfolio = Portfolio.query.get(id)
+
+    # return { "message": f"Successfully sold all stocks in {portfolio.name} portfolio" }, 200
+    return new_portfolio.to_dict(transactions=True, portfolio_stocks=True), 200
     # return portfolio_stocks_list
