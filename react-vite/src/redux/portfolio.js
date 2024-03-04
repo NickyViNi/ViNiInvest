@@ -96,7 +96,7 @@ export const updatePortfolioThunk = (portfolioId, portfolio) => async (dispatch)
     dispatch(updatePortfolioAction(data));
 }
 
-export const deletePortfolioThunk = (portfolioId, portfolio) => async (dispatch) => {
+export const deletePortfolioThunk = (portfolioId) => async (dispatch) => {
     const res = await fetch(`/api/portfolios/${portfolioId}`, {
         method: "DELETE" })
 
@@ -106,7 +106,7 @@ export const deletePortfolioThunk = (portfolioId, portfolio) => async (dispatch)
         return {errors: data};
     }
 
-    dispatch(updatePortfolioAction(portfolio));
+    dispatch(deletePortfolioAction(data));
 }
 
 
@@ -138,6 +138,16 @@ const portfolioReducer = (state = initialState, action) => {
             }
         }
         case UPDATE_PORTFOLIO: {
+            return {
+                ...state,
+                allPortfolios: {
+                    ...state.allPortfolios,
+                    [action.portfolio.id]: action.portfolio
+                },
+                currentPortfolio: action.portfolio
+            }
+        }
+        case DELETE_PORTFOLIO: {
             return {
                 ...state,
                 allPortfolios: {
