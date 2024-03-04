@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Navigate } from "react-router-dom";
-import { getPortfolioByIdThunk, getPortfoliosThunk } from "../../redux/portfolio";
+import { deletePortfolioThunk, getPortfolioByIdThunk, getPortfoliosThunk } from "../../redux/portfolio";
 import "./PortfolioDetails.css";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
@@ -11,6 +11,7 @@ import { useModal } from "../../context/Modal";
 import CreateNewPortfolio from "./CreateNewPortfolio";
 import OpenModalButton from "../OpenModalButton";
 import UpdatePortfolio from "./UpdatePortfolio";
+import ConfirmDeleteFormModal from "../ConfirmDeleteFormModal.jsx/ConfirmDeleteFormModal";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -53,6 +54,14 @@ const PortfolioDetails = () => {
     ],
   };
 
+  const clearPortfolioStocks = async (_e, portfolioId, portfolioName) => {
+    const data = await dispatch(deletePortfolioThunk(portfolioId));
+    if (data?.errors) {
+      return data.errors;
+    }
+    setModalContent(<h2 className="success-alert">{`Successfully Sold all Stocks in ${portfolioName} Portfolio`}</h2>)
+  }
+
   // useEffect(() => {
   //   const chartInstance = document.getElementById('myChart')?.chartInstance;
   //   return () => {
@@ -85,7 +94,19 @@ const PortfolioDetails = () => {
             modalComponent={<UpdatePortfolio portfolioName={currentPortfolio?.name} portfolioId={currentPortfolio?.id} />}
           />
         </div>
-        <div><i className="fa-solid fa-trash-can" title="Delete: Sell All"></i></div>
+        <div className="clear-portfolio">
+          <OpenModalButton
+            buttonText={<i className="fa-solid fa-trash-can" title="Delete: Sell All"></i>}
+            modalComponent={
+              <ConfirmDeleteFormModal
+                text="Are you sure you want to sell all the stocks in this portfolio?"
+                deleteCb={(e) => clearPortfolioStocks(e, currentPortfolio.id, currentPortfolio.name)}
+                cancelDeleteCb={closeModal}
+              />
+            }
+          />
+
+        </div>
       </div> }
       <div className="current-portfolio-detals">
         <div className="portfolio-pie-chart">
