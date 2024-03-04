@@ -4,6 +4,7 @@ from .portfolios import seed_portfolios, undo_portfolio
 from .stocks import seed_stocks, undo_stocks
 from .prices import seed_prices, undo_prices
 from .transactions import seed_transactions, undo_transactions
+from .portfolio_stocks import seed_portfolio_stocks, undo_portfolio_stocks
 from app.models.db import db, environment, SCHEMA
 
 # Creates a seed group to hold our commands
@@ -37,6 +38,7 @@ def seed_reset():
 
 
 def unseed_all_tables():
+    undo_portfolio_stocks()
     undo_prices()
     undo_transactions()
     undo_stocks()
@@ -49,3 +51,4 @@ def seed_all_tables():
     seed_stocks()
     seed_transactions()
     seed_prices()
+    seed_portfolio_stocks()

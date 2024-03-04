@@ -27,5 +27,7 @@ class Portfolio_stock(db.Model):
             "portfolio_id": self.portfolio_id,
             "stock_id": self.stock_id,
             "quantity": self.quantity,
-            "created_at": str(self.created_at)
+            "created_at": str(self.created_at),
+            "stock": self.stock_pk.to_dict(),
+            "portfolio": self.portfolio_pk.to_dict()
         }

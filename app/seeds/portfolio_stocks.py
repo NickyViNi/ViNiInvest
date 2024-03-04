@@ -29,3 +29,14 @@ def seed_portfolio_stocks():
             "quantity": 8,
         }
     ]
+
+    [db.session.add(Portfolio_stock(**portfolio_stock)) for portfolio_stock in portfolio_stocks]
+    db.session.commit()
+
+def undo_portfolio_stocks():
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.portfolios RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute(text("DELETE FROM portfolio_stocks"))
+
+    db.session.commit()
