@@ -22,9 +22,16 @@ const PortfolioDetails = () => {
   // const navigate = useNavigate();
   const { setModalContent, closeModal } = useModal();
   const user = useSelector(state => state.session.user);
+
   const allPortfolioObj = useSelector(state => state.portfolios.allPortfolios);
   const portfolios = Object.values(allPortfolioObj);
+
   const currentPortfolio = useSelector(state => state.portfolios.currentPortfolio);
+  const portfolioStocks = currentPortfolio.portfolio_stocks;
+  let portfolioStocksArray = [];
+  if (portfolioStocks) {
+    portfolioStocksArray = Object.values(portfolioStocks);
+  }
 
   if (!user) {
     alert("Please Log in");
@@ -37,17 +44,20 @@ const PortfolioDetails = () => {
   }, [dispatch, portfolioId])
 
   // console.log("current portfolio id:", portfolioId)
-  // console.log("current portfolio: ", currentPortfolio)
-
-  const currentStockDataObj = stockDataCalculate(currentPortfolio.transactions);
+  // console.log("current portfolio: ", Object.values(portfolioStocks))
+  let currentStockDataObj = {}
+  if (portfolioStocks) {
+    currentStockDataObj = stockDataCalculate(portfolioStocks);
+  }
   const currentStockData = Object.values(currentStockDataObj);
-  // console.log("dddddddddd: ", currentStockData)
+
+  // console.log("dddddddddd: ", currentStockDataObj)
 
   const chartData = {
     labels: Object.keys(currentStockDataObj),
     datasets: [
       {
-        data: Object.values(currentStockData),
+        data: currentStockData,
         backgroundColor: generateRandomColors(currentStockData.length, 150),
         hoverBackgroundColor: generateRandomColors(currentStockData.length, 150),
       },
@@ -124,11 +134,11 @@ const PortfolioDetails = () => {
             </tr>
             </thead>
             <tbody>
-              {currentStockData.length > 0 &&
-               currentStockData.map(c => <tr key={c.id}>
-                <th scope="row">{c.name}</th>
-                <td>{c.shares}</td>
-                <td>{c.value}</td>
+              {portfolioStocksArray.length > 0 &&
+               portfolioStocksArray.map(c => <tr key={c.id}>
+                <th scope="row">{c.stock?.name}</th>
+                <td>{c.quantity}</td>
+                <td>{(c.quantity * c.stock?.newest_price.close_price).toFixed(2)}</td>
                 </tr>)
               }
             </tbody>
