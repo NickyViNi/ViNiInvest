@@ -54,3 +54,38 @@ def create_portfolio():
         return new_portfolio.to_dict(), 201
 
     return form.errors, 400
+
+
+@portfolio_routes.route("/<int:id>", methods=["PUT"])
+@login_required
+def update_portfolio():
+    """Update an existing portfolio by id"""
+    form = PortfolioForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    portfolio = Portfolio.query.get(id)
+    current_user_id = current_user.to_dict()["id"]
+
+    if form.validate_on_submit():
+        if not portfolio:
+            return {"message": "Portfolio couldn't be found"}, 404
+
+        if current_user_id != portfolio.user_id:
+            return redirect("/api/auth/forbidden")
+
+        if form.data["name"] != portfolio.name:
+            result = Portfolio.validate(form.data, current_user_id)
+            if result != True:
+                return result
+            portfolio.name = form.data["name"]
+            portfolio.fake_money_balance += form.data["fake_money_balance"]
+
+        if form.data["name"] == portfolio.name:
+            if float(form.data["fake_money_balance"]) < 0:
+                return { "fake_money_balance": "Money can't be negative number" }, 400
+            portfolio.fake_money_balance += form.data["fake_money_balance"]
+
+        db.session.commit()
+
+        return portfolio.to_dict(), 200
+
+    return form.errors, 400
