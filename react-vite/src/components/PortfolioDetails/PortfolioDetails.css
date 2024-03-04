@@ -128,7 +128,9 @@ tbody > tr:nth-of-type(even) {
     margin: 10px 30px;
 }
 
-.update-icon > button{
+.update-icon > button,
+.clear-portfolio > button
+{
     border: none;
     background-color: transparent;
 }
