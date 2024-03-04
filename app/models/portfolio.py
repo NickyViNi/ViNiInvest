@@ -44,7 +44,7 @@ class Portfolio(db.Model):
                 return {"name":  "This name is already taken"}, 409
         return True
 
-    def to_dict(self, transactions=False):
+    def to_dict(self, transactions=False, portfolio_stocks=False):
         result = {
             "id": self.id,
             "name": self.name,
@@ -57,5 +57,10 @@ class Portfolio(db.Model):
             result["transactions"] = []
             for tran in self.transactions:
                 result["transactions"].append(tran.to_dict())
+
+        if portfolio_stocks:
+            result["portfolio_stocks"] = []
+            for ps in self.portfolio_stocks:
+                result["portfolio_stocks"].append(ps.to_dict())
 
         return result

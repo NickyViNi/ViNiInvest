@@ -14,3 +14,5 @@ def type_check(form, field):
 class TransactionForm(FlaskForm):
     shares = FloatField("Shares", validators=[DataRequired(), share_check])
     type = SelectField("Type", choices=["sell", "buy"], coerce=str, validate_choice=True, validators=[DataRequired(), type_check])
+    is_completed = BooleanField("Is Completed", validators=[DataRequired()])
+    price_per_unit = FloatField("Price per Unit", validators=[DataRequired()])

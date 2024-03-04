@@ -1,7 +1,7 @@
 from flask import Blueprint, request, redirect
 from flask_login import login_required, current_user
-from ..models import db, Portfolio
-from ..forms import PortfolioForm
+from ..models import db, Portfolio, Transaction
+from ..forms import PortfolioForm, TransactionForm
 
 portfolio_routes = Blueprint("portfolios", __name__)
 
@@ -9,7 +9,7 @@ portfolio_routes = Blueprint("portfolios", __name__)
 @login_required
 def portfolios():
     """Get all portfolios owned by current user"""
-    user_portfolios = [portfolio.to_dict() for portfolio in current_user.user_portfolios]
+    user_portfolios = [portfolio.to_dict(portfolio_stocks=True) for portfolio in current_user.user_portfolios]
     return {"Portfolios": user_portfolios}, 200
 
 
@@ -51,7 +51,7 @@ def create_portfolio():
         db.session.add(new_portfolio)
         db.session.commit()
 
-        return new_portfolio.to_dict(), 201
+        return new_portfolio.to_dict(portfolio_stocks=True), 201
 
     return form.errors, 400
 
@@ -89,3 +89,32 @@ def update_portfolio(id):
         return portfolio.to_dict(transactions=True), 200
 
     return form.errors, 400
+
+# methods=["DELETE"]
+@portfolio_routes.route("/<int:id>", methods=["DELETE"])
+@login_required
+def delete_portfolio(id):
+    """Sell all stocks in an exist portfolio by id"""
+
+    portfolio = Portfolio.query.get(id)
+    portfolio_stocks_dict = portfolio.to_dict(portfolio_stocks=True)
+    portfolio_stocks_list = portfolio_stocks_dict["portfolio_stocks"]
+
+    if not portfolio:
+        return {"message": "Portfolio couldn't be found"}, 404
+    if current_user.id != portfolio.user_id:
+        return redirect("/api/auth/forbidden")
+    for stock in portfolio_stocks_list:
+        new_transaction = Transaction(
+            portfolio_id = id,
+            stock_id = stock["stock_id"],
+            shares = stock["quantity"],
+            type = "sell",
+            is_completed = True,
+            price_per_unit = 100
+        )
+        db.session.add(new_transaction)
+    db.session.commit()
+
+    return { "message": f"Successfully sold all stocks in {portfolio.name} portfolio" }, 200
+    # return portfolio_stocks_list
