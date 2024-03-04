@@ -80,7 +80,9 @@ tbody > tr:nth-of-type(even) {
     align-items: center;
 }
 
-.portfolio-managment > button {
+.portfolio-managment > button,
+.fa-gear,
+.fa-trash-can {
     margin-left: 15px;
     color: green;
     background-color: var(--chart-blue);
@@ -124,4 +126,9 @@ tbody > tr:nth-of-type(even) {
 .success-alert {
     color: rgb(1, 74, 28);
     margin: 10px 30px;
+}
+
+.update-icon > button{
+    border: none;
+    background-color: transparent;
 }

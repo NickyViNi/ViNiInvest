@@ -79,13 +79,13 @@ const PortfolioDetails = () => {
       </div>
       {currentPortfolio.name && <div className="portfolio-managment">
         <label>Money Balance: ${currentPortfolio.fake_money_balance}</label>
-        <button>
+        <div className="update-icon">
           <OpenModalButton
             buttonText={<i className="fa-solid fa-gear" title="Update"></i>}
             modalComponent={<UpdatePortfolio portfolioName={currentPortfolio?.name} portfolioId={currentPortfolio?.id} />}
           />
-        </button>
-        <button><i className="fa-solid fa-trash-can delete-portfolio-btn" title="Delete: Sell All"></i></button>
+        </div>
+        <div><i className="fa-solid fa-trash-can" title="Delete: Sell All"></i></div>
       </div> }
       <div className="current-portfolio-detals">
         <div className="portfolio-pie-chart">
