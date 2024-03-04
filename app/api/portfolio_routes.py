@@ -104,6 +104,7 @@ def delete_portfolio(id):
         return {"message": "Portfolio couldn't be found"}, 404
     if current_user.id != portfolio.user_id:
         return redirect("/api/auth/forbidden")
+
     for sto in portfolio_stocks_list:
         if sto["quantity"] > 0:
             """add all sell order in Transaction"""
@@ -116,9 +117,14 @@ def delete_portfolio(id):
                 price_per_unit = sto["stock"]["newest_price"]["close_price"]
             )
             db.session.add(new_transaction)
+
             """update the stock quantity in Portfolio_stocks"""
             portfolio_stock = Portfolio_stock.query.get(sto["id"])
             portfolio_stock.quantity = 0
+
+            """update the portfolio money balance"""
+            portfolio.fake_money_balance += float(format((sto["quantity"] * sto["stock"]["newest_price"]["close_price"]), "0.2f"))
+
             db.session.commit()
 
     new_portfolio = Portfolio.query.get(id)
