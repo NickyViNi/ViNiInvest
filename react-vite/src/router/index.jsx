@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Layout from './Layout';
 import HomePage from "../components/HomePage"
 import PortfolioDetails from '../components/PortfolioDetails/PortfolioDetails';
-import StockChart from '../components/StockTrade/StockTrade';
+import StockChartList from '../components/StockTrade/StockChartList';
 
 export const router = createBrowserRouter([
   {
@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/stocks",
-        element: <StockChart />
+        element: <StockChartList />
       }
 
     ],

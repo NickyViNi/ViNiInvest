@@ -27,7 +27,7 @@ export const getStocksThunk = () => async (dispatch) => {
         return {errors: data.errors}
     }
 
-    dispatch(get(data));
+    dispatch(getStocksAction(data));
 }
 
 export const getStockByIdThunk = (id) => async (dispatch) => {

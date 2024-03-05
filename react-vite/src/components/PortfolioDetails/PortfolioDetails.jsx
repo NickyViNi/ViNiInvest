@@ -12,6 +12,7 @@ import CreateNewPortfolio from "./CreateNewPortfolio";
 import OpenModalButton from "../OpenModalButton";
 import UpdatePortfolio from "./UpdatePortfolio";
 import ConfirmDeleteFormModal from "../ConfirmDeleteFormModal.jsx/ConfirmDeleteFormModal";
+import convertDateTime from "../../helpers/convertDateTime";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -162,7 +163,7 @@ const PortfolioDetails = () => {
                 <td>{c.shares}</td>
                 <td>{c.type}</td>
                 <td>{c.price_per_unit}</td>
-                <td>{c.created_at}</td>
+                <td>{convertDateTime(c.created_at)}</td>
               </tr>)
             }
           </tbody>
