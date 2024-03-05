@@ -41,6 +41,18 @@ function ProfileButton({user}) {
     navigate("/");
   };
 
+  //navigate to portfolios page:
+  const navigateToPortfolios = () => {
+    closeMenu();
+    navigate("/portfolios");
+  }
+
+  //navigate to stocks page:
+  const navigateToStocks = () => {
+    closeMenu();
+    navigate("/stocks");
+  }
+
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
   const profileClassName = "profile-button " + (user ? "avatar-button" : "")
 
@@ -59,6 +71,11 @@ function ProfileButton({user}) {
           <>
             <div>Hello, {user.username}</div>
             <div>{user.email}</div>
+
+            <div className='menu-separator'></div>
+            <div className="navigate-to-page" onClick={navigateToPortfolios} title="Click to View Portfolios">Manage Portfolios</div>
+            <div className="navigate-to-page" onClick={navigateToStocks} title="Click to View Stocks">View Stocks</div>
+            <div className='menu-separator'></div>
 
             <div>
               <button id='logout-button' onClick={logout}>Log Out</button>

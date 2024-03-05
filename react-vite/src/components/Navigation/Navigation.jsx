@@ -1,10 +1,10 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
-import OpenModalButton from "../OpenModalButton";
+// import OpenModalButton from "../OpenModalButton";
 import "./Navigation.css";
 import logo from "./logo/dandelion.png"
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
+// import LoginFormModal from "../LoginFormModal";
+// import SignupFormModal from "../SignupFormModal";
 import { useSelector } from "react-redux";
 
 function Navigation({ isLoaded} ) {
