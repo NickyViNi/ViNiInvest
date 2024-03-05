@@ -5,24 +5,23 @@
     overflow: hidden; /* Prevent image overflow */
   }
 
-  .home-page-background-image {
-    width: 100%; /* Stretch image to fill container width */
-    height: 100%; /* Stretch image to fill container height */
-    object-fit: cover; /*Ensure image covers the entire container*/
-    position: absolute; /* Position the image on top of the container */
-    top: 0; /* Align image to top */
-    left: 0; /* Align image to left */
-    z-index: -111; /* Place the image behind the text */
-    /* background-size: contain; */
-  }
-
-  .homepage-text {
-    position: absolute; /* Position the text on top of the container */
-    top: 30%; /* Adjust the text vertically */
-    left: 42%; /* Adjust the text horizontally */
-    transform: translate(-50%, -50%); /* Adjust positioning for centering */
-    color: white;
-    font-size: 40px;
-    text-align: center;
-    z-index: -1;
-  }
+.home-page-background-image {
+  width: 100%; /* Stretch image to fill container width */
+  height: 100%; /* Stretch image to fill container height */
+  object-fit: cover; /*Ensure image covers the entire container*/
+  position: absolute; /* Position the image on top of the container */
+  top: 0; /* Align image to top */
+  left: 0; /* Align image to left */
+  z-index: -111; /* Place the image behind the text */
+  /* background-size: contain; */
+}
+.homepage-text {
+  position: absolute; /* Position the text on top of the container */
+  top: 30%; /* Adjust the text vertically */
+  left: 42%; /* Adjust the text horizontally */
+  transform: translate(-50%, -50%); /* Adjust positioning for centering */
+  color: white;
+  font-size: 40px;
+  text-align: center;
+  z-index: -1;
+}
