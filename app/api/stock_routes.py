@@ -1,6 +1,6 @@
 from flask import Blueprint, request, redirect
 from flask_login import login_required, current_user
-from ..models import db, Stock
+from ..models import db, Stock, Transaction, Portfolio
 from ..forms import TransactionForm
 
 stock_routes = Blueprint("stocks", __name__)
@@ -10,7 +10,7 @@ stock_routes = Blueprint("stocks", __name__)
 def stocks():
     """Get all stocks"""
     stocks = Stock.query.all()
-    return [stock.to_dict() for stock in stocks], 200
+    return [stock.to_dict(prices=True) for stock in stocks], 200
 
 @stock_routes.route("/<int:id>")
 @login_required
@@ -23,8 +23,32 @@ def get_stock(id):
 
     return stock.to_dict(prices=True)
 
-@stock_routes.route("/<int:id>")
+@stock_routes.route("/<int:stock_id>/portfolios/<int:portfolio_id>", methods=["POST"])
 @login_required
-def stock_order(id):
-    """Buy or sell a stock by stock id"""
-    stock = Stock.query.get(id)
+def stock_order(stock_id, portfolio_id):
+    """Buy or sell a stock by stock id and add the order to a specific portfolio"""
+    form = TransactionForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    stock = Stock.query.get(stock_id)
+    portfolio = Portfolio.query.get(portfolio_id)
+
+    if form.validate_on_submit():
+
+        if not stock:
+            return { "message": "Stock couldn't be found" }, 404
+        if not portfolio:
+            return { "message": "Stock couldn't be found" }, 404
+
+        new_transaction = Transaction(
+            portfolio_id = portfolio_id,
+            stock_id = stock_id,
+            shares = form.data["shares"],
+            type = form.data["type"],
+            is_completed = False,
+            price_per_unit = stock.to_dict()["newest_price"]["close_price"]
+        )
+
+        db.session.add(new_transaction)
+        db.session.commit()
+        return new_transaction
+    return form.errors, 400

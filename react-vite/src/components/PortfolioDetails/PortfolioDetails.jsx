@@ -93,7 +93,7 @@ const PortfolioDetails = () => {
         </div>
       </div>
       {currentPortfolio.name && <div className="portfolio-managment">
-        <label>Money Balance: ${(currentPortfolio.fake_money_balance).toFixed(2)}</label>
+        <label>{currentPortfolio.name} Money Balance: ${(currentPortfolio.fake_money_balance).toFixed(2)}</label>
         <div className="update-icon">
           <OpenModalButton
             buttonText={<i className="fa-solid fa-gear" title="Update"></i>}
