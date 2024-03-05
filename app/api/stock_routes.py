@@ -40,6 +40,8 @@ def stock_order(stock_id, portfolio_id):
             return { "message": "Stock couldn't be found" }, 404
         if not portfolio:
             return { "message": "Stock couldn't be found" }, 404
+        if float(form.data["shares"]) < 0:
+            return { "shares": "Shares can't be negative number" }, 400
         if (not portfolio_stock) and form.data["type"].lower() == "sell":
             return {"message": "You don't have any share of this stock to sell"}
         if portfolio_stock and form.data["type"].lower() == "sell" and portfolio_stock.quantity < form.data["shares"]:

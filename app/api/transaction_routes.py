@@ -48,7 +48,9 @@ def update_transaction(id):
     form = TransactionForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     transaction = Transaction.query.get(id)
+    portfolio = Portfolio.query.get(transaction.portfolio_id)
     old_order_shares = transaction.shares
+    portfolio_stock = Portfolio_stock.query.filter(Portfolio_stock.portfolio_id == transaction.portfolio_id & Portfolio_stock.stock_id == transaction.stock_id).one_or_none()
 
     if form.validate_on_submit():
         if not transaction:
@@ -57,6 +59,21 @@ def update_transaction(id):
             return {"message": "You can't update a completed transaction"}, 400
         if float(form.data["shares"]) < 0:
             return { "shares": "Shares can't be negative number" }, 400
+
+        if transaction.type == "buy":
+            if old_order_shares > form.data["shares"]:
+                portfolio.fake_money_balance += float(format((old_order_shares-form.data["shares"]) * transaction.price_per_unit), "0.2f")
+            if old_order_shares < form.data["shares"]:
+                more_shares = form.data["shares"] - old_order_shares
+                if portfolio.fake_money_balance < more_shares * transaction.price_per_unit:
+                    return {"message": "Sorry, there is no sufficient balance"}
+                portfolio.fake_money_balance -= float(format(more_shares * transaction.price_per_unit), "0.2f")
+        if transaction.type == "sell":
+            if not portfolio_stock:
+                return {"message": "You don't have any share of this stock to sell"}
+            if portfolio_stock and portfolio_stock.quantity < form.data["shares"]:
+                return {"message": "You don't have enough shares of this stock to sell"}
+
         transaction["shares"] = form.data["shares"]
         db.session.commit()
         return transaction.to_dict(), 200
@@ -72,7 +89,8 @@ def delete_transaction(id):
     if not transaction:
         return {"message": "Transaction couldn't be found"}, 404
 
-    portfolio.fake_money_balance += float(format(transaction.shares * transaction.price_per_unit), "0.2f")
+    if transaction.type == "buy":
+        portfolio.fake_money_balance += float(format(transaction.shares * transaction.price_per_unit), "0.2f")
 
     db.session.delete(transaction)
     db.session.commit()
