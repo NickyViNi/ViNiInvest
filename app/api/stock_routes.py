@@ -21,7 +21,7 @@ def get_stock(id):
     if not stock:
         return { "message": "Stock couldn't be found" }, 404
 
-    return stock.to_dict(prices=True)
+    return stock.to_dict(prices=True, transactions=True)
 
 
 @stock_routes.route("/<int:stock_id>/portfolios/<int:portfolio_id>", methods=["POST"])
