@@ -41,3 +41,23 @@ export const getStockByIdThunk = (id) => async (dispatch) => {
 }
 
 // (4) Reducer
+const initialState = { allStocks: {}, currentStock: {} }
+const stockReducer = (state = initialState, action) => {
+    switch(action.type) {
+        case GET_STOCKS: {
+            const allStocks = {};
+            action.stocks.forEach(s => allStocks[s.id] = s);
+            return {...state, allStocks: allStocks};
+        }
+        case GET_STOCK_BY_ID: {
+            return {
+                ...state,
+                currentStock: action.stock
+            }
+        }
+        default:
+            return state;
+    }
+}
+
+export default stockReducer;
