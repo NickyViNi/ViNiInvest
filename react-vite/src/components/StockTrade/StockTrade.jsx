@@ -103,8 +103,7 @@ function StockChart() {
         {/* <Line data={data} options={options} ref={chartRef}/> */}
       </div>
     );
-  }
-
+}
 
 
 
