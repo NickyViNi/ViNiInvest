@@ -1,6 +1,6 @@
 from flask import Blueprint, request, redirect
 from flask_login import login_required, current_user
-from ..models import db, Stock, Transaction, Portfolio
+from ..models import db, Stock, Transaction, Portfolio, Portfolio_stock
 from ..forms import TransactionForm
 
 stock_routes = Blueprint("stocks", __name__)
@@ -23,6 +23,7 @@ def get_stock(id):
 
     return stock.to_dict(prices=True)
 
+
 @stock_routes.route("/<int:stock_id>/portfolios/<int:portfolio_id>", methods=["POST"])
 @login_required
 def stock_order(stock_id, portfolio_id):
@@ -31,6 +32,7 @@ def stock_order(stock_id, portfolio_id):
     form["csrf_token"].data = request.cookies["csrf_token"]
     stock = Stock.query.get(stock_id)
     portfolio = Portfolio.query.get(portfolio_id)
+    portfolio_stock = Portfolio_stock.query.filter(Portfolio_stock.portfolio_id == portfolio_id & Portfolio_stock.stock_id == stock_id).one_or_none()
 
     if form.validate_on_submit():
 
@@ -38,6 +40,12 @@ def stock_order(stock_id, portfolio_id):
             return { "message": "Stock couldn't be found" }, 404
         if not portfolio:
             return { "message": "Stock couldn't be found" }, 404
+        if (not portfolio_stock) and form.data["type"].lower() == "sell":
+            return {"message": "You don't have any share of this stock to sell"}
+        if portfolio_stock and form.data["type"].lower() == "sell" and portfolio_stock.quantity < form.data["shares"]:
+            return {"message": "You don't have enough shares of this stock to sell"}
+        if form.data["type"].lower() == "buy" and portfolio.fake_money_balance < (form.data["shares"] * stock.to_dict()["newest_price"]["close_price"]):
+            return {"message": "Sorry, there is no sufficient balance"}
 
         new_transaction = Transaction(
             portfolio_id = portfolio_id,
