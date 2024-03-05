@@ -24,7 +24,7 @@ class Transaction(db.Model):
     portfolio_t = db.relationship("Portfolio", back_populates="transactions")
     stock_t = db.relationship("Stock", back_populates="transactions")
 
-    def to_dict(self):
+    def to_dict(self, portfolio=False):
         result = {
             "id": self.id,
             "portfolio_id": self.portfolio_id,
@@ -37,5 +37,8 @@ class Transaction(db.Model):
         }
 
         result["stock"] = self.stock_t.to_dict()
+
+        if portfolio:
+            result["portfolio"] = self.portfolio_t.to_dict()
 
         return result

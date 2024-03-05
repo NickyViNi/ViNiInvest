@@ -48,7 +48,13 @@ def stock_order(stock_id, portfolio_id):
             price_per_unit = stock.to_dict()["newest_price"]["close_price"]
         )
 
+        """update portfolio money balance when "buy"""
+        # if new_transaction.type.lower() == "sell":
+        #     portfolio.fake_money_balance += float(format(new_transaction.shares * new_transaction.price_per_unit), "0.2f")
+        if new_transaction.type.lower() == "buy":
+            portfolio.fake_money_balance -= float(format(new_transaction.shares * new_transaction.price_per_unit), "0.2f")
+
         db.session.add(new_transaction)
         db.session.commit()
-        return new_transaction
+        return new_transaction.to_dict(portfolio=True)
     return form.errors, 400
