@@ -1,7 +1,7 @@
 from flask import Blueprint, request, redirect
 from flask_login import login_required, current_user
 from ..models import db, Portfolio, Transaction, Portfolio_stock
-from ..forms import PortfolioForm, TransactionForm
+from ..forms import PortfolioForm
 
 portfolio_routes = Blueprint("portfolios", __name__)
 
