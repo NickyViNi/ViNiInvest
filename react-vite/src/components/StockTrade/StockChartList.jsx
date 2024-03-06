@@ -12,11 +12,12 @@ function StockChartList() {
   const allStocks = useSelector(state => state.stocks.allStocks);
   const stocks = Object.values(allStocks);
   const [searchInput, setSearchInput] = useState("");
-  const [currentStocks, setCurrentStocks] = useState([...stocks]);
+  const [currentStocks, setCurrentStocks] = useState(Object.values(allStocks));
 
   useEffect( () => {
     const getStocks = async () => {
-      await dispatch(getStocksThunk());
+      const data = await dispatch(getStocksThunk());
+      setCurrentStocks(Object.values(data));
       setIsLoaded(true)
     }
     getStocks();

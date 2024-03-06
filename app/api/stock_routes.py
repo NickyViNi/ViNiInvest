@@ -66,5 +66,6 @@ def stock_order(stock_id, portfolio_id):
 
         db.session.add(new_transaction)
         db.session.commit()
-        return new_transaction.to_dict(portfolio=True)
+
+        return stock.to_dict(prices=True, transactions=True)
     return form.errors, 400

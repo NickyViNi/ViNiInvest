@@ -40,3 +40,53 @@
     font-size: smaller;
     padding: 4px;
 }
+
+#place-order-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: 1px solid black;
+    width: fit-content;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.buy-sell-btns {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.buy-sell-btns .separator {
+    border: 1px solid black;
+    height: 40px;
+}
+
+.buy-sell-btns .red {
+    color: red;
+}
+
+.buy-sell-btns .green {
+    color: green;
+}
+
+.amount {
+    display: flex;
+    gap: 10px;
+    padding-left: 10px;
+}
+
+#place-order-container button {
+    background-color: var(--chart-blue);
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 0 10px;
+}
+
+#money-balance {
+    padding: 5px;
+    margin: 5px 10px;
+    border-top: 1px dashed black;
+}

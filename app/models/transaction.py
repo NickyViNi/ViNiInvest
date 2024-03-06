@@ -33,7 +33,8 @@ class Transaction(db.Model):
             "type": self.type,
             "is_completed": self.is_completed,
             "price_per_unit": self.price_per_unit,
-            "created_at": self.created_at
+            "created_at": self.created_at,
+            "portfolio": self.portfolio_t.to_dict()
         }
 
         result["stock"] = self.stock_t.to_dict()

@@ -41,8 +41,8 @@ const PortfolioDetails = () => {
 
   useEffect(() => {
     const getData = async () => {
-      dispatch(getPortfoliosThunk());
-      dispatch(getPortfolioByIdThunk(portfolioId));
+      await dispatch(getPortfoliosThunk());
+      await dispatch(getPortfolioByIdThunk(portfolioId));
       setIsLoaded(true)
     }
     getData();
@@ -75,14 +75,6 @@ const PortfolioDetails = () => {
     setModalContent(<h2 className="success-alert">{`Successfully Sold all Stocks in ${portfolioName} Portfolio`}</h2>)
   }
 
-  // useEffect(() => {
-  //   const chartInstance = document.getElementById('myChart')?.chartInstance;
-  //   return () => {
-  //     if (chartInstance) {
-  //       chartInstance.destroy();
-  //     }
-  //   };
-  // }, []);
 
   if (!isLoaded) return <div style={{marginTop:"100px"}}><Loading /></div>
 

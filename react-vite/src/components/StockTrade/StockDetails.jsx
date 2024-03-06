@@ -7,6 +7,8 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import { Line } from 'react-chartjs-2';
 import convertDate from '../../helpers/convertDate';
 import convertDateTime from "../../helpers/convertDateTime";
+import { getPortfoliosThunk } from "../../redux/portfolio";
+import { postTransactionThunk } from "../../redux/transaction";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -14,15 +16,42 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 function StockDetails () {
   const dispatch = useDispatch();
   const { stockId } = useParams();
+  const [portfolioId, setPortfolioId] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
-  const currentStock = useSelector(state => state.stocks.currentStock)
+  const [shares, setShares] = useState();
+  const [type, setType] = useState();
+  const [errors, setErrors] = useState();
+  const currentStock = useSelector(state => state.stocks.currentStock);
+  const allPortfolioObj = useSelector(state => state.portfolios.allPortfolios);
+  const portfolios = Object.values(allPortfolioObj);
+
+  let selectedPortfolio = {};
+
+  if (portfolioId) {
+    selectedPortfolio = allPortfolioObj[portfolioId];
+  }
+
   useEffect(() => {
     const getData = async () => {
+      await dispatch(getPortfoliosThunk());
       await dispatch(getStockByIdThunk(stockId));
       setIsLoaded(true);
     }
     getData();
-  }, [dispatch])
+  }, [dispatch]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      portfolio_id: portfolioId,
+      stock_id: stockId,
+      shares: shares,
+      type: type
+    }
+    const data = await dispatch(postTransactionThunk(payload, portfolioId, stockId));
+    if (data.errors) setErrors(data.errors);
+  }
 
   const options = {
     responsive: true,
@@ -67,13 +96,41 @@ function StockDetails () {
         },
       ],
     };
+
   if (!isLoaded) return <div style={{marginTop:"100px"}}><Loading /></div>
+
   return (
     <div>
       <h2 style={{marginTop:"100px"}}></h2>
       <div id="current-stock-line">
           <Line options={options} data={data} />
       </div>
+
+      <div id="place-order-container">
+          <div className="buy-sell-btns">
+            <div className="green" onClick={() => setType("buy")}>Buy</div>
+            <div className="separator"></div>
+            <div className="red" onClick={() => setType("sell")}>Sell</div>
+          </div>
+          <div className="amount">
+            <label>Amount</label>
+            <input type="number"
+              value={shares}
+              onChange={e => setShares(e.target.value)}
+            />
+            {errors && errors.shares}
+          </div>
+          <div className="amount">
+            <label>Select a Portfolio</label>
+            <select name="portfolios" value={portfolioId} onChange={e => setPortfolioId(e.target.value)}>
+              <option value="">--Please choose a Portfolio--</option>
+              {portfolios.map(p => <option key={p.id} value={p.id}> {p.name} </option>)}
+            </select>
+          </div>
+          <button onSubmit={handleSubmit}>Place Oder</button>
+          <div id="money-balance">{selectedPortfolio?.fake_money_balance}buying power</div>
+      </div>
+
       { currentStock?.transactions.length > 0 &&
       <table id="current-stock-transaction-table">
         <thead>
@@ -92,7 +149,7 @@ function StockDetails () {
         <tbody>
             {currentStock &&
               currentStock?.transactions?.sort((a, b) =>b.id - a.id).map(t => <tr key={t.id}>
-                <th scope="row">{t.portfolio_id}</th>
+                <th scope="row">{t.portfolio.name}</th>
                 <td>{t.shares}</td>
                 <td>{t.type}</td>
                 <td>{t.price_per_unit}</td>
