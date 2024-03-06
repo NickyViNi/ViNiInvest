@@ -1,3 +1,6 @@
+import { resetPortfolioAction } from "./portfolio";
+import { resetStocksAction } from "./stocks";
+
 //(1) Action Type
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
@@ -63,6 +66,8 @@ export const thunkSignup = (user) => async (dispatch) => {
 export const thunkLogout = () => async (dispatch) => {
   await fetch("/api/auth/logout");
   dispatch(removeUser());
+  dispatch(resetPortfolioAction());
+  dispatch(resetStocksAction());
 };
 
 const initialState = { user: null };

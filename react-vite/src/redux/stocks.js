@@ -1,6 +1,7 @@
 // (1) Action Type
 const GET_STOCKS = "stocks/getStocks";
 const GET_STOCK_BY_ID = "stocks/getStockById";
+const RESET_STOCKS = "stocks/resetStocks";
 
 
 // (2) Action Creator
@@ -15,6 +16,12 @@ export const getStockByIdAction = (stock) => {
     return {
         type: GET_STOCK_BY_ID,
         stock
+    }
+}
+
+export const resetStocksAction = () => {
+    return {
+        type: RESET_STOCKS
     }
 }
 
@@ -57,6 +64,9 @@ const stockReducer = (state = initialState, action) => {
                 ...state,
                 currentStock: action.stock
             }
+        }
+        case RESET_STOCKS: {
+            return {...state,  allStocks: {}, currentStock: {} }
         }
         default:
             return state;

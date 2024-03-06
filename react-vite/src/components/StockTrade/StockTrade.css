@@ -1,6 +1,7 @@
-/* .stock-chart-list-container {
-
-} */
+.stock-chart-list-container {
+    justify-self: flex-start;
+    width: 100%;
+}
 
 #stocks-list-container {
     display: grid;

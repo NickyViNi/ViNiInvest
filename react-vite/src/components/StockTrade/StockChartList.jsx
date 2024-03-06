@@ -4,6 +4,7 @@ import { getStocksThunk } from "../../redux/stocks";
 import StockTile from "./StockTile";
 import Loading from "../Loading";
 import "./StockTrade.css";
+import { setNavbarBackgroundToWhite } from "../../utils/navbar";
 
 
 function StockChartList() {
@@ -22,6 +23,8 @@ function StockChartList() {
     }
     getStocks();
   }, [dispatch])
+
+  useEffect(setNavbarBackgroundToWhite, []);
 
   const handleSearch = (e) => {
       setSearchInput(e.target.value)

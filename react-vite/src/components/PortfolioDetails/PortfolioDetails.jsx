@@ -14,6 +14,7 @@ import UpdatePortfolio from "./UpdatePortfolio";
 import ConfirmDeleteFormModal from "../ConfirmDeleteFormModal.jsx/ConfirmDeleteFormModal";
 import convertDateTime from "../../helpers/convertDateTime";
 import Loading from "../Loading";
+import { setNavbarBackgroundToWhite } from "../../utils/navbar";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -48,6 +49,8 @@ const PortfolioDetails = () => {
     }
     getData();
   }, [dispatch, portfolioId])
+
+  useEffect(setNavbarBackgroundToWhite, []);
 
 
   let currentStockDataObj = {}

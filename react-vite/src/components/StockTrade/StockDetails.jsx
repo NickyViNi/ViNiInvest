@@ -11,6 +11,7 @@ import { getPortfoliosThunk } from "../../redux/portfolio";
 import { confirmTransactionThunk, deleteTransactionThunk, postTransactionThunk } from "../../redux/transaction";
 import { useModal } from "../../context/Modal";
 import UpdateTransactionForm from "../UpdateTransactionForm/UpdateTransactionForm";
+import { setNavbarBackgroundToWhite } from "../../utils/navbar";
 
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -30,6 +31,8 @@ function StockDetails () {
   const {setModalContent} =useModal();
 
   let selectedPortfolio = {};
+
+  useEffect(setNavbarBackgroundToWhite, []);
 
   if (portfolioId) {
     selectedPortfolio = allPortfolioObj[portfolioId];

@@ -4,6 +4,7 @@ const GET_PORTFOLIO_BY_ID = "portfolio/getPortfolioById";
 const CREATE_PORTFOLIO = "portfolio/createPortfolio";
 const UPDATE_PORTFOLIO = "portfolio/updatePortfolio";
 const DELETE_PORTFOLIO = "portfolio/deletePortfolio";
+const RESET_PORTFOLIO = "portfolio/resetPortfolio";
 
 
 // (2) Action Creator
@@ -39,6 +40,12 @@ export const deletePortfolioAction = (portfolio) => {
     return {
         type: DELETE_PORTFOLIO,
         portfolio
+    }
+}
+
+export const resetPortfolioAction = () => {
+    return {
+        type: RESET_PORTFOLIO
     }
 }
 
@@ -157,6 +164,9 @@ const portfolioReducer = (state = initialState, action) => {
                 },
                 currentPortfolio: action.portfolio
             }
+        }
+        case RESET_PORTFOLIO: {
+            return {...state,  allPortfolios: {}, currentPortfolio: {} }
         }
         default:
             return state;

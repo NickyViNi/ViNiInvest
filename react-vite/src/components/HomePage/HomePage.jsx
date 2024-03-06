@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./HomePage.css";
+import { setNavbarBackgroundToTransparent } from "../../utils/navbar";
 
 const HomePage = () => {
-    const [isLoaded, setIsLoaded] = useState(false)
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useEffect(setNavbarBackgroundToTransparent, []);
+
     return (
         <div className="homepage-container">
             {/* <div class="loader"></div> */}
