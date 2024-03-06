@@ -128,7 +128,7 @@ function StockDetails () {
       <div id="current-stock-line">
           <Line options={options} data={data} />
       </div>
-
+      <div id="trade-data-contaner">
       <div id="place-order-container">
           <div className="buy-sell-btns">
             <div className="green" onClick={e => {
@@ -171,6 +171,45 @@ function StockDetails () {
           {errors && errors.portfolio}
           <button onClick={handleSubmit}>Place Oder</button>
           <div id="money-balance">${selectedPortfolio?.fake_money_balance?.toFixed(2)} buying power</div>
+      </div>
+
+      <table id="stock-value-data">
+        <tbody>
+          <th>Your Market Value</th>
+          <td>$1000</td>
+        </tbody>
+        <tbody>
+          <th>Your Average Cost</th>
+          <td>$100</td>
+        </tbody>
+        <tbody>
+          <th>Shares</th>
+          <td>100</td>
+        </tbody>
+        <tbody>
+          <th>Total Return</th>
+          <td>1000</td>
+        </tbody>
+      </table>
+
+      <table id="stock-key-data">
+        <tbody>
+          <th>Open Price</th>
+          <td>$1000</td>
+        </tbody>
+        <tbody>
+          <th>Open Price</th>
+          <td>$100</td>
+        </tbody>
+        <tbody>
+          <th>Open Price</th>
+          <td>100</td>
+        </tbody>
+        <tbody>
+          <th>Open Price</th>
+          <td>1000</td>
+        </tbody>
+      </table>
       </div>
 
       { currentStock?.transactions?.length > 0 &&
