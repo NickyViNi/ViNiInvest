@@ -10,8 +10,9 @@ transaction_routes = Blueprint("transactions", __name__)
 def confirm_transaction(id):
     """Confirm a transaction by id"""
     transaction = Transaction.query.get(id)
+    stock = Stock.query.get(transaction.stock_id)
     portfolio = Portfolio.query.get(transaction.portfolio_id)
-    portfolio_stock = Portfolio_stock.query.filter(Portfolio_stock.portfolio_id == transaction.portfolio_id & Portfolio_stock.stock_id == transaction.stock_id).one_or_none()
+    portfolio_stock = Portfolio_stock.query.filter(Portfolio_stock.portfolio_id == transaction.portfolio_id).filter(Portfolio_stock.stock_id == transaction.stock_id).one_or_none()
     if not transaction:
         return {"message": "Transaction couldn't be found"}, 404
     if transaction.is_completed:
@@ -38,7 +39,7 @@ def confirm_transaction(id):
         portfolio_stock.quantity -= transaction.shares
 
     db.session.commit()
-    return {"message": f"#{id} transaction is completed!"}
+    return stock.to_dict(prices=True, transactions=True)
 
 
 @transaction_routes.route("/<int:id>", methods=["PUT"])
@@ -50,33 +51,34 @@ def update_transaction(id):
     transaction = Transaction.query.get(id)
     portfolio = Portfolio.query.get(transaction.portfolio_id)
     old_order_shares = transaction.shares
-    portfolio_stock = Portfolio_stock.query.filter(Portfolio_stock.portfolio_id == transaction.portfolio_id & Portfolio_stock.stock_id == transaction.stock_id).one_or_none()
+    portfolio_stock = Portfolio_stock.query.filter(Portfolio_stock.portfolio_id == transaction.portfolio_id).filter(Portfolio_stock.stock_id == transaction.stock_id).one_or_none()
+    stock = Stock.query.get(transaction.stock_id)
 
     if form.validate_on_submit():
         if not transaction:
             return {"message": "Transaction couldn't be found"}, 404
-        if transaction["is_completed"]:
+        if transaction.is_completed:
             return {"message": "You can't update a completed transaction"}, 400
         if float(form.data["shares"]) < 0:
             return { "shares": "Shares can't be negative number" }, 400
 
         if transaction.type == "buy":
             if old_order_shares > form.data["shares"]:
-                portfolio.fake_money_balance += float(format((old_order_shares-form.data["shares"]) * transaction.price_per_unit), "0.2f")
+                portfolio.fake_money_balance += float((old_order_shares-form.data["shares"]) * transaction.price_per_unit)
             if old_order_shares < form.data["shares"]:
                 more_shares = form.data["shares"] - old_order_shares
                 if portfolio.fake_money_balance < more_shares * transaction.price_per_unit:
                     return {"message": "Sorry, there is no sufficient balance"}
-                portfolio.fake_money_balance -= float(format(more_shares * transaction.price_per_unit), "0.2f")
+                portfolio.fake_money_balance -= float(more_shares * transaction.price_per_unit)
         if transaction.type == "sell":
             if not portfolio_stock:
                 return {"message": "You don't have any share of this stock to sell"}
             if portfolio_stock and portfolio_stock.quantity < form.data["shares"]:
                 return {"message": "You don't have enough shares of this stock to sell"}
 
-        transaction["shares"] = form.data["shares"]
+        transaction.shares = form.data["shares"]
         db.session.commit()
-        return transaction.to_dict(), 200
+        return stock.to_dict(prices=True, transactions=True), 200
     return form.errors, 400
 
 @transaction_routes.route("/<int:id>", methods=["DELETE"])
@@ -84,15 +86,16 @@ def update_transaction(id):
 def delete_transaction(id):
     """Delete a pending transaction by id"""
     transaction = Transaction.query.get(id)
-    portfolio = Portfolio.query.get(transaction["portfolio_id"])
+    stock = Stock.query.get(transaction.stock_id)
+    portfolio = Portfolio.query.get(transaction.portfolio_id)
 
     if not transaction:
         return {"message": "Transaction couldn't be found"}, 404
 
     if transaction.type == "buy":
-        portfolio.fake_money_balance += float(format(transaction.shares * transaction.price_per_unit), "0.2f")
+        portfolio.fake_money_balance += float(transaction.shares * transaction.price_per_unit)
 
     db.session.delete(transaction)
     db.session.commit()
 
-    return { "message": f"Successfully deleted #{id} transaction" }
+    return stock.to_dict(prices=True, transactions=True)

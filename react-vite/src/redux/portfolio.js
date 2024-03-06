@@ -52,6 +52,7 @@ export const getPortfoliosThunk = () => async (dispatch) => {
     }
 
     dispatch(getPortfoliosAction(data.Portfolios));
+    return data;
 }
 
 export const getPortfolioByIdThunk = (id) => async (dispatch) => {

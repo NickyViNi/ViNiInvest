@@ -8,7 +8,10 @@ import { Line } from 'react-chartjs-2';
 import convertDate from '../../helpers/convertDate';
 import convertDateTime from "../../helpers/convertDateTime";
 import { getPortfoliosThunk } from "../../redux/portfolio";
-import { postTransactionThunk } from "../../redux/transaction";
+import { confirmTransactionThunk, deleteTransactionThunk, postTransactionThunk } from "../../redux/transaction";
+import { useModal } from "../../context/Modal";
+import UpdateTransactionForm from "../UpdateTransactionForm/UpdateTransactionForm";
+
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -24,6 +27,7 @@ function StockDetails () {
   const currentStock = useSelector(state => state.stocks.currentStock);
   const allPortfolioObj = useSelector(state => state.portfolios.allPortfolios);
   const portfolios = Object.values(allPortfolioObj);
+  const {setModalContent} =useModal();
 
   let selectedPortfolio = {};
 
@@ -43,6 +47,8 @@ function StockDetails () {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!portfolioId.length) return setErrors({"portfolio": "Please select a portfolio to proceed"})
+
     const payload = {
       portfolio_id: portfolioId,
       stock_id: stockId,
@@ -50,7 +56,8 @@ function StockDetails () {
       type: type
     }
     const data = await dispatch(postTransactionThunk(payload, portfolioId, stockId));
-    if (data.errors) setErrors(data.errors);
+    if (data?.errors && data.errors.message) return setModalContent(data.errors.message);
+    if (data?.errors) setErrors(data.errors);
   }
 
   const options = {
@@ -97,6 +104,22 @@ function StockDetails () {
       ],
     };
 
+    const updateTransaction = async (e,t) => {
+      // await dispatch(updateTransactionThunk());
+      setModalContent(
+        <UpdateTransactionForm portfolios={portfolios} transaction={t} allPortfolioObj={allPortfolioObj}/>
+      )
+    }
+
+    const deleteTransaction = async (e, transactionId) => {
+      await dispatch(deleteTransactionThunk(transactionId));
+      setModalContent(<h2>Successfully deleted</h2>)
+    }
+
+    const confirmTransaction = async (e, transactionId) => {
+      await dispatch(confirmTransactionThunk(transactionId));
+    }
+
   if (!isLoaded) return <div style={{marginTop:"100px"}}><Loading /></div>
 
   return (
@@ -108,9 +131,20 @@ function StockDetails () {
 
       <div id="place-order-container">
           <div className="buy-sell-btns">
-            <div className="green" onClick={() => setType("buy")}>Buy</div>
+            <div className="green" onClick={e => {
+              setType("buy");
+              const sell = document.querySelector(".red");
+              if (sell) sell.style.backgroundColor = "white";
+              e.target.style.backgroundColor = "pink";
+            }}>Buy</div>
             <div className="separator"></div>
-            <div className="red" onClick={() => setType("sell")}>Sell</div>
+            <div className="red" onClick={e => {
+              setType("sell");
+              const buy = document.querySelector(".green");
+              if (buy) buy.style.backgroundColor = "white";
+              e.target.style.backgroundColor = "pink";
+            }}>Sell</div>
+            {errors && errors.type}
           </div>
           <div className="amount">
             <label>Amount</label>
@@ -127,11 +161,12 @@ function StockDetails () {
               {portfolios.map(p => <option key={p.id} value={p.id}> {p.name} </option>)}
             </select>
           </div>
-          <button onSubmit={handleSubmit}>Place Oder</button>
+          {errors && errors.portfolio}
+          <button onClick={handleSubmit}>Place Oder</button>
           <div id="money-balance">{selectedPortfolio?.fake_money_balance}buying power</div>
       </div>
 
-      { currentStock?.transactions.length > 0 &&
+      { currentStock?.transactions?.length > 0 &&
       <table id="current-stock-transaction-table">
         <thead>
           <tr>
@@ -155,6 +190,9 @@ function StockDetails () {
                 <td>{t.price_per_unit}</td>
                 <td>{convertDateTime(t.created_at)}</td>
                 <td>{t.is_completed ? "Completed" : "Pending"}</td>
+                <td onClick={e => updateTransaction(e, t)}>{t.is_completed ? "" : "Update"}</td>
+                <td onClick={e => deleteTransaction(e, t.id)}>{t.is_completed ? "" : "Delete"}</td>
+                <td onClick={e => confirmTransaction(e, t.id)}>{t.is_completed ? "" : "Confirm"}</td>
               </tr>)
             }
           </tbody>

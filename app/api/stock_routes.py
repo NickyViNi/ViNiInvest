@@ -32,7 +32,7 @@ def stock_order(stock_id, portfolio_id):
     form["csrf_token"].data = request.cookies["csrf_token"]
     stock = Stock.query.get(stock_id)
     portfolio = Portfolio.query.get(portfolio_id)
-    portfolio_stock = Portfolio_stock.query.filter(Portfolio_stock.portfolio_id == portfolio_id & Portfolio_stock.stock_id == stock_id).one_or_none()
+    portfolio_stock = Portfolio_stock.query.filter(Portfolio_stock.portfolio_id == portfolio_id).filter(Portfolio_stock.stock_id == stock_id).one_or_none()
 
     if form.validate_on_submit():
 
@@ -62,7 +62,7 @@ def stock_order(stock_id, portfolio_id):
         # if new_transaction.type.lower() == "sell":
         #     portfolio.fake_money_balance += float(format(new_transaction.shares * new_transaction.price_per_unit), "0.2f")
         if new_transaction.type.lower() == "buy":
-            portfolio.fake_money_balance -= float(format(new_transaction.shares * new_transaction.price_per_unit), "0.2f")
+            portfolio.fake_money_balance -= float(new_transaction.shares * new_transaction.price_per_unit)
 
         db.session.add(new_transaction)
         db.session.commit()

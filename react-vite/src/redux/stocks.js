@@ -1,7 +1,6 @@
 // (1) Action Type
 const GET_STOCKS = "stocks/getStocks";
 const GET_STOCK_BY_ID = "stocks/getStockById";
-const UPDATE_STOCK = "stocks/updateStock";
 
 
 // (2) Action Creator
@@ -18,11 +17,6 @@ export const getStockByIdAction = (stock) => {
         stock
     }
 }
-
-export const updateStock = stock => ({
-    type: UPDATE_STOCK,
-    stock
-})
 
 // (3) Thunk
 export const getStocksThunk = () => async (dispatch) => {
@@ -64,14 +58,6 @@ const stockReducer = (state = initialState, action) => {
                 currentStock: action.stock
             }
         }
-        case UPDATE_STOCK: {
-            return{
-                ...state,
-                currentStock: action.stock
-            }
-        }
-
-
         default:
             return state;
     }

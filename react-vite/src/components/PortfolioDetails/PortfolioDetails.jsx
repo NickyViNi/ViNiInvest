@@ -41,8 +41,8 @@ const PortfolioDetails = () => {
 
   useEffect(() => {
     const getData = async () => {
-      await dispatch(getPortfoliosThunk());
-      await dispatch(getPortfolioByIdThunk(portfolioId));
+      const data = await dispatch(getPortfoliosThunk());
+      if (portfolioId) await dispatch(getPortfolioByIdThunk(portfolioId));
       setIsLoaded(true)
     }
     getData();
