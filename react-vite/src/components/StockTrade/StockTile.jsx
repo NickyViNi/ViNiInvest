@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 // import { faker } from '@faker-js/faker';
@@ -8,6 +9,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 
 const StockTile = ({stock}) => {
+    const navigate = useNavigate();
     const options = {
       responsive: true,
       plugins: {
@@ -41,7 +43,7 @@ const StockTile = ({stock}) => {
       ],
     };
     return (
-        <div id="stock-tile-container">
+        <div id="stock-tile-container" title='Click to view details' onClick={() => navigate(`/stocks/${stock.id}`)}>
              <Line options={options} data={data} />
         </div>
     )

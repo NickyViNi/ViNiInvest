@@ -127,10 +127,10 @@ const PortfolioDetails = () => {
           <Pie data={chartData} />
         </div>}
         { currentStockData.length > 0 && <table className="portfolio-stocks">
-          <thead>
-            <tr>
-              <th scope="col" className="table-header" colSpan={3} >Stocks</th>
-            </tr>
+            <thead>
+              <tr>
+                <th scope="col" className="table-header" colSpan={3} >Stocks</th>
+              </tr>
             <tr>
               <th scope="col">Name</th>
               <th scope="col">Shares</th>

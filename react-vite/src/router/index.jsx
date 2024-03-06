@@ -3,6 +3,7 @@ import Layout from './Layout';
 import HomePage from "../components/HomePage"
 import PortfolioDetails from '../components/PortfolioDetails/PortfolioDetails';
 import StockChartList from '../components/StockTrade/StockChartList';
+import StockDetails from '../components/StockTrade/StockDetails';
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([
       {
         path: "/stocks",
         element: <StockChartList />
+      },
+      {
+        path: "/stocks/:stockId",
+        element: <StockDetails />
       }
 
     ],
