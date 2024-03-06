@@ -36,7 +36,7 @@ function StockChartList() {
   if (!isLoaded) return <div style={{marginTop:"100px"}}><Loading /></div>
 
   return (
-    <div>
+    <div className="stock-chart-list-container">
       <div id="stock-search-bar">
         <label>Search a Stock:</label>
         <div id="stock-search-input">

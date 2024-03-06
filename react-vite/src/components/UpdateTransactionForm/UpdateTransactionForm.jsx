@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { updateTransactionThunk } from "../../redux/transaction";
 import { useModal } from "../../context/Modal";
 
-function UpdateTransactionForm({portfolios,transaction,allPortfolioObj}) {
+function UpdateTransactionForm({portfolios, transaction, allPortfolioObj, currentStock}) {
     const dispatch = useDispatch();
     const selectedPortfolio = allPortfolioObj[transaction.portfolio_id];
     const [shares, setShares] = useState(transaction.shares || "");
@@ -39,7 +39,7 @@ function UpdateTransactionForm({portfolios,transaction,allPortfolioObj}) {
           {errors && errors.type}
         </div>
         <div className="amount">
-          <label>Amount</label>
+          <label>Shares</label>
           <input type="number"
             value={shares}
             onChange={e => setShares(e.target.value)}
@@ -47,7 +47,14 @@ function UpdateTransactionForm({portfolios,transaction,allPortfolioObj}) {
           {errors && errors.shares}
         </div>
         <div className="amount">
-          <label>Select a Portfolio</label>
+            <label>Price Per Share</label>
+            <input type="number"
+              disabled
+              placeholder={`$${currentStock.prices[0].close_price}`}
+            />
+          </div>
+        <div className="amount">
+          <label>Trade Portfolio</label>
           <select name="portfolios" disabled value={portfolioId}>
             <option value="">--Please choose a Portfolio--</option>
             {portfolios.map(p => <option key={p.id} value={p.id}> {p.name} </option>)}
@@ -55,7 +62,7 @@ function UpdateTransactionForm({portfolios,transaction,allPortfolioObj}) {
         </div>
         {errors && errors.portfolio}
         <button onClick={handleSubmit}>Update Oder</button>
-        <div id="money-balance">{selectedPortfolio?.fake_money_balance}buying power</div>
+        <div id="money-balance">${selectedPortfolio?.fake_money_balance?.toFixed(2)} buying power</div>
     </div>
     </>);
 }

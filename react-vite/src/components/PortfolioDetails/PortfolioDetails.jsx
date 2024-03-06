@@ -20,6 +20,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PortfolioDetails = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [portfolioId, setPortfolioId] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
   // const navigate = useNavigate();
@@ -132,7 +133,11 @@ const PortfolioDetails = () => {
             <tbody>
               {portfolioStocksArray.length > 0 &&
                portfolioStocksArray.map(c => <tr key={c.id}>
-                <th scope="row">{c.stock?.name}</th>
+                <th
+                  scope="row"
+                  onClick={() => navigate(`/stocks/${c.stock_id}`)} title="Click to view details"
+                  style={{cursor: "pointer"}}
+                >{c.stock?.name}</th>
                 <td>{c.quantity}</td>
                 <td>{(c.quantity * c.stock?.newest_price.close_price).toFixed(2)}</td>
                 </tr>)

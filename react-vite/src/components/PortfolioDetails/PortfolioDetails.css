@@ -1,5 +1,6 @@
 .portfolio-details-container {
     margin-top: 110px;
+    text-align: center;
 }
 
 .portfolio-pie-chart {
@@ -95,8 +96,9 @@ tbody > tr:nth-of-type(even) {
 
 .current-portfolio-detals {
     display: flex;
-    justify-content: space-around;
-    margin: 20px
+    /* justify-content:flex-start; */
+    margin: 20px;
+    gap: 70px;
 }
 
 .transactions-table {

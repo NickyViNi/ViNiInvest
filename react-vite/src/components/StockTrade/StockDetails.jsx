@@ -107,7 +107,7 @@ function StockDetails () {
     const updateTransaction = async (e,t) => {
       // await dispatch(updateTransactionThunk());
       setModalContent(
-        <UpdateTransactionForm portfolios={portfolios} transaction={t} allPortfolioObj={allPortfolioObj}/>
+        <UpdateTransactionForm portfolios={portfolios} transaction={t} allPortfolioObj={allPortfolioObj} currentStock={currentStock} />
       )
     }
 
@@ -123,7 +123,7 @@ function StockDetails () {
   if (!isLoaded) return <div style={{marginTop:"100px"}}><Loading /></div>
 
   return (
-    <div>
+    <div className="stock-detail-container">
       <h2 style={{marginTop:"100px"}}></h2>
       <div id="current-stock-line">
           <Line options={options} data={data} />
@@ -147,12 +147,19 @@ function StockDetails () {
             {errors && errors.type}
           </div>
           <div className="amount">
-            <label>Amount</label>
+            <label>Shares</label>
             <input type="number"
               value={shares}
               onChange={e => setShares(e.target.value)}
             />
             {errors && errors.shares}
+          </div>
+          <div className="amount">
+            <label>Price Per Share</label>
+            <input type="number"
+              disabled
+              placeholder={`$${currentStock.prices[0].close_price}`}
+            />
           </div>
           <div className="amount">
             <label>Select a Portfolio</label>
@@ -163,7 +170,7 @@ function StockDetails () {
           </div>
           {errors && errors.portfolio}
           <button onClick={handleSubmit}>Place Oder</button>
-          <div id="money-balance">{selectedPortfolio?.fake_money_balance}buying power</div>
+          <div id="money-balance">${selectedPortfolio?.fake_money_balance?.toFixed(2)} buying power</div>
       </div>
 
       { currentStock?.transactions?.length > 0 &&

@@ -1,3 +1,7 @@
+/* .stock-chart-list-container {
+
+} */
+
 #stocks-list-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -66,16 +70,19 @@
 
 .buy-sell-btns .red {
     color: red;
+    border-radius: 4px;
 }
 
 .buy-sell-btns .green {
     color: green;
+    border-radius: 4px;
 }
 
 .amount {
     display: flex;
     gap: 10px;
     padding-left: 10px;
+    margin-right: 10px;
 }
 
 #place-order-container button {
