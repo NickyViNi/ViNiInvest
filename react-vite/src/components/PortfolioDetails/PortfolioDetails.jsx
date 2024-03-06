@@ -13,6 +13,7 @@ import OpenModalButton from "../OpenModalButton";
 import UpdatePortfolio from "./UpdatePortfolio";
 import ConfirmDeleteFormModal from "../ConfirmDeleteFormModal.jsx/ConfirmDeleteFormModal";
 import convertDateTime from "../../helpers/convertDateTime";
+import Loading from "../Loading";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -20,6 +21,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const PortfolioDetails = () => {
   const dispatch = useDispatch();
   const [portfolioId, setPortfolioId] = useState();
+  const [isLoaded, setIsLoaded] = useState(false);
   // const navigate = useNavigate();
   const { setModalContent, closeModal } = useModal();
   const user = useSelector(state => state.session.user);
@@ -38,8 +40,12 @@ const PortfolioDetails = () => {
   }
 
   useEffect(() => {
-    dispatch(getPortfoliosThunk());
-    dispatch(getPortfolioByIdThunk(portfolioId))
+    const getData = async () => {
+      dispatch(getPortfoliosThunk());
+      dispatch(getPortfolioByIdThunk(portfolioId));
+      setIsLoaded(true)
+    }
+    getData();
   }, [dispatch, portfolioId])
 
 
@@ -78,6 +84,7 @@ const PortfolioDetails = () => {
   //   };
   // }, []);
 
+  if (!isLoaded) return <div style={{marginTop:"100px"}}><Loading /></div>
 
   return (
     <div className="portfolio-details-container">

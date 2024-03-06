@@ -1,0 +1,42 @@
+#stocks-list-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 50px 30px 30px 40px;
+}
+
+#stock-search-bar {
+    display: flex;
+    flex-direction: row;
+    margin: 120px 0px 20px 30px;
+    color: rgb(4, 115, 9);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#stock-search-bar input {
+    margin-top: -3px;
+    height: 25px;
+    margin-left: 10px;
+    /* border-radius: 5px; */
+    border: none;
+    /* border-color: rgb(4, 115, 9); */
+}
+
+#stock-search-bar input:focus {
+    outline: pink solid 2px;
+    border-radius: 5px;
+    height: 23px;
+}
+
+#stock-search-input {
+    background-color: orange;
+    height: 26px;
+    outline: orange solid 2px;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+
+.fa-magnifying-glass {
+    font-size: smaller;
+    padding: 4px;
+}
