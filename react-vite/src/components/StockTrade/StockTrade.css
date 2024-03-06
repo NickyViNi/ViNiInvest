@@ -53,6 +53,7 @@
     width: fit-content;
     border-radius: 10px;
     margin: 20px 0;
+    box-shadow: 2px 2px 5px pink;
 }
 
 .buy-sell-btns {
@@ -105,6 +106,7 @@
     width: 300px;
     border-radius: 10px;
     margin: 20px 0;
+    box-shadow: 2px 2px 5px lightblue;
 }
 
 

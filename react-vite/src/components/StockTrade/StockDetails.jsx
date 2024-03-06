@@ -193,21 +193,26 @@ function StockDetails () {
       </table>
 
       <table id="stock-key-data">
+      <thead>
+          <tr>
+            <th scope="col" className="table-header" colSpan={2}>{currentStock.name} {convertDate(currentStock.newest_price.date)} </th>
+          </tr>
+        </thead>
         <tbody>
           <th>Open Price</th>
-          <td>$1000</td>
+          <td>${currentStock.newest_price.open_price}</td>
         </tbody>
         <tbody>
-          <th>Open Price</th>
-          <td>$100</td>
+          <th>High Price</th>
+          <td>${currentStock.newest_price.high_price}</td>
         </tbody>
         <tbody>
-          <th>Open Price</th>
-          <td>100</td>
+          <th>Low Price</th>
+          <td>${currentStock.newest_price.low_price}</td>
         </tbody>
         <tbody>
-          <th>Open Price</th>
-          <td>1000</td>
+          <th>Close Price</th>
+          <td>${currentStock.newest_price.close_price}</td>
         </tbody>
       </table>
       </div>
