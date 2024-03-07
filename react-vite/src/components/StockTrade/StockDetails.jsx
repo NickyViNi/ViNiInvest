@@ -7,7 +7,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import { Line } from 'react-chartjs-2';
 import convertDate from '../../helpers/convertDate';
 import convertDateTime from "../../helpers/convertDateTime";
-import { getPortfoliosThunk } from "../../redux/portfolio";
+import { getPortfolioByIdThunk, getPortfoliosThunk } from "../../redux/portfolio";
 import { confirmTransactionThunk, deleteTransactionThunk, postTransactionThunk } from "../../redux/transaction";
 import { useModal } from "../../context/Modal";
 import UpdateTransactionForm from "../UpdateTransactionForm/UpdateTransactionForm";
@@ -66,6 +66,7 @@ function StockDetails () {
       setErrors(data.errors);
     } else {
       await dispatch(getPortfoliosThunk());
+      await dispatch(getPortfolioByIdThunk(portfolioId));
       setErrors("");
       setModalContent(<h2 className="success-alert">Successfully submited a transaction, please click &quot;Confirm&quot; button in transaction table to complete this order.</h2>)
     }
@@ -117,27 +118,29 @@ function StockDetails () {
     };
 
     const updateTransaction = async (e,t) => {
-      // await dispatch(updateTransactionThunk());
+
       setModalContent(
         <UpdateTransactionForm portfolios={portfolios} transaction={t} allPortfolioObj={allPortfolioObj} currentStock={currentStock} />
       )
     }
 
-    const deleteTransaction = async (_e, transactionId) => {
+    const deleteTransaction = async (_e, transactionId, portfolioId) => {
       const data = await dispatch(deleteTransactionThunk(transactionId));
       if (data?.errors) {
         return data.errors;
       }
       await dispatch(getPortfoliosThunk());
+      await dispatch(getPortfolioByIdThunk(portfolioId));
       setModalContent(<h2 className="success-alert">Successfully deleted {currentStock?.name} transaction</h2>)
     }
 
-    const confirmTransaction = async (_e, transactionId) => {
+    const confirmTransaction = async (_e, transactionId, portfolioId) => {
       const data = await dispatch(confirmTransactionThunk(transactionId));
       if (data?.errors) {
         return data.errors;
       }
       await dispatch(getPortfoliosThunk());
+      await dispatch(getPortfolioByIdThunk(portfolioId));
       setModalContent(<h2 className="success-alert">{currentStock.name} transaction is completed!</h2>)
     }
 
@@ -272,7 +275,7 @@ function StockDetails () {
                       <ConfirmFormModal
                         header="Confirm Delete Transaction"
                         text="Are you sure you want to delete this transaction?"
-                        deleteCb={(e) => deleteTransaction(e, t.id)}
+                        deleteCb={(e) => deleteTransaction(e, t.id, t.portfolio_id)}
                         cancelDeleteCb={closeModal}
                       />
                     }
@@ -286,7 +289,7 @@ function StockDetails () {
                   <ConfirmFormModal
                     header="Confirm Transaction"
                     text="Click 'Yes' to complete your transaction."
-                    deleteCb={(e) => confirmTransaction(e, t.id)}
+                    deleteCb={(e) => confirmTransaction(e, t.id, t.portfolio_id)}
                     cancelDeleteCb={closeModal}
                   />
                 }
