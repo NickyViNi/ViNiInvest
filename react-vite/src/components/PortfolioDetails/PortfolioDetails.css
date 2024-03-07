@@ -94,6 +94,16 @@ tbody > tr:nth-of-type(even) {
     padding: 5px 12px;
 }
 
+.fa-shopify {
+    margin-left: 17px;
+    color: rgb(250, 144, 162);
+    background-color: var(--chart-blue);
+    border: 1px solid var(--chart-blue);
+    box-shadow: 3px 3px 2px lightgray;
+    border-radius: 10px;
+    padding: 4px 12px;
+}
+
 .current-portfolio-detals {
     display: flex;
     /* justify-content:flex-start; */
@@ -140,4 +150,9 @@ tbody > tr:nth-of-type(even) {
 
 .fa-ban {
     font-size: small;
+    cursor: not-allowed;
+}
+
+.fa-shopify {
+    cursor: pointer;
 }

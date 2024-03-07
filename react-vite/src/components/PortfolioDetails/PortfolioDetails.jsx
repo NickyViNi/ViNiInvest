@@ -118,6 +118,10 @@ const PortfolioDetails = () => {
           /> : <i className="fa-solid fa-ban" title="No Stocks to Sell"></i>}
 
         </div>
+        <div className="shopping-btn" onClick={() => navigate(`/stocks`)} title="Click here view stocks to trade" >
+          <i class="fa-brands fa-shopify" ></i>
+        </div>
+
       </div> }
       <div className="current-portfolio-detals">
         { currentStockData.length > 0 && <div className="portfolio-pie-chart">
