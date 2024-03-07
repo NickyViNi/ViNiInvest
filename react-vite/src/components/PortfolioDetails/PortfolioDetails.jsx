@@ -140,7 +140,7 @@ const PortfolioDetails = () => {
             </thead>
             <tbody>
               {portfolioStocksArray.length > 0 &&
-               portfolioStocksArray.map(c => <tr key={c.id}>
+               portfolioStocksArray.map(c => c.quantity > 0 && <tr key={c.id}>
                 <th
                   scope="row"
                   onClick={() => navigate(`/stocks/${c.stock_id}`)} title="Click to view details"

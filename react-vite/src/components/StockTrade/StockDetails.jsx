@@ -155,7 +155,10 @@ function StockDetails () {
 
   return (
     <div className="stock-detail-container">
-      <h2 style={{marginTop:"100px"}}></h2>
+
+      <div style={{marginTop:"100px"}} className="shopping-btn" onClick={() => navigate(`/stocks`)} title="Click here view more stocks" >
+          <i class="fa-brands fa-shopify" ></i>
+        </div>
       <div id="current-stock-line">
           <Line options={options} data={data} />
       </div>
