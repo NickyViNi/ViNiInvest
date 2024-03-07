@@ -58,6 +58,12 @@ class Portfolio(db.Model):
             for tran in self.transactions:
                 result["transactions"].append(tran.to_dict())
 
+        # if is_completed:
+        #     result["transactions"] = []
+        #     for tran in self.transactions:
+        #         if tran.is_completed:
+        #             result["transactions"].append(tran.to_dict())
+
         if portfolio_stocks:
             result["portfolio_stocks"] = []
             for ps in self.portfolio_stocks:
