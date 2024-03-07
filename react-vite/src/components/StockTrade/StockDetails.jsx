@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { getStockByIdThunk } from "../../redux/stocks";
 import Loading from "../Loading";
 import { useEffect, useState } from "react";
@@ -21,6 +21,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 function StockDetails () {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const { stockId } = useParams();
   const [portfolioId, setPortfolioId] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -31,6 +32,12 @@ function StockDetails () {
   const allPortfolioObj = useSelector(state => state.portfolios.allPortfolios);
   const portfolios = Object.values(allPortfolioObj);
   const {setModalContent, closeModal} =useModal();
+  const user = useSelector(state => state.session.user);
+
+  if (!user) {
+    alert("Please Log in");
+    return <Navigate to='/' replace={true} />;
+  }
 
   let selectedPortfolio = {};
 
@@ -260,7 +267,7 @@ function StockDetails () {
         <tbody>
             {currentStock &&
               currentStock?.transactions?.sort((a, b) =>b.id - a.id).map(t => <tr key={t.id}>
-                <th scope="row">{t.portfolio.name}</th>
+                <th scope="row" onClick={() => navigate("/portfolios")} style={{cursor:"pointer"}} title="Click here go to portfolios">{t.portfolio.name}</th>
                 <td>{t.shares}</td>
                 <td>{t.type}</td>
                 <td>{t.price_per_unit}</td>

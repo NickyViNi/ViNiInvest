@@ -130,7 +130,7 @@ const PortfolioDetails = () => {
         { currentStockData.length > 0 && <table className="portfolio-stocks">
             <thead>
               <tr>
-                <th scope="col" className="table-header" colSpan={3} >Stocks (completed)</th>
+                <th scope="col" className="table-header" colSpan={3} >Stocks (Com)</th>
               </tr>
             <tr>
               <th scope="col">Name</th>
