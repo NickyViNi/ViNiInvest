@@ -11,7 +11,7 @@ import { useModal } from "../../context/Modal";
 import CreateNewPortfolio from "./CreateNewPortfolio";
 import OpenModalButton from "../OpenModalButton";
 import UpdatePortfolio from "./UpdatePortfolio";
-import ConfirmDeleteFormModal from "../ConfirmDeleteFormModal.jsx/ConfirmDeleteFormModal";
+import ConfirmFormModal from "../ConfirmFormModal.jsx/ConfirmFormModal";
 import convertDateTime from "../../helpers/convertDateTime";
 import Loading from "../Loading";
 import { setNavbarBackgroundToWhite } from "../../utils/navbar";
@@ -108,7 +108,8 @@ const PortfolioDetails = () => {
           { currentStockData[0] > 0 ? <OpenModalButton
             buttonText={<i className="fa-solid fa-trash-can" title="Delete: Sell All"></i>}
             modalComponent={
-              <ConfirmDeleteFormModal
+              <ConfirmFormModal
+                header="Confirm Sell All Stocks"
                 text="Are you sure you want to sell all the stocks in this portfolio?"
                 deleteCb={(e) => clearPortfolioStocks(e, currentPortfolio.id, currentPortfolio.name)}
                 cancelDeleteCb={closeModal}
@@ -165,8 +166,11 @@ const PortfolioDetails = () => {
           </thead>
           <tbody>
             {currentPortfolio &&
-              currentPortfolio?.transactions?.sort((a, b) =>b.id - a.id).map(c => <tr key={c?.id}>
-                <th scope="row">{c.stock.name}</th>
+              currentPortfolio?.transactions?.sort((a, b) =>b.id - a.id).map(c => c.is_completed && <tr key={c?.id}>
+                <th scope="row"
+                onClick={() => navigate(`/stocks/${c.stock_id}`)} title="Click to view details"
+                style={{cursor: "pointer"}}
+                >{c.stock.name}</th>
                 <td>{c.shares}</td>
                 <td>{c.type}</td>
                 <td>{c.price_per_unit}</td>

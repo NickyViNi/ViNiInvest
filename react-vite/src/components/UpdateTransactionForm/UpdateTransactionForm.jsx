@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateTransactionThunk } from "../../redux/transaction";
 import { useModal } from "../../context/Modal";
+import { getPortfoliosThunk } from "../../redux/portfolio";
 
 function UpdateTransactionForm({portfolios, transaction, allPortfolioObj, currentStock}) {
     const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function UpdateTransactionForm({portfolios, transaction, allPortfolioObj, curren
           setErrors(data.errors);
           return data.errors;
         }
+        await dispatch(getPortfoliosThunk());
         setModalContent(<h2 className="success-alert">{`Successfully Updated!`}</h2>)
     }
 

@@ -1,13 +1,13 @@
-import "./ConfirmDeleteFormModal.css";
+import "./ConfirmFormModal.css";
 
-function ConfirmDeleteFormModal({ text, deleteCb, cancelDeleteCb }) {
+function ConfirmDeleteFormModal({ header, text, deleteCb, cancelDeleteCb }) {
   function Question() {
     return <p>{text}</p>;
   }
 
   return (
     <div id="confirm-delete">
-      <h2 className="subheading">Confirm Delete</h2>
+      <h2 className="subheading">{header}</h2>
       <Question />
       <div id="delete-btns">
         <button

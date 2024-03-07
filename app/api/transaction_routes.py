@@ -34,7 +34,7 @@ def confirm_transaction(id):
             db.session.add(new_portfolio_stock)
 
     if transaction.type.lower() == "sell":
-        portfolio.fake_money_balance += float(format(transaction.shares * transaction.price_per_unit), "0.2f")
+        portfolio.fake_money_balance += float(transaction.shares * transaction.price_per_unit)
         """update the portfolio_stocks table"""
         portfolio_stock.quantity -= transaction.shares
 

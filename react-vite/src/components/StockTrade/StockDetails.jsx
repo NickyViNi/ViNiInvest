@@ -13,7 +13,7 @@ import { useModal } from "../../context/Modal";
 import UpdateTransactionForm from "../UpdateTransactionForm/UpdateTransactionForm";
 import { setNavbarBackgroundToWhite } from "../../utils/navbar";
 import OpenModalButton from "../OpenModalButton";
-import ConfirmDeleteFormModal from "../ConfirmDeleteFormModal.jsx/ConfirmDeleteFormModal";
+import ConfirmFormModal from "../ConfirmFormModal.jsx/ConfirmFormModal";
 
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -47,12 +47,12 @@ function StockDetails () {
       setIsLoaded(true);
     }
     getData();
-  }, [dispatch]);
+  }, [dispatch, stockId]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmitTransaction = async (e) => {
     e.preventDefault();
 
-    if (!portfolioId.length) return setErrors({"portfolio": "Please select a portfolio to proceed"})
+    if (!portfolioId) return setErrors({"portfolio": "Please select a portfolio to proceed"})
 
     const payload = {
       portfolio_id: portfolioId,
@@ -61,12 +61,13 @@ function StockDetails () {
       type: type
     }
     const data = await dispatch(postTransactionThunk(payload, portfolioId, stockId));
-    // if (data?.errors && data.errors.message) return setModalContent(data.errors.message);
+
     if (data?.errors)  {
       setErrors(data.errors);
     } else {
+      await dispatch(getPortfoliosThunk());
       setErrors("");
-      setModalContent(<h2 className="success-alert">Successfully submited a transaction, please click "Confirm" button in transaction table to complete this order.</h2>)
+      setModalContent(<h2 className="success-alert">Successfully submited a transaction, please click &quot;Confirm&quot; button in transaction table to complete this order.</h2>)
     }
 
   }
@@ -127,11 +128,17 @@ function StockDetails () {
       if (data?.errors) {
         return data.errors;
       }
-      setModalContent(<h2 className="success-alert">Successfully deleted transaction</h2>)
+      await dispatch(getPortfoliosThunk());
+      setModalContent(<h2 className="success-alert">Successfully deleted {currentStock?.name} transaction</h2>)
     }
 
-    const confirmTransaction = async (e, transactionId) => {
-      await dispatch(confirmTransactionThunk(transactionId));
+    const confirmTransaction = async (_e, transactionId) => {
+      const data = await dispatch(confirmTransactionThunk(transactionId));
+      if (data?.errors) {
+        return data.errors;
+      }
+      await dispatch(getPortfoliosThunk());
+      setModalContent(<h2 className="success-alert">{currentStock.name} transaction is completed!</h2>)
     }
 
   if (!isLoaded) return <div style={{marginTop:"100px"}}><Loading /></div>
@@ -184,7 +191,7 @@ function StockDetails () {
           </div>
           {errors && <p className="modal-errors">{errors.portfolio}</p>}
           {errors?.message && <p className="modal-errors">{errors?.message}</p>}
-          <button onClick={handleSubmit}>Place Order</button>
+          <button onClick={handleSubmitTransaction}>Place Order</button>
           <div id="money-balance">${selectedPortfolio?.fake_money_balance?.toFixed(2)} Buying Power</div>
       </div>
 
@@ -256,13 +263,14 @@ function StockDetails () {
                 <td>{t.price_per_unit}</td>
                 <td>{convertDateTime(t.created_at)}</td>
                 <td>{t.is_completed ? "Completed" : "Pending"}</td>
-                <td className="update-transaction-btn" onClick={e => updateTransaction(e, t)}>{t.is_completed ? "" : <button>Update</button>}</td>
+                {!t.is_completed && <> <td className="update-transaction-btn" onClick={e => updateTransaction(e, t)}>{t.is_completed ? "" : <button>Update</button>}</td>
                 <td className="delete-transaction-btn">
                   {t.is_completed ? "" :
-                    <OpenModalButton
+                  <OpenModalButton
                     buttonText="Delete"
                     modalComponent={
-                      <ConfirmDeleteFormModal
+                      <ConfirmFormModal
+                        header="Confirm Delete Transaction"
                         text="Are you sure you want to delete this transaction?"
                         deleteCb={(e) => deleteTransaction(e, t.id)}
                         cancelDeleteCb={closeModal}
@@ -271,7 +279,18 @@ function StockDetails () {
                   />
                   }
                 </td>
-                <td className="confirm-transaction-btn" onClick={e => confirmTransaction(e, t.id)}>{t.is_completed ? "" : <button>Confirm</button>}</td>
+                <td className="confirm-transaction-btn">{t.is_completed ? "" :
+                <OpenModalButton
+                buttonText="Confirm"
+                modalComponent={
+                  <ConfirmFormModal
+                    header="Confirm Transaction"
+                    text="Click 'Yes' to complete your transaction."
+                    deleteCb={(e) => confirmTransaction(e, t.id)}
+                    cancelDeleteCb={closeModal}
+                  />
+                }
+                />}</td> </>}
               </tr>)
             }
           </tbody>
