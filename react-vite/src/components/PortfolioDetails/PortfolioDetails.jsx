@@ -154,7 +154,7 @@ const PortfolioDetails = () => {
         <div className="transactions-table"> { portfolioTransactions?.length > 0 && <table className="portfolio-transactions">
           <thead>
             <tr>
-              <th scope="col" className="table-header" colSpan={5}>Transactions</th>
+              <th scope="col" className="table-header" colSpan={6}>Transactions</th>
             </tr>
             <tr>
               <th scope="col">Stock Name</th>
@@ -162,11 +162,12 @@ const PortfolioDetails = () => {
               <th scope="col">Type</th>
               <th scope="col">Price Per Unit</th>
               <th scope="col">Date</th>
+              <th scope="col">Status</th>
             </tr>
           </thead>
           <tbody>
             {currentPortfolio &&
-              currentPortfolio?.transactions?.sort((a, b) =>b.id - a.id).map(c => c.is_completed && <tr key={c?.id}>
+              currentPortfolio?.transactions?.sort((a, b) =>b.id - a.id).map(c => <tr key={c?.id}>
                 <th scope="row"
                 onClick={() => navigate(`/stocks/${c.stock_id}`)} title="Click to view details"
                 style={{cursor: "pointer"}}
@@ -175,6 +176,7 @@ const PortfolioDetails = () => {
                 <td>{c.type}</td>
                 <td>{c.price_per_unit}</td>
                 <td>{convertDateTime(c.created_at)}</td>
+                <td>{c.is_completed ? "Completed" : "Pending"}</td>
               </tr>)
             }
           </tbody>
