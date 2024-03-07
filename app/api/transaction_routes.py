@@ -1,5 +1,5 @@
 from flask import Blueprint, request, redirect
-from flask_login import login_required
+from flask_login import login_required, current_user
 from ..models import db, Stock, Transaction, Portfolio, Portfolio_stock
 from ..forms import TransactionForm
 
@@ -13,6 +13,9 @@ def confirm_transaction(id):
     stock = Stock.query.get(transaction.stock_id)
     portfolio = Portfolio.query.get(transaction.portfolio_id)
     portfolio_stock = Portfolio_stock.query.filter(Portfolio_stock.portfolio_id == transaction.portfolio_id).filter(Portfolio_stock.stock_id == transaction.stock_id).one_or_none()
+
+    if portfolio.user_id != current_user.id:
+        return redirect("/api/auth/forbidden")
     if not transaction:
         return {"message": "Transaction couldn't be found"}, 404
     if transaction.is_completed:
@@ -39,7 +42,14 @@ def confirm_transaction(id):
         portfolio_stock.quantity -= transaction.shares
 
     db.session.commit()
-    return stock.to_dict(prices=True, transactions=True)
+    # return stock.to_dict(prices=True, transactions=True)
+    result = stock.to_dict(prices=True, transactions=True)
+    filter_orders = []
+    for order in result["transactions"]:
+        if order["portfolio"]["user_id"] == current_user.id:
+            filter_orders.append(order)
+    result["transactions"] = filter_orders
+    return result
 
 
 @transaction_routes.route("/<int:id>", methods=["PUT"])
@@ -55,6 +65,9 @@ def update_transaction(id):
     stock = Stock.query.get(transaction.stock_id)
 
     if form.validate_on_submit():
+        if portfolio.user_id != current_user.id:
+            return redirect("/api/auth/forbidden")
+
         if not transaction:
             return {"message": "Transaction couldn't be found"}, 404
         if transaction.is_completed:
@@ -78,7 +91,14 @@ def update_transaction(id):
 
         transaction.shares = form.data["shares"]
         db.session.commit()
-        return stock.to_dict(prices=True, transactions=True), 200
+        # return stock.to_dict(prices=True, transactions=True), 200
+        result = stock.to_dict(prices=True, transactions=True)
+        filter_orders = []
+        for order in result["transactions"]:
+            if order["portfolio"]["user_id"] == current_user.id:
+                filter_orders.append(order)
+        result["transactions"] = filter_orders
+        return result
     return form.errors, 400
 
 @transaction_routes.route("/<int:id>", methods=["DELETE"])
@@ -89,6 +109,9 @@ def delete_transaction(id):
     stock = Stock.query.get(transaction.stock_id)
     portfolio = Portfolio.query.get(transaction.portfolio_id)
 
+    if portfolio.user_id != current_user.id:
+        return redirect("/api/auth/forbidden")
+
     if not transaction:
         return {"message": "Transaction couldn't be found"}, 404
 
@@ -98,4 +121,11 @@ def delete_transaction(id):
     db.session.delete(transaction)
     db.session.commit()
 
-    return stock.to_dict(prices=True, transactions=True)
+    # return stock.to_dict(prices=True, transactions=True)
+    result = stock.to_dict(prices=True, transactions=True)
+    filter_orders = []
+    for order in result["transactions"]:
+        if order["portfolio"]["user_id"] == current_user.id:
+            filter_orders.append(order)
+    result["transactions"] = filter_orders
+    return result

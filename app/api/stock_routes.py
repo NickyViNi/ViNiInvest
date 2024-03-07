@@ -21,7 +21,14 @@ def get_stock(id):
     if not stock:
         return { "message": "Stock couldn't be found" }, 404
 
-    return stock.to_dict(prices=True, transactions=True)
+    result = stock.to_dict(prices=True, transactions=True)
+    filter_orders = []
+    for order in result["transactions"]:
+        if order["portfolio"]["user_id"] == current_user.id:
+            filter_orders.append(order)
+    result["transactions"] = filter_orders
+
+    return result
 
 
 @stock_routes.route("/<int:stock_id>/portfolios/<int:portfolio_id>", methods=["POST"])
@@ -67,5 +74,13 @@ def stock_order(stock_id, portfolio_id):
         db.session.add(new_transaction)
         db.session.commit()
 
-        return stock.to_dict(prices=True, transactions=True)
+        # return stock.to_dict(prices=True, transactions=True)
+        result = stock.to_dict(prices=True, transactions=True)
+        filter_orders = []
+        for order in result["transactions"]:
+            if order["portfolio"]["user_id"] == current_user.id:
+                filter_orders.append(order)
+        result["transactions"] = filter_orders
+        return result
+
     return form.errors, 400
