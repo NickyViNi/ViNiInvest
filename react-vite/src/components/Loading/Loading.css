@@ -1,6 +1,6 @@
 /* HTML: <div class="loader"></div> */
-.loader {
-    width: 100%;
+.wait-loader {
+    width: 100vw;
     height: 20px;
     border-radius: 30px;
     background:
