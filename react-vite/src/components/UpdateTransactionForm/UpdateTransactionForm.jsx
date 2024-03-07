@@ -32,12 +32,12 @@ function UpdateTransactionForm({portfolios, transaction, allPortfolioObj, curren
     }
 
     return (<>
-        <h2>Update Order</h2>
+        <h2 style={{color: "rgb(255, 132, 0)", textAlign:"center"}}>Update {currentStock?.name} Transaction</h2>
         <div id="place-order-container">
         <div className="buy-sell-btns">
-          <div className="green" style={{backgroundColor: type === "buy" ? "pink" : "white"}}>Buy</div>
+          <div className="green" style={{backgroundColor: type === "buy" ? "pink" : "white", cursor:"not-allowed"}}>Buy</div>
           <div className="separator"></div>
-          <div className="red" style={{backgroundColor: type === "sell" ? "pink" : "white"}}>Sell</div>
+          <div className="red" style={{backgroundColor: type === "sell" ? "pink" : "white", cursor:"not-allowed"}}>Sell</div>
           {errors && <p className="modal-errors">{errors.type}</p>}
         </div>
         <div className="amount">
@@ -53,19 +53,20 @@ function UpdateTransactionForm({portfolios, transaction, allPortfolioObj, curren
             <input type="number"
               disabled
               placeholder={`$${currentStock.prices[0].close_price}`}
+              style={{cursor:"not-allowed"}}
             />
           </div>
         <div className="amount">
           <label>Trade Portfolio</label>
-          <select name="portfolios" disabled value={portfolioId}>
+          <select style={{cursor:"not-allowed"}} name="portfolios" disabled value={portfolioId}>
             <option value="">--Please choose a Portfolio--</option>
             {portfolios.map(p => <option key={p.id} value={p.id}> {p.name} </option>)}
           </select>
         </div>
         {errors && <p className="modal-errors">{errors.portfolio}</p>}
         {errors?.message && <p className="modal-errors">{errors?.message}</p>}
-        <button onClick={handleSubmit}>Update Oder</button>
-        <div id="money-balance">${selectedPortfolio?.fake_money_balance?.toFixed(2)} buying power</div>
+        <button onClick={handleSubmit}>Update Order</button>
+        <div id="money-balance">${selectedPortfolio?.fake_money_balance?.toFixed(2)} Buying Power</div>
     </div>
     </>);
 }

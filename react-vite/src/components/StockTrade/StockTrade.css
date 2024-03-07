@@ -116,3 +116,30 @@
     flex-direction: row;
     gap: 50px;
 }
+
+.delete-transaction-btn button {
+    color:brown;
+    background-color: var(--chart-blue);
+    border: 1px solid var(--chart-blue);
+    box-shadow: 3px 3px 2px lightgray;
+    border-radius: 10px;
+    padding: 5px 12px;
+}
+
+.update-transaction-btn button {
+    color:rgb(255, 132, 0);
+    background-color: var(--chart-blue);
+    border: 1px solid var(--chart-blue);
+    box-shadow: 3px 3px 2px lightgray;
+    border-radius: 10px;
+    padding: 5px 12px;
+}
+
+.confirm-transaction-btn button {
+    color:green;
+    background-color: var(--chart-blue);
+    border: 1px solid var(--chart-blue);
+    box-shadow: 3px 3px 2px lightgray;
+    border-radius: 10px;
+    padding: 5px 12px;
+}

@@ -12,6 +12,8 @@ import { confirmTransactionThunk, deleteTransactionThunk, postTransactionThunk }
 import { useModal } from "../../context/Modal";
 import UpdateTransactionForm from "../UpdateTransactionForm/UpdateTransactionForm";
 import { setNavbarBackgroundToWhite } from "../../utils/navbar";
+import OpenModalButton from "../OpenModalButton";
+import ConfirmDeleteFormModal from "../ConfirmDeleteFormModal.jsx/ConfirmDeleteFormModal";
 
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -28,7 +30,7 @@ function StockDetails () {
   const currentStock = useSelector(state => state.stocks.currentStock);
   const allPortfolioObj = useSelector(state => state.portfolios.allPortfolios);
   const portfolios = Object.values(allPortfolioObj);
-  const {setModalContent} =useModal();
+  const {setModalContent, closeModal} =useModal();
 
   let selectedPortfolio = {};
 
@@ -60,7 +62,13 @@ function StockDetails () {
     }
     const data = await dispatch(postTransactionThunk(payload, portfolioId, stockId));
     // if (data?.errors && data.errors.message) return setModalContent(data.errors.message);
-    if (data?.errors) setErrors(data.errors);
+    if (data?.errors)  {
+      setErrors(data.errors);
+    } else {
+      setErrors("");
+      setModalContent(<h2 className="success-alert">Successfully submited a transaction, please click "Confirm" button in transaction table to complete this order.</h2>)
+    }
+
   }
 
   const options = {
@@ -114,9 +122,12 @@ function StockDetails () {
       )
     }
 
-    const deleteTransaction = async (e, transactionId) => {
-      await dispatch(deleteTransactionThunk(transactionId));
-      setModalContent(<h2>Successfully deleted</h2>)
+    const deleteTransaction = async (_e, transactionId) => {
+      const data = await dispatch(deleteTransactionThunk(transactionId));
+      if (data?.errors) {
+        return data.errors;
+      }
+      setModalContent(<h2 className="success-alert">Successfully deleted transaction</h2>)
     }
 
     const confirmTransaction = async (e, transactionId) => {
@@ -173,8 +184,8 @@ function StockDetails () {
           </div>
           {errors && <p className="modal-errors">{errors.portfolio}</p>}
           {errors?.message && <p className="modal-errors">{errors?.message}</p>}
-          <button onClick={handleSubmit}>Place Oder</button>
-          <div id="money-balance">${selectedPortfolio?.fake_money_balance?.toFixed(2)} buying power</div>
+          <button onClick={handleSubmit}>Place Order</button>
+          <div id="money-balance">${selectedPortfolio?.fake_money_balance?.toFixed(2)} Buying Power</div>
       </div>
 
       {/* <table id="stock-value-data">
@@ -245,9 +256,22 @@ function StockDetails () {
                 <td>{t.price_per_unit}</td>
                 <td>{convertDateTime(t.created_at)}</td>
                 <td>{t.is_completed ? "Completed" : "Pending"}</td>
-                <td onClick={e => updateTransaction(e, t)}>{t.is_completed ? "" : "Update"}</td>
-                <td onClick={e => deleteTransaction(e, t.id)}>{t.is_completed ? "" : "Delete"}</td>
-                <td onClick={e => confirmTransaction(e, t.id)}>{t.is_completed ? "" : "Confirm"}</td>
+                <td className="update-transaction-btn" onClick={e => updateTransaction(e, t)}>{t.is_completed ? "" : <button>Update</button>}</td>
+                <td className="delete-transaction-btn">
+                  {t.is_completed ? "" :
+                    <OpenModalButton
+                    buttonText="Delete"
+                    modalComponent={
+                      <ConfirmDeleteFormModal
+                        text="Are you sure you want to delete this transaction?"
+                        deleteCb={(e) => deleteTransaction(e, t.id)}
+                        cancelDeleteCb={closeModal}
+                      />
+                    }
+                  />
+                  }
+                </td>
+                <td className="confirm-transaction-btn" onClick={e => confirmTransaction(e, t.id)}>{t.is_completed ? "" : <button>Confirm</button>}</td>
               </tr>)
             }
           </tbody>
