@@ -225,9 +225,9 @@ function StockDetails () {
       </table> */}
 
       <table id="stock-key-data">
-      <thead>
+      <thead >
           <tr>
-            <th scope="col" className="table-header" colSpan={2}>{currentStock.name} {convertDate(currentStock.newest_price.date)} </th>
+            <th scope="col" className="table-header2" colSpan={2}>{currentStock.name} {convertDate(currentStock.newest_price.date)} </th>
           </tr>
         </thead>
         <tbody>

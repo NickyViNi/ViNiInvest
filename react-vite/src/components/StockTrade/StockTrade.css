@@ -106,10 +106,33 @@
     border: 2px solid lightblue;
     width: 300px;
     border-radius: 10px;
+    border-collapse: collapse;
+    border-style: hidden ;
     margin: 20px 0;
     box-shadow: 2px 2px 5px lightblue;
 }
 
+#current-stock-transaction-table {
+    gap: 30px;
+    border: 2px solid lightblue;
+    /* width: 300px; */
+    border-radius: 10px;
+    border-collapse: collapse;
+    border-style: hidden ;
+    margin: 20px 0;
+    box-shadow: 2px 2px 5px lightblue;
+}
+
+.table-header {
+    height: 25px;
+}
+
+.table-header2 {
+    /* border-style: hidden; */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 25px;
+}
 
 #trade-data-contaner {
     display: flex;
