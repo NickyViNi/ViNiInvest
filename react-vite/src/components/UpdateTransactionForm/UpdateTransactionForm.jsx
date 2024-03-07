@@ -24,9 +24,11 @@ function UpdateTransactionForm({portfolios, transaction, allPortfolioObj, curren
         }
 
         const data = await dispatch(updateTransactionThunk(payload));
-        setModalContent(<h2>Successfully updated!</h2>)
-        if (data?.errors && data.errors.message) return setModalContent(data.errors.message);
-        if (data?.errors) setErrors(data.errors);
+        if (data?.errors) {
+          setErrors(data.errors);
+          return data.errors;
+        }
+        setModalContent(<h2 className="success-alert">{`Successfully Updated!`}</h2>)
     }
 
     return (<>
@@ -36,7 +38,7 @@ function UpdateTransactionForm({portfolios, transaction, allPortfolioObj, curren
           <div className="green" style={{backgroundColor: type === "buy" ? "pink" : "white"}}>Buy</div>
           <div className="separator"></div>
           <div className="red" style={{backgroundColor: type === "sell" ? "pink" : "white"}}>Sell</div>
-          {errors && errors.type}
+          {errors && <p className="modal-errors">{errors.type}</p>}
         </div>
         <div className="amount">
           <label>Shares</label>
@@ -44,7 +46,7 @@ function UpdateTransactionForm({portfolios, transaction, allPortfolioObj, curren
             value={shares}
             onChange={e => setShares(e.target.value)}
           />
-          {errors && errors.shares}
+          {errors && <p className="modal-errors">{errors.shares}</p>}
         </div>
         <div className="amount">
             <label>Price Per Share</label>
@@ -60,7 +62,8 @@ function UpdateTransactionForm({portfolios, transaction, allPortfolioObj, curren
             {portfolios.map(p => <option key={p.id} value={p.id}> {p.name} </option>)}
           </select>
         </div>
-        {errors && errors.portfolio}
+        {errors && <p className="modal-errors">{errors.portfolio}</p>}
+        {errors?.message && <p className="modal-errors">{errors?.message}</p>}
         <button onClick={handleSubmit}>Update Oder</button>
         <div id="money-balance">${selectedPortfolio?.fake_money_balance?.toFixed(2)} buying power</div>
     </div>

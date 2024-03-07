@@ -59,7 +59,7 @@ function StockDetails () {
       type: type
     }
     const data = await dispatch(postTransactionThunk(payload, portfolioId, stockId));
-    if (data?.errors && data.errors.message) return setModalContent(data.errors.message);
+    // if (data?.errors && data.errors.message) return setModalContent(data.errors.message);
     if (data?.errors) setErrors(data.errors);
   }
 
@@ -147,7 +147,7 @@ function StockDetails () {
               if (buy) buy.style.backgroundColor = "white";
               e.target.style.backgroundColor = "pink";
             }}>Sell</div>
-            {errors && errors.type}
+            {errors && <p className="modal-errors">{errors.type}</p>}
           </div>
           <div className="amount">
             <label>Shares</label>
@@ -155,7 +155,7 @@ function StockDetails () {
               value={shares}
               onChange={e => setShares(e.target.value)}
             />
-            {errors && errors.shares}
+            {errors && <p className="modal-errors">{errors.shares}</p>}
           </div>
           <div className="amount">
             <label>Price Per Share</label>
@@ -171,12 +171,13 @@ function StockDetails () {
               {portfolios.map(p => <option key={p.id} value={p.id}> {p.name} </option>)}
             </select>
           </div>
-          {errors && errors.portfolio}
+          {errors && <p className="modal-errors">{errors.portfolio}</p>}
+          {errors?.message && <p className="modal-errors">{errors?.message}</p>}
           <button onClick={handleSubmit}>Place Oder</button>
           <div id="money-balance">${selectedPortfolio?.fake_money_balance?.toFixed(2)} buying power</div>
       </div>
 
-      <table id="stock-value-data">
+      {/* <table id="stock-value-data">
         <tbody>
           <th>Your Market Value</th>
           <td>$1000</td>
@@ -193,7 +194,7 @@ function StockDetails () {
           <th>Total Return</th>
           <td>1000</td>
         </tbody>
-      </table>
+      </table> */}
 
       <table id="stock-key-data">
       <thead>
