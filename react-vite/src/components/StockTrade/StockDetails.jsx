@@ -202,7 +202,7 @@ function StockDetails () {
               {portfolios.map(p => <option key={p.id} value={p.id}> {p.name} </option>)}
             </select>
           </div>
-          {errors.portfolio && <p className="modal-errors">{errors.portfolio}</p>}
+          {errors?.portfolio && <p className="modal-errors">{errors?.portfolio}</p>}
           {errors?.message && <p className="modal-errors">{errors?.message}</p>}
           <button onClick={handleSubmitTransaction}>Place Order</button>
           <div id="money-balance">${selectedPortfolio?.fake_money_balance?.toFixed(2)} Buying Power Available</div>
