@@ -146,7 +146,7 @@ const PortfolioDetails = () => {
                   onClick={() => navigate(`/stocks/${c.stock_id}`)} title="Click to view details"
                   style={{cursor: "pointer"}}
                 >{c.stock?.name}</th>
-                <td>{c.quantity}</td>
+                <td>{c.quantity.toFixed(2)}</td>
                 <td>{(c.quantity * c.stock?.newest_price.close_price).toFixed(2)}</td>
                 </tr>)
               }
@@ -176,7 +176,7 @@ const PortfolioDetails = () => {
                 onClick={() => navigate(`/stocks/${c.stock_id}`)} title="Click to view details"
                 style={{cursor: "pointer"}}
                 >{c.stock.name}</th>
-                <td>{c.shares}</td>
+                <td>{c.shares.toFixed(2)}</td>
                 <td>{c.type}</td>
                 <td>{c.price_per_unit}</td>
                 <td>{convertDateTime(c.created_at)}</td>

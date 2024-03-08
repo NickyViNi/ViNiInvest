@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
 import { isImageValid } from "../../helpers/imageCheck";
-import Loading from "../Loading";
 import "./SignupForm.css";
+import ShortLoading from "../Loading/shortLoading";
+import { isValidEmail } from "../../helpers/emailValidate";
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -27,6 +28,10 @@ function SignupFormModal() {
       return setErrors({ profileImageUrl: "Only .png, .jpg, .jpeg, .gif are allowed" });
     }
 
+    if (!isValidEmail(email)) {
+      return setErrors({email: "Please enter a valid email, (ex: helloworld@gmail.com)"})
+    }
+
     if (password !== confirmPassword) {
       return setErrors({
         confirmPassword:
@@ -45,8 +50,6 @@ function SignupFormModal() {
     formData.append("password", password)
 
     if (profileImageUrl) formData.append("profile_image_url", profileImageUrl);
-
-    // console.log(formData, "sddddssssssaaaasddddd", firstName, lastName, email, username, profileImageUrl)
 
     const serverResponse = await dispatch(thunkSignup(formData));
 
@@ -145,7 +148,7 @@ function SignupFormModal() {
           }}
         />
         {errors.profileImageUrl && <p className="modal-errors">{errors.profileImageUrl}</p>}
-        {imageIsUploading && <Loading />}
+        {imageIsUploading && <ShortLoading />}
         <button
           type="submit"
           className={`btn-submit ${inputInvalid() ? 'disabled' : ''}`}

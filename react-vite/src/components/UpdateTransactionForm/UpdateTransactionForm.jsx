@@ -35,7 +35,7 @@ function UpdateTransactionForm({portfolios, transaction, allPortfolioObj, curren
     }
 
     return (<>
-        <h2 style={{color: "rgb(255, 132, 0)", textAlign:"center"}}>Update {currentStock?.name} Transaction</h2>
+        <h2 style={{color: "rgb(255, 132, 0)", textAlign:"center"}}>Update {currentStock?.symbol} Transaction</h2>
         <div id="place-order-container">
         <div className="buy-sell-btns">
           <div className="green" style={{backgroundColor: type === "buy" ? "pink" : "white", cursor:"not-allowed"}}>Buy</div>

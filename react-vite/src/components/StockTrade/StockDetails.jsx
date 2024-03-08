@@ -271,7 +271,7 @@ function StockDetails () {
             {currentStock &&
               currentStock?.transactions?.sort((a, b) =>b.id - a.id).map(t => <tr key={t.id}>
                 <th scope="row" onClick={() => navigate("/portfolios")} style={{cursor:"pointer"}} title="Click here go to portfolios">{t.portfolio.name}</th>
-                <td>{t.shares}</td>
+                <td>{t.shares.toFixed(2)}</td>
                 <td>{t.type}</td>
                 <td>{t.price_per_unit}</td>
                 <td>{convertDateTime(t.created_at)}</td>
