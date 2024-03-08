@@ -55,7 +55,7 @@ function UpdateTransactionForm({portfolios, transaction, allPortfolioObj, curren
             <label>Price Per Share</label>
             <input type="number"
               disabled
-              placeholder={`$${currentStock.prices[0].close_price}`}
+              placeholder={`$${currentStock.newest_price.close_price}`}
               style={{cursor:"not-allowed"}}
             />
           </div>
@@ -66,10 +66,10 @@ function UpdateTransactionForm({portfolios, transaction, allPortfolioObj, curren
             {portfolios.map(p => <option key={p.id} value={p.id}> {p.name} </option>)}
           </select>
         </div>
-        {errors && <p className="modal-errors">{errors.portfolio}</p>}
+        {errors?.portfolio && <p className="modal-errors">{errors.portfolio}</p>}
         {errors?.message && <p className="modal-errors">{errors?.message}</p>}
         <button onClick={handleSubmit}>Update Order</button>
-        <div id="money-balance">${selectedPortfolio?.fake_money_balance?.toFixed(2)} Buying Power</div>
+        <div id="money-balance">${selectedPortfolio?.fake_money_balance?.toFixed(2)} Buying Power Available</div>
     </div>
     </>);
 }

@@ -29,6 +29,7 @@ form > input {
     padding-top: 1px;
     padding-bottom: 1px;
     color: red;
+    margin-left: 10px;
 }
 
 .btn-submit {
