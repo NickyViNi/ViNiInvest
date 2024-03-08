@@ -142,7 +142,7 @@ const portfolioReducer = (state = initialState, action) => {
                     ...state.allPortfolios,
                     [action.portfolio.id]: action.portfolio
                 },
-                // currentPortfolio: action.portfolio
+                currentPortfolio: action.portfolio
             }
         }
         case UPDATE_PORTFOLIO: {

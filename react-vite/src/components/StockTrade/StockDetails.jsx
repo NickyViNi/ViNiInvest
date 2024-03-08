@@ -192,7 +192,7 @@ function StockDetails () {
             <label>Price Per Share</label>
             <input type="number"
               disabled
-              placeholder={`$${currentStock.prices[0].close_price}`}
+              placeholder={`$${currentStock.newest_price.close_price}`}
             />
           </div>
           <div className="amount">
