@@ -34,18 +34,7 @@ function StockDetails () {
   const {setModalContent, closeModal} =useModal();
   const user = useSelector(state => state.session.user);
 
-  if (!user) {
-    alert("Please Log in");
-    return <Navigate to='/' replace={true} />;
-  }
-
-  let selectedPortfolio = {};
-
   useEffect(setNavbarBackgroundToWhite, []);
-
-  if (portfolioId) {
-    selectedPortfolio = allPortfolioObj[portfolioId];
-  }
 
   useEffect(() => {
     const getData = async () => {
@@ -55,6 +44,18 @@ function StockDetails () {
     }
     getData();
   }, [dispatch, stockId]);
+
+  if (!user) {
+    alert("Please Log in");
+    return <Navigate to='/' replace={true} />;
+  }
+
+  let selectedPortfolio = {};
+
+  if (portfolioId) {
+    selectedPortfolio = allPortfolioObj[portfolioId];
+  }
+
 
   const handleSubmitTransaction = async (e) => {
     e.preventDefault();
@@ -157,7 +158,7 @@ function StockDetails () {
     <div className="stock-detail-container">
 
       <div style={{marginTop:"100px"}} className="shopping-btn" onClick={() => navigate(`/stocks`)} title="Click here view more stocks" >
-          <i class="fa-brands fa-shopify" ></i>
+          <i className="fa-brands fa-shopify" ></i>
         </div>
       <div id="current-stock-line">
           <Line options={options} data={data} />

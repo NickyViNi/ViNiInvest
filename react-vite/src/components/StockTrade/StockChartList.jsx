@@ -15,12 +15,7 @@ function StockChartList() {
   const stocks = Object.values(allStocks);
   const [searchInput, setSearchInput] = useState("");
   const [currentStocks, setCurrentStocks] = useState(Object.values(allStocks));
-
   const user = useSelector(state => state.session.user);
-  if (!user) {
-    alert("Please Log in");
-    return <Navigate to='/' replace={true} />;
-  }
 
   useEffect( () => {
     const getStocks = async () => {
@@ -32,6 +27,12 @@ function StockChartList() {
   }, [dispatch])
 
   useEffect(setNavbarBackgroundToWhite, []);
+
+  if (!user) {
+    alert("Please Log in");
+    return <Navigate to='/' replace={true} />;
+  }
+
 
   const handleSearch = (e) => {
       setSearchInput(e.target.value)

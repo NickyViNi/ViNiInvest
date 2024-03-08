@@ -11,7 +11,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomePage />,
+        element: <HomePage />
       },
       {
         path: "/portfolios",
@@ -24,6 +24,10 @@ export const router = createBrowserRouter([
       {
         path: "/stocks/:stockId",
         element: <StockDetails />
+      },
+      {
+        path: "*",
+        element: <HomePage />
       }
 
     ],

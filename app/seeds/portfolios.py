@@ -6,12 +6,12 @@ from sqlalchemy.sql import text
 def seed_portfolios():
     portfolios = [
         {
-            "name": "Nicky Portfolio1",
+            "name": "Money Up Up Up",
             "user_id": 1,
             "fake_money_balance": 5201314.99,
         },
         {
-            "name": "Nicky Portfolio2",
+            "name": "Tech Invest",
             "user_id": 1,
             "fake_money_balance": 8201314.99,
         },

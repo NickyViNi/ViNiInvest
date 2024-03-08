@@ -12,6 +12,8 @@ function UpdateTransactionForm({portfolios, transaction, allPortfolioObj, curren
     const [errors, setErrors] = useState();
     const [portfolioId, setPortfolioId] = useState(transaction.portfolio_id || "");
     const {setModalContent} = useModal();
+    // const type = transaction?.shares || "";
+    // const portfolioId = transaction.portfolio_id || "";
 
     const handleSubmit = async e => {
         e.preventDefault();

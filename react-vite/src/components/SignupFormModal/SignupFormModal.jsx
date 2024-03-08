@@ -6,9 +6,11 @@ import { isImageValid } from "../../helpers/imageCheck";
 import "./SignupForm.css";
 import ShortLoading from "../Loading/shortLoading";
 import { isValidEmail } from "../../helpers/emailValidate";
+import { useNavigate } from "react-router-dom";
 
 function SignupFormModal() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -57,6 +59,7 @@ function SignupFormModal() {
       setErrors(serverResponse);
     } else {
       closeModal();
+      navigate("/portfolios");
     }
   };
 

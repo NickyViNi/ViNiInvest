@@ -35,15 +35,9 @@ const PortfolioDetails = () => {
   const portfolioTransactions = currentPortfolio.transactions;
   const portfolioStocksArray = currentPortfolio.portfolio_stocks;
 
-
-  if (!user) {
-    alert("Please Log in");
-    return <Navigate to='/' replace={true} />;
-  }
-
   useEffect(() => {
     const getData = async () => {
-      const data = await dispatch(getPortfoliosThunk());
+      await dispatch(getPortfoliosThunk());
       if (portfolioId) await dispatch(getPortfolioByIdThunk(portfolioId));
       setIsLoaded(true)
     }
@@ -51,6 +45,12 @@ const PortfolioDetails = () => {
   }, [dispatch, portfolioId])
 
   useEffect(setNavbarBackgroundToWhite, []);
+
+  if (!user) {
+    alert("Please Log in");
+    return <Navigate to='/' replace={true} />;
+  }
+
 
 
   let currentStockDataObj = {}
@@ -119,7 +119,7 @@ const PortfolioDetails = () => {
 
         </div>
         <div className="shopping-btn" onClick={() => navigate(`/stocks`)} title="Click here view stocks to trade" >
-          <i class="fa-brands fa-shopify" ></i>
+          <i className="fa-brands fa-shopify" ></i>
         </div>
 
       </div> }

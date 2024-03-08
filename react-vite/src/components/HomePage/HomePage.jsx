@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./HomePage.css";
 import { setNavbarBackgroundToTransparent } from "../../utils/navbar";
 
 const HomePage = () => {
-    const [isLoaded, setIsLoaded] = useState(false);
+    // const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(setNavbarBackgroundToTransparent, []);
 
