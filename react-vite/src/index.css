@@ -26,3 +26,19 @@ button {
 body {
     margin: 0px
 }
+
+form input[type="file"] {
+    padding: 8px;
+    margin: 0;
+    text-align: center;
+    align-self: center;
+}
+
+form input[type="file"]::file-selector-button {
+  font-style: italic;
+  font-size: 13px;
+  border: 1.5px dotted blueviolet;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
