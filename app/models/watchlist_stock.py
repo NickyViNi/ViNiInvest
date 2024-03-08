@@ -25,5 +25,5 @@ class Watchlist_stock(db.Model):
             "id": self.id,
             "watchlist_id": self.watchlist_id,
             "stock_id": self.stock_id,
-            "created_at": str(self.created_at)
+            "stock": self.stock
         }

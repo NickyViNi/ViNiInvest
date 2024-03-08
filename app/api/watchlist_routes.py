@@ -10,26 +10,63 @@ watchlist_routes = Blueprint("watchlists", __name__)
 def watchlists():
     """Get all watchlists owned by current user"""
     user_watchlists = [watchlist.to_dict() for watchlist in current_user.watchlists]
-    return user_watchlists
+    return user_watchlists, 200
 
 
 @watchlist_routes.route("/<int:id>")
 @login_required
-def get_watchlist():
-    pass
+def get_watchlist(id):
+    """Get all stocks in a specific by id owned by current user"""
+    watchlist = Watchlist.query.get(id)
+
+    if not watchlist:
+        return {"message": "Watchlist couldn't be found"}, 404
+    if watchlist.user_id != current_user.id:
+        return redirect("/api/auth/forbidden")
+
+    return watchlist.to_dict(watchlist_stocks=False), 200
 
 
 @watchlist_routes.route("/", methods=["POST"])
 @login_required
 def create_watchlist():
+    """create a new watchlist"""
+    form = WatchlistForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+
+    if form.validate_on_submit():
+        new_watchlist = Watchlist(
+            name = form.data["name"],
+            user_id = current_user.id
+        )
+        db.session.add(new_watchlist)
+        db.session.commit()
+
+        return new_watchlist.to_dict(), 201
+    return form.errors, 400
+
+
+@watchlist_routes.route("/<int:watchlist_id>/stocks/<int:stock_id>", methods=["POST"])
+@login_required
+def add_stock_to_watchlist():
+    """addind a stock into a watchlist by id"""
     pass
+
 
 @watchlist_routes.route("/<int:id>", methods=["PUT"])
 @login_required
-def update_watchlist():
+def update_watchlist(id):
+    """update a watchlist name by id"""
     pass
 
-@watchlist_routes.route("/", methods=["DELETE"])
+@watchlist_routes.route("/<int:id>", methods=["DELETE"])
 @login_required
-def delete_watchlist():
+def delete_watchlist(id):
+    """delete a watchlist by id"""
+    pass
+
+@watchlist_routes.route("/<int:watchlist_id>/stocks/<int:stock_id>", methods=["DELETE"])
+@login_required
+def delete_watchlist(watchlist_id, stock_id):
+    """delete a stock from a watchlist by id"""
     pass

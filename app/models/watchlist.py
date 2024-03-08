@@ -21,10 +21,15 @@ class Watchlist(db.Model):
     """ many-to-one """
     user = db.relationship("User", back_populates="watchlists")
 
-    def to_dict(self):
-        return {
+    def to_dict(self, watchlist_stocks=False):
+        result = {
             "id": self.id,
             "name": self.name,
-            "user_id": self.user_id,
-            "created_at": str(self.created_at)
+            "user_id": self.user_id
         }
+        if watchlist_stocks:
+            result["watchlist_stocks"] = []
+            for ws in self.watchlist_stocks:
+                result["watchlist_stocks"].append(ws)
+
+        return result
