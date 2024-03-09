@@ -103,7 +103,7 @@ def delete_watchlist(id):
 
 @watchlist_routes.route("/<int:watchlist_id>/stocks/<int:stock_id>", methods=["DELETE"])
 @login_required
-def delete_watchlist(watchlist_id, stock_id):
+def delete_stock_from_watchlist(watchlist_id, stock_id):
     """delete a stock from a watchlist by id"""
     watchlist = Watchlist_stock.query.get(watchlist_id)
     stock = Stock.query.get(stock_id)
