@@ -8,12 +8,14 @@ import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import portfolioReducer from "./portfolio";
 import stockReducer from "./stocks";
+import watchlistReducer from "./watchlist";
 // import transactionReducer from "./transaction";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   portfolios: portfolioReducer,
   stocks: stockReducer,
+  watchlists: watchlistReducer,
   // transactions: transactionReducer
 });
 
