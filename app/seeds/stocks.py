@@ -2,7 +2,7 @@ from app.models import db, Stock, environment, SCHEMA
 from sqlalchemy.sql import text
 
 
-# Adds a demo user, you can add other users here if you want
+
 def seed_stocks():
     stocks = [
         {

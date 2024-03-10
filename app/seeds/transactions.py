@@ -3,7 +3,7 @@ from sqlalchemy.sql import text
 from datetime import datetime
 
 
-# Adds a demo user, you can add other users here if you want
+
 def seed_transactions():
     transactions = [
         {
