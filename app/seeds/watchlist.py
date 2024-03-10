@@ -1,4 +1,4 @@
-from app.models import db, Watchlist, Watchlist_stock, environment, SCHEMA
+from app.models import db, Watchlist, environment, SCHEMA
 from sqlalchemy.sql import text
 
 def seed_watchlists():
@@ -21,7 +21,7 @@ def seed_watchlists():
         }
     ]
 
-    [db.session.add(Watchlist_stock(**watchlist)) for watchlist in watchlists]
+    [db.session.add(Watchlist(**watchlist)) for watchlist in watchlists]
     db.session.commit()
 
 def undo_watchlists():
