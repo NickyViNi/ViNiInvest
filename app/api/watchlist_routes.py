@@ -48,12 +48,12 @@ def create_watchlist():
 
 @watchlist_routes.route("/<int:watchlist_id>/stocks/<int:stock_id>", methods=["POST"])
 @login_required
-def add_stock_to_watchlist(watchlist_id, stock_i):
+def add_stock_to_watchlist(watchlist_id, stock_id):
     """addind a stock into a watchlist by id"""
     watchlist = Watchlist.query.get(watchlist_id)
     new_watchlist_stock = Watchlist_stock (
         watchlist_id = watchlist_id,
-        stock_id = stock_i
+        stock_id = stock_id
     )
     db.session.add(new_watchlist_stock)
     db.session.commit()
@@ -105,14 +105,15 @@ def delete_watchlist(id):
 @login_required
 def delete_stock_from_watchlist(watchlist_id, stock_id):
     """delete a stock from a watchlist by id"""
-    watchlist = Watchlist_stock.query.get(watchlist_id)
+    watchlist = Watchlist.query.get(watchlist_id)
     stock = Stock.query.get(stock_id)
     if not watchlist:
         return {"message": "Watchlist couldn't be found"}, 404
     if not stock:
         return {"message": "Stock couldn't be found"}, 404
-    watchlist_stock = Watchlist_stock.query.filter(Watchlist_stock.watchlist_id == watchlist.id).filter(Watchlist_stock.stock_id == stock.id)
-    if not watchlist_routes:
+    watchlist_stock = Watchlist_stock.query.filter(Watchlist_stock.watchlist_id == watchlist.id).filter(Watchlist_stock.stock_id == stock.id).one_or_none()
+
+    if not watchlist_stock:
         return {"message": "Stock couldn't be found in this watchlist"}, 404
 
     db.session.delete(watchlist_stock)

@@ -30,6 +30,6 @@ class Watchlist(db.Model):
         if watchlist_stocks:
             result["watchlist_stocks"] = []
             for ws in self.watchlist_stocks:
-                result["watchlist_stocks"].append(ws)
+                result["watchlist_stocks"].append(ws.to_dict())
 
         return result
