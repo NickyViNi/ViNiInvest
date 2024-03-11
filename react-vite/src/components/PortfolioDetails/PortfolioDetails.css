@@ -173,3 +173,48 @@ tbody > tr:nth-of-type(even) {
     margin: 20px 0;
     box-shadow: 2px 2px 5px lightblue;
 }
+
+.portfolios-watchlists-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px
+}
+
+.watchlists-container {
+    align-self: flex-start;
+    margin-top: 150px;
+}
+
+.all-watchlists {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.watchlist-name {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 5px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid black;
+    padding-bottom: 5px;
+}
+
+.watchlist-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.watchlist {
+    width: 400px;
+}
+
+.watchlist-details {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+}

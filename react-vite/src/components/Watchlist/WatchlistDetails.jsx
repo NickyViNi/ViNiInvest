@@ -14,9 +14,14 @@ function WatchlistDetails ({watchlistId}) {
       }, [dispatch, watchlistId])
 
     return (
-        <div>
-            { watchlistObj?.watchlist_stocks?.map(s => <div>{s.stock.name} ${s.stock.newest_price.close_price}</div> )}
-        </div>
+        <>
+            { watchlistObj?.watchlist_stocks?.map(s => (
+              <div className="watchlist-details">
+                <span>{s.stock.name}</span>
+                <span>${s.stock.newest_price.close_price}</span>
+              </div>
+            ))}
+        </>
     )
 }
 

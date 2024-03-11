@@ -25,15 +25,22 @@ function LoadingWatchlist () {
         <h3>My Watchlists: </h3>
         { watchlistArray.map(w => {
           return (
-            <div>
-              <div>{ w.name }</div>
-              <button onClick={() => setWatchlistId()}>
-                <i class="fa-solid fa-angle-up"></i>
-              </button>
-              <button onClick={() => setWatchlistId(w.id)}>
-                <i class="fa-solid fa-angle-down"></i>
-              </button>
-              { watchlistId && watchlistId === w.id && <WatchlistDetails watchlistId={watchlistId} />}
+            <div className="watchlist">
+              <div className="watchlist-name">
+                <div>{ w.name }</div>
+                { watchlistId === w.id ? (
+                  <button onClick={() => setWatchlistId()}>
+                    <i class="fa-solid fa-angle-down"></i>
+                  </button>
+                ) : (
+                  <button onClick={() => setWatchlistId(w.id)}>
+                    <i class="fa-solid fa-angle-up"></i>
+                  </button>
+                )}
+              </div>
+              <div className="watchlist-body">
+                { watchlistId && watchlistId === w.id && <WatchlistDetails watchlistId={watchlistId} />}
+              </div>
             </div>
           )
         } )}
