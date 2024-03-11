@@ -15,6 +15,7 @@ import ConfirmFormModal from "../ConfirmFormModal.jsx/ConfirmFormModal";
 import convertDateTime from "../../helpers/convertDateTime";
 import Loading from "../Loading";
 import { setNavbarBackgroundToWhite } from "../../utils/navbar";
+import LoadingWatchlist from "../Watchlist/LoadingWatchlists";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -83,108 +84,113 @@ const PortfolioDetails = () => {
   if (!isLoaded) return <div style={{marginTop:"100px"}}><Loading /></div>
 
   return (
-    <div className="portfolio-details-container">
-      <div className="portfolios-list-create">
-        <div className="portfolios-list-container">
-          <label htmlFor="portfolio-select">Choose a Portfolio: </label>
-          <select name="portfolios" value={portfolioId} onChange={e => setPortfolioId(e.target.value)}>
-            <option value="">--Please choose a Portfolio--</option>
-            {portfolios.map(p => <option key={p.id} value={p.id}> {p.name} </option>)}
-          </select>
+    <div className="portfolios-watchlists-container">
+      <div className="portfolio-details-container">
+        <div className="portfolios-list-create">
+          <div className="portfolios-list-container">
+            <label htmlFor="portfolio-select">Choose a Portfolio: </label>
+            <select name="portfolios" value={portfolioId} onChange={e => setPortfolioId(e.target.value)}>
+              <option value="">--Please choose a Portfolio--</option>
+              {portfolios.map(p => <option key={p.id} value={p.id}> {p.name} </option>)}
+            </select>
+          </div>
+          <div>
+            <button className="create-new-portfolio-btn" onClick={() => setModalContent(<CreateNewPortfolio />)}>Create a New Portfolio</button>
+          </div>
         </div>
-        <div>
-          <button className="create-new-portfolio-btn" onClick={() => setModalContent(<CreateNewPortfolio />)}>Create a New Portfolio</button>
-        </div>
-      </div>
-      {currentPortfolio.name && <div className="portfolio-managment">
-        <label>{currentPortfolio.name} Money Balance: ${(currentPortfolio.fake_money_balance).toFixed(2)}</label>
-        <div className="update-icon">
-          <OpenModalButton
-            buttonText={<i className="fa-solid fa-gear" title="Update"></i>}
-            modalComponent={<UpdatePortfolio portfolioName={currentPortfolio?.name} portfolioId={currentPortfolio?.id} />}
-          />
-        </div>
-        <div className="clear-portfolio">
-          { currentStockData[0] > 0 ? <OpenModalButton
-            buttonText={<i className="fa-solid fa-trash-can" title="Delete: Sell All"></i>}
-            modalComponent={
-              <ConfirmFormModal
-                header="Confirm Sell All Stocks"
-                text="Are you sure you want to sell all the stocks in this portfolio?"
-                deleteCb={(e) => clearPortfolioStocks(e, currentPortfolio.id, currentPortfolio.name)}
-                cancelDeleteCb={closeModal}
-              />
-            }
-          /> : <i className="fa-solid fa-ban" title="No Stocks to Sell"></i>}
+        {currentPortfolio.name && <div className="portfolio-managment">
+          <label>{currentPortfolio.name} Money Balance: ${(currentPortfolio.fake_money_balance).toFixed(2)}</label>
+          <div className="update-icon">
+            <OpenModalButton
+              buttonText={<i className="fa-solid fa-gear" title="Update"></i>}
+              modalComponent={<UpdatePortfolio portfolioName={currentPortfolio?.name} portfolioId={currentPortfolio?.id} />}
+            />
+          </div>
+          <div className="clear-portfolio">
+            { currentStockData[0] > 0 ? <OpenModalButton
+              buttonText={<i className="fa-solid fa-trash-can" title="Delete: Sell All"></i>}
+              modalComponent={
+                <ConfirmFormModal
+                  header="Confirm Sell All Stocks"
+                  text="Are you sure you want to sell all the stocks in this portfolio?"
+                  deleteCb={(e) => clearPortfolioStocks(e, currentPortfolio.id, currentPortfolio.name)}
+                  cancelDeleteCb={closeModal}
+                />
+              }
+            /> : <i className="fa-solid fa-ban" title="No Stocks to Sell"></i>}
 
-        </div>
-        <div className="shopping-btn" onClick={() => navigate(`/stocks`)} title="Click here view stocks to trade" >
-          <i className="fa-brands fa-shopify" ></i>
-        </div>
+          </div>
+          <div className="shopping-btn" onClick={() => navigate(`/stocks`)} title="Click here view stocks to trade" >
+            <i className="fa-brands fa-shopify" ></i>
+          </div>
 
-      </div> }
-      <div className="current-portfolio-detals">
-        { currentStockData.length > 0 && <div className="portfolio-pie-chart">
-          <Pie data={chartData} />
-        </div>}
-        { currentStockData.length > 0 && <table className="portfolio-stocks">
+        </div> }
+        <div className="current-portfolio-detals">
+          { currentStockData.length > 0 && <div className="portfolio-pie-chart">
+            <Pie data={chartData} />
+          </div>}
+          { currentStockData.length > 0 && <table className="portfolio-stocks">
+              <thead>
+                <tr>
+                  <th scope="col" className="table-header" colSpan={3} >Stocks (Completed)</th>
+                </tr>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Shares</th>
+                <th scope="col">Market Value</th>
+              </tr>
+              </thead>
+              <tbody>
+                {portfolioStocksArray.length > 0 &&
+                 portfolioStocksArray.map(c => c.quantity > 0 && <tr key={c.id}>
+                  <th
+                    scope="row"
+                    onClick={() => navigate(`/stocks/${c.stock_id}`)} title="Click to view details"
+                    style={{cursor: "pointer"}}
+                  >{c.stock?.name}</th>
+                  <td>{c.quantity.toFixed(2)}</td>
+                  <td>{(c.quantity * c.stock?.newest_price.close_price).toFixed(2)}</td>
+                  </tr>)
+                }
+              </tbody>
+            </table> }
+          </div>
+
+
+          <div className="transactions-table"> { portfolioTransactions?.length > 0 && <table className="portfolio-transactions">
             <thead>
               <tr>
-                <th scope="col" className="table-header" colSpan={3} >Stocks (Completed)</th>
+                <th scope="col" className="table-header" colSpan={6}>Transactions</th>
               </tr>
-            <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Shares</th>
-              <th scope="col">Market Value</th>
-            </tr>
+              <tr>
+                <th scope="col">Stock Name</th>
+                <th scope="col">Shares</th>
+                <th scope="col">Type</th>
+                <th scope="col">Price Per Unit</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
+              </tr>
             </thead>
             <tbody>
-              {portfolioStocksArray.length > 0 &&
-               portfolioStocksArray.map(c => c.quantity > 0 && <tr key={c.id}>
-                <th
-                  scope="row"
+              {currentPortfolio &&
+                currentPortfolio?.transactions?.sort((a, b) =>b.id - a.id).map(c => <tr key={c?.id}>
+                  <th scope="row"
                   onClick={() => navigate(`/stocks/${c.stock_id}`)} title="Click to view details"
                   style={{cursor: "pointer"}}
-                >{c.stock?.name}</th>
-                <td>{c.quantity.toFixed(2)}</td>
-                <td>{(c.quantity * c.stock?.newest_price.close_price).toFixed(2)}</td>
+                  >{c.stock.name}</th>
+                  <td>{c.shares.toFixed(2)}</td>
+                  <td>{c.type}</td>
+                  <td>{c.price_per_unit}</td>
+                  <td>{convertDateTime(c.created_at)}</td>
+                  <td>{c.is_completed ? "Completed" : "Pending"}</td>
                 </tr>)
               }
             </tbody>
           </table> }
         </div>
-
-
-        <div className="transactions-table"> { portfolioTransactions?.length > 0 && <table className="portfolio-transactions">
-          <thead>
-            <tr>
-              <th scope="col" className="table-header" colSpan={6}>Transactions</th>
-            </tr>
-            <tr>
-              <th scope="col">Stock Name</th>
-              <th scope="col">Shares</th>
-              <th scope="col">Type</th>
-              <th scope="col">Price Per Unit</th>
-              <th scope="col">Date</th>
-              <th scope="col">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentPortfolio &&
-              currentPortfolio?.transactions?.sort((a, b) =>b.id - a.id).map(c => <tr key={c?.id}>
-                <th scope="row"
-                onClick={() => navigate(`/stocks/${c.stock_id}`)} title="Click to view details"
-                style={{cursor: "pointer"}}
-                >{c.stock.name}</th>
-                <td>{c.shares.toFixed(2)}</td>
-                <td>{c.type}</td>
-                <td>{c.price_per_unit}</td>
-                <td>{convertDateTime(c.created_at)}</td>
-                <td>{c.is_completed ? "Completed" : "Pending"}</td>
-              </tr>)
-            }
-          </tbody>
-        </table> }
+      </div>
+      <div className="watchlists-container">
+        <LoadingWatchlist />
       </div>
     </div>
   )
