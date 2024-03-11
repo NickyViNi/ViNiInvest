@@ -15,7 +15,7 @@ function WatchlistDetails ({watchlistId}) {
 
     return (
         <div>
-            { watchlistObj?.watchlist_stocks?.map(s => <div>{s.stock.name}</div> )}
+            { watchlistObj?.watchlist_stocks?.map(s => <div>{s.stock.name} ${s.stock.newest_price.close_price}</div> )}
         </div>
     )
 }

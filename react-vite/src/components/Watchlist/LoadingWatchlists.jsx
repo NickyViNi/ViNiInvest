@@ -22,6 +22,7 @@ function LoadingWatchlist () {
 
     return (
       <div className="all-watchlists">
+        <h3>My Watchlists: </h3>
         { watchlistArray.map(w => {
           return (
             <div>
