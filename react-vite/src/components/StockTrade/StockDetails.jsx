@@ -46,6 +46,7 @@ function StockDetails () {
   const [errors, setErrors] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
   const [portfolioId, setPortfolioId] = useState();
+  const [news, setNews] = useState();
 
   const user = useSelector(state => state.session.user);
   const currentStock = useSelector(state => state.stocks.currentStock);
@@ -54,6 +55,8 @@ function StockDetails () {
   const watchlistArr = Object.values(watchlistObj);
   const portfolios = Object.values(allPortfolioObj);
 
+  const apiKey = 'TsAGVWpULmpxbIgNpbwPP_Lz73wgCQ1H';
+
   useEffect(setNavbarBackgroundToWhite, []);
 
   useEffect(() => {
@@ -61,10 +64,31 @@ function StockDetails () {
       await dispatch(getWatchlistsThunk());
       await dispatch(getPortfoliosThunk());
       await dispatch(getStockByIdThunk(stockId));
+
+       // Fetch News for current stock
+
+      const newsRes = await fetch(`https://api.polygon.io/v2/reference/news?ticker=${currentStock.symbol}&apiKey=${apiKey}`)
+       .then(response => {
+         if (!response.ok) throw new Error(`Failed to fetch news for ${currentStock.symbol}`);
+         return response.json();
+       })
+       .then(data => data.results)
+       .catch(error => console.error(`Error fetching news for ${currentStock.symbol}:`, error))
+
+      const newsResults = await Promise.all(newsRes);
+      // Combine all articles into one array
+      const newsArr = newsResults.flat();
+      setNews(newsArr)
       setIsLoaded(true);
     }
+
     getData();
-  }, [dispatch, stockId]);
+    const interval = setInterval(getData, 600000 * 60); // Refetch data every hour
+    return () => clearInterval(interval);
+
+  }, [dispatch, stockId, currentStock.symbol]);
+
+  console.log("🌟🌟🌟🌟🌟🌟🌟🌟🌟", news, currentStock.symbol)
 
   if (!user) {
     alert("Please Log in");
@@ -187,6 +211,7 @@ function StockDetails () {
 
 
   return (
+    <>
     <div className="stock-detail-container">
       <div className='stock-shoping-star-icon'>
         <div className="shopping-btn" onClick={() => navigate(`/stocks`)} title="Click here view more stocks" >
@@ -204,7 +229,7 @@ function StockDetails () {
           <div className="buy-sell-btns">
             <div className="green" onClick={e => {
               setType("buy");
-              const sell = document.querySelector(".red");lis
+              const sell = document.querySelector(".red");
               if (sell) sell.style.backgroundColor = "white";
               e.target.style.backgroundColor = "pink";
             }}>Buy</div>
@@ -346,6 +371,20 @@ function StockDetails () {
           </tbody>
       </table> }
     </div>
+    <div className='news-list-container'>
+      <h3 className="news-heading">Latest News About {currentStock?.name}</h3>
+      <ul className="news-list">
+        {news.slice(0, 10).map(article => (
+          <li key={article.id} className="news-list-item">
+            <div className="news-info">
+              <img src={article.image_url} alt={article.title} />
+              <a href={article.article_url} target="_blank" rel="noopener noreferrer">{article.title}</a>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+    </>
   )
 }
 

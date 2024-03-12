@@ -93,12 +93,12 @@
     gap: 5px;
 }
 
+
 .remove-stock-from-watchlist {
     height: 125px;
-    scrollbar-color: var(--chart-blue) transparent;
     overflow-x: hidden;
     overflow-y: auto;
-
+    scrollbar-color: lightGrey transparent;
     background-color: var(--chart-blue);
     border: 1px solid var(--chart-blue);
     box-shadow: 3px 3px 2px lightgray;
@@ -121,13 +121,14 @@
 
 .remove-stock-from-watchlist-map button {
     color: rgb(250, 144, 162);
-    background-color: var(--chart-blue);
+    background-color: white;
     border: 1px solid var(--chart-blue);
     box-shadow: 3px 3px 2px lightgray;
     border-radius: 10px;
     padding: 5px;
     align-items: center;
     margin-bottom: 3px;
+    margin-right: 9px;
 }
 
 .update-watchlist-container {
