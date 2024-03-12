@@ -36,7 +36,7 @@ function CreateNewWatchlist () {
                     onChange={e => setName(e.target.value)}
                 />
                 {errors && <p className="modal-errors">{errors.name}</p>}
-                <button type="submit">
+                <button type="submit" className="handle-submit-btn">
                     Submit
                 </button>
             </form>

@@ -154,7 +154,7 @@ function SignupFormModal() {
         {imageIsUploading && <ShortLoading />}
         <button
           type="submit"
-          className={`btn-submit ${inputInvalid() ? 'disabled' : ''}`}
+          className={`handle-submit-btn ${inputInvalid() ? 'disabled' : ''}`}
           disabled={inputInvalid()}
         >
           Submit

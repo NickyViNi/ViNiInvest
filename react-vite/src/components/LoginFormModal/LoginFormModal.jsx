@@ -57,7 +57,7 @@ function LoginFormModal() {
           required
         />
         {errors.password && <p className="credential-errors">{errors.password}</p>}
-        <button type="submit" className="credential-submit-btn" >Log In</button>
+        <button type="submit" className="handle-submit-btn" >Log In</button>
         <div id='demo-user-btn' onClick={e => handleSubmit(e, 'nickyli', 'password')}>Demo User</div>
       </form>
     </>

@@ -48,7 +48,7 @@ const UpdatePortfolio = ({portfolioName, portfolioId}) => {
                     onChange={e => setMoney(e.target.value)}
                 />
                 {errors && <p className="modal-errors">{errors.fake_money_balance}</p>}
-                <button type="submit">
+                <button type="submit" className="handle-submit-btn">
                     Submit
                 </button>
             </form>

@@ -62,7 +62,7 @@ const CreateNewPortfolio = () => {
                     onChange={e => setBalance(e.target.value)}
                 />
                 {error && <p className="modal-errors">{error.fake_money_balance}</p>}
-                <button type="submit">
+                <button type="submit" className="handle-submit-btn">
                     Submit
                 </button>
             </form>

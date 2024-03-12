@@ -13,32 +13,11 @@ form {
     text-align: center;
 }
 
-.sign-in-form > label {
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.sign-in-form > input {
-    background-color: rgb(204, 219, 237);
-    padding-left: 5px;
-    border-radius: 3px;
-    font-size: 15px;
-    border: 1px solid gray;
-    margin-bottom: 10px;
-}
 
 .credential-errors  {
     padding-top: 5px;
     padding-bottom: 5px;
     color: red;
-}
-
-.credential-submit-btn {
-    margin: 1em 0 1em;
-    border-radius: 3px;
-    border: 1px solid gray;
-    font-size: 15px;
-    background-color: rgb(233, 244, 205);
 }
 
 .disabled {
