@@ -160,3 +160,7 @@
     font-weight: bold;
     box-shadow: 3px 3px 5px green;
 }
+
+.watchlist-icons i {
+    color: rgb(254, 165, 180)
+}

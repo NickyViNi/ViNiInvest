@@ -73,9 +73,9 @@ function LoadingWatchlist () {
                     />
                   </div>
                   { watchlistId && watchlistId === w.id ? (
-                    <i className="fa-solid fa-angle-down" onClick={() => setWatchlistId()} ></i>
+                    <i title="Close Stocks List" className="fa-solid fa-angle-down" onClick={() => setWatchlistId()} ></i>
                   ) : (
-                    <i className="fa-solid fa-angle-up" onClick={() => setWatchlistId(w.id)} ></i>
+                    <i title="Open Stocks List" className="fa-solid fa-angle-up" onClick={() => setWatchlistId(w.id)} ></i>
                   )}
               </div>
               </div>
