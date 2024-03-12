@@ -29,6 +29,7 @@ class Watchlist(db.Model):
         }
         if watchlist_stocks:
             result["watchlist_stocks"] = []
+            print([s.to_dict() for s in self.watchlist_stocks],'2️⃣2️⃣2️⃣')
             for ws in self.watchlist_stocks:
                 result["watchlist_stocks"].append(ws.to_dict())
 

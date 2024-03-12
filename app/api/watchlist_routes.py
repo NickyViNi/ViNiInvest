@@ -9,7 +9,7 @@ watchlist_routes = Blueprint("watchlists", __name__)
 @login_required
 def watchlists():
     """Get all watchlists owned by current user"""
-    user_watchlists = [watchlist.to_dict() for watchlist in current_user.watchlists]
+    user_watchlists = [watchlist.to_dict(watchlist_stocks=True) for watchlist in current_user.watchlists]
     return user_watchlists, 200
 
 
@@ -49,11 +49,17 @@ def create_watchlist():
     return form.errors, 400
 
 
-@watchlist_routes.route("/<int:watchlist_id>/stocks/<int:stock_id>", methods=["POST"])
+@watchlist_routes.route("/<int:watchlist_id>/stocks/<int:stock_id>")
 @login_required
 def add_stock_to_watchlist(watchlist_id, stock_id):
     """addind a stock into a watchlist by id"""
+
     watchlist = Watchlist.query.get(watchlist_id)
+    watchlist_stock = Watchlist_stock.query.filter(Watchlist_stock.watchlist_id == watchlist_id).filter(Watchlist_stock.stock_id == stock_id).one_or_none()
+
+    if watchlist_stock:
+        return { "message": "This stock is already in the watchlist" }, 409
+
     new_watchlist_stock = Watchlist_stock (
         watchlist_id = watchlist_id,
         stock_id = stock_id
@@ -114,7 +120,7 @@ def delete_stock_from_watchlist(watchlist_id, stock_id):
         return {"message": "Watchlist couldn't be found"}, 404
     if not stock:
         return {"message": "Stock couldn't be found"}, 404
-    watchlist_stock = Watchlist_stock.query.filter(Watchlist_stock.watchlist_id == watchlist.id).filter(Watchlist_stock.stock_id == stock.id).one_or_none()
+    watchlist_stock = Watchlist_stock.query.filter(Watchlist_stock.watchlist_id == watchlist_id).filter(Watchlist_stock.stock_id == stock_id).one_or_none()
 
     if not watchlist_stock:
         return {"message": "Stock couldn't be found in this watchlist"}, 404

@@ -51,7 +51,8 @@
     max-height: 250px;
 }
 
-.create-new-watchlist-container h2 {
+.create-new-watchlist-container h2,
+.update-watchlist-container h2 {
     color: purple;
     text-align: center;
 }
@@ -85,4 +86,20 @@
 .delete-watchlist button {
     border: none;
     background-color: white;
+}
+
+.watchlist-icons {
+    display: flex;
+    gap: 5px;
+}
+
+.remove-stock-from-watchlist {
+    height: 100px;
+    scrollbar-color: lightGray transparent;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.update-watchlist-container {
+    height: 350px;
 }

@@ -1,19 +1,34 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { getStockByIdThunk } from "../../redux/stocks";
-import Loading from "../Loading";
-import { useEffect, useState } from "react";
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { useModal } from "../../context/Modal";
+import { getStockByIdThunk } from "../../redux/stocks";
+import { getWatchlistsThunk } from "../../redux/watchlist";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setNavbarBackgroundToWhite } from "../../utils/navbar";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { getPortfolioByIdThunk, getPortfoliosThunk } from "../../redux/portfolio";
+import {
+  confirmTransactionThunk,
+  deleteTransactionThunk,
+  postTransactionThunk
+} from "../../redux/transaction";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js';
+import Loading from "../Loading";
+import OpenModalButton from "../OpenModalButton";
 import convertDate from '../../helpers/convertDate';
 import convertDateTime from "../../helpers/convertDateTime";
-import { getPortfolioByIdThunk, getPortfoliosThunk } from "../../redux/portfolio";
-import { confirmTransactionThunk, deleteTransactionThunk, postTransactionThunk } from "../../redux/transaction";
-import { useModal } from "../../context/Modal";
-import UpdateTransactionForm from "../UpdateTransactionForm/UpdateTransactionForm";
-import { setNavbarBackgroundToWhite } from "../../utils/navbar";
-import OpenModalButton from "../OpenModalButton";
 import ConfirmFormModal from "../ConfirmFormModal.jsx/ConfirmFormModal";
+import AddToWatchlistModal from "../AddToWatchlistModal/AddToWatchlistModal";
+import UpdateTransactionForm from "../UpdateTransactionForm/UpdateTransactionForm";
 
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -22,22 +37,28 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 function StockDetails () {
   const dispatch = useDispatch();
   const navigate = useNavigate()
+
   const { stockId } = useParams();
-  const [portfolioId, setPortfolioId] = useState();
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [shares, setShares] = useState();
+  const { setModalContent, closeModal } = useModal();
+
   const [type, setType] = useState();
+  const [shares, setShares] = useState();
   const [errors, setErrors] = useState();
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [portfolioId, setPortfolioId] = useState();
+
+  const user = useSelector(state => state.session.user);
   const currentStock = useSelector(state => state.stocks.currentStock);
   const allPortfolioObj = useSelector(state => state.portfolios.allPortfolios);
+  const watchlistObj = useSelector(state => state.watchlists.allWatchlists);
+  const watchlistArr = Object.values(watchlistObj);
   const portfolios = Object.values(allPortfolioObj);
-  const {setModalContent, closeModal} =useModal();
-  const user = useSelector(state => state.session.user);
 
   useEffect(setNavbarBackgroundToWhite, []);
 
   useEffect(() => {
     const getData = async () => {
+      await dispatch(getWatchlistsThunk());
       await dispatch(getPortfoliosThunk());
       await dispatch(getStockByIdThunk(stockId));
       setIsLoaded(true);
@@ -152,14 +173,27 @@ function StockDetails () {
       setModalContent(<h2 className="success-alert">{currentStock.name} transaction is completed!</h2>)
     }
 
+  const showAddToWatchlistModal = () => {
+    setModalContent(
+      <AddToWatchlistModal
+        watchlistArr={watchlistArr}
+        stockId={stockId}
+      />
+    )
+  }
+
   if (!isLoaded) return <div style={{marginTop:"100px"}}><Loading /></div>
+
 
   return (
     <div className="stock-detail-container">
 
       <div style={{marginTop:"100px"}} className="shopping-btn" onClick={() => navigate(`/stocks`)} title="Click here view more stocks" >
           <i className="fa-brands fa-shopify" ></i>
-        </div>
+      </div>
+      <div className="add-to-watchlist-btn">
+        <i className="fa-regular fa-star" onClick={showAddToWatchlistModal}></i>
+      </div>
       <div id="current-stock-line">
           <Line options={options} data={data} />
       </div>
@@ -168,7 +202,7 @@ function StockDetails () {
           <div className="buy-sell-btns">
             <div className="green" onClick={e => {
               setType("buy");
-              const sell = document.querySelector(".red");
+              const sell = document.querySelector(".red");lis
               if (sell) sell.style.backgroundColor = "white";
               e.target.style.backgroundColor = "pink";
             }}>Buy</div>

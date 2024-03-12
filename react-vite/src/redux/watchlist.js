@@ -6,6 +6,7 @@ const UPDATE_WATCHLIST = "watchlists/updateWatchlist"
 const DELETE_WATCHLIST = "watchlists/deleteWatchlist"
 const RESET_WATCHLIST = "watchlists/resetWatchlist"
 const DELETE_STOCK_IN_WATCHLIST = "watchlists/deleteStockInWatchlist"
+// const ADD_STOCK_TO_WATCHLIST = "watchlists/addStockToWatchlist"
 
 
 // (2) action
@@ -44,10 +45,11 @@ export const deleteWatchlistAction = (watchlistId) => {
     }
 }
 
-export const deleteStockInWatchlistAction = (watchlistStockId) => {
+export const deleteStockInWatchlistAction = (watchlistId, stockId) => {
     return {
         type: DELETE_STOCK_IN_WATCHLIST,
-        watchlistStockId
+        watchlistId,
+        stockId,
     }
 }
 
@@ -56,6 +58,13 @@ export const resetWatchlistAction = () => {
         type: RESET_WATCHLIST
     }
 }
+
+// export const addStockToWatchlist = (watchlist) => {
+//     return {
+//         type: ADD_STOCK_TO_WATCHLIST,
+//         watchlist
+//     }
+// }
 
 // (3) thunk
 export const getWatchlistsThunk = () => async (dispatch) => {
@@ -145,6 +154,18 @@ export const deleteStockInWatchlistThunk = (watchlistId, stockId) => async (disp
     return data;
 }
 
+export const addStockToWatchlistThunk = (watchlistId, stockId) => async (dispatch) => {
+    const res = await fetch(`/api/watchlists/${watchlistId}/stocks/${stockId}`)
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        return {errors: data};
+    }
+
+    return data
+}
+
 // (4) reducer
 const initialState = { allWatchlists: {}, currentWatchlist: {} }
 const watchlistReducer = (state = initialState, action) => {
@@ -183,14 +204,22 @@ const watchlistReducer = (state = initialState, action) => {
         case DELETE_WATCHLIST: {
             const newWatchlist = {...state};
             delete newWatchlist.allWatchlists[action.watchlistId];
-            if (newWatchlist.currentWatchlist.id === watchlistId) {
+            if (newWatchlist.currentWatchlist.id === action.watchlistId) {
                 newWatchlist.currentWatchlist = {}
             }
             return newWatchlist;
         }
         case DELETE_STOCK_IN_WATCHLIST: {
             const newWatchlist = {...state};
-            newWatchlist.currentWatchlist.watchlist_stocks.splice(action.watchlistStockId, 1);
+
+            const stocks = newWatchlist.allWatchlists[action.watchlistId].watchlist_stocks;
+
+            newWatchlist.allWatchlists[action.watchlistId].watchlist_stocks = stocks.filter(stock => stock.id !== action.stockId)
+
+            const stocks2 = newWatchlist.currentWatchlist.watchlist_stocks;
+
+            newWatchlist.currentWatchlist.watchlist_stocks = stocks2.filter(stock => stock.id !== action.stockId);
+
             return newWatchlist;
         }
         case RESET_WATCHLIST: {

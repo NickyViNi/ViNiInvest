@@ -50,35 +50,37 @@ function LoadingWatchlist () {
             <div className="watchlist" key={w?.id}>
               <div className="watchlist-name">
                 <div>{ w?.name }</div>
-                <div className="update-watchlist">
-                  <OpenModalButton
-                    buttonText={<i className="fa-solid fa-pen-to-square" title="Update"></i>}
-                    modalComponent={
-                      <UpdateWatchlist watchlistId={w?.id} watchlistName={w?.name}/>
-                    }
-                  />
-                </div>
-                <div className="delete-watchlist">
-                  <OpenModalButton
-                    buttonText={<i className="fa-solid fa-trash" title="Delete"></i>}
-                    modalComponent={
-                      <ConfirmFormModal
-                        header="Confirm Delete Watchlist"
-                        text="Are you sure you want to delete this watchlist?"
-                        deleteCb={(e) => deleteWatchlist(e, w?.id, w?.name)}
-                        cancelDeleteCb={closeModal}
-                      />
-                    }
-                  />
-                </div>
-                { watchlistId && watchlistId === w.id ? (
-                  <i className="fa-solid fa-angle-down" onClick={() => setWatchlistId()} ></i>
-                ) : (
-                  <i className="fa-solid fa-angle-up" onClick={() => setWatchlistId(w.id)} ></i>
-                )}
+                <div className="watchlist-icons">
+                  <div className="update-watchlist">
+                    <OpenModalButton
+                      buttonText={<i className="fa-solid fa-pen-to-square" title="Update"></i>}
+                      modalComponent={
+                        <UpdateWatchlist watchlistId={w?.id} watchlistName={w?.name} stocksArr={w.watchlist_stocks}/>
+                      }
+                    />
+                  </div>
+                  <div className="delete-watchlist">
+                    <OpenModalButton
+                      buttonText={<i className="fa-solid fa-trash" title="Delete"></i>}
+                      modalComponent={
+                        <ConfirmFormModal
+                          header="Confirm Delete Watchlist"
+                          text="Are you sure you want to delete this watchlist?"
+                          deleteCb={(e) => deleteWatchlist(e, w?.id, w?.name)}
+                          cancelDeleteCb={closeModal}
+                        />
+                      }
+                    />
+                  </div>
+                  { watchlistId && watchlistId === w.id ? (
+                    <i className="fa-solid fa-angle-down" onClick={() => setWatchlistId()} ></i>
+                  ) : (
+                    <i className="fa-solid fa-angle-up" onClick={() => setWatchlistId(w.id)} ></i>
+                  )}
+              </div>
               </div>
               <div className="watchlist-body">
-                { watchlistId && watchlistId === w.id && <WatchlistDetails watchlistId={watchlistId} />}
+                  { watchlistId && watchlistId === w.id && <WatchlistDetails watchlistId={watchlistId} />}
               </div>
             </div>
           )
