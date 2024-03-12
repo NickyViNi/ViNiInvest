@@ -48,7 +48,7 @@
 }
 
 .create-new-watchlist-container {
-    max-height: 200px;
+    max-height: 250px;
 }
 
 .create-new-watchlist-container h2 {
@@ -79,4 +79,10 @@
 .handle-submit-btn:hover {
     font-weight: bold;
     box-shadow: 3px 3px 5px green;
+}
+
+.update-watchlist button,
+.delete-watchlist button {
+    border: none;
+    background-color: white;
 }

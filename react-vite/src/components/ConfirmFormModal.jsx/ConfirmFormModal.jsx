@@ -1,6 +1,6 @@
 import "./ConfirmFormModal.css";
 
-function ConfirmDeleteFormModal({ header, text, deleteCb, cancelDeleteCb }) {
+function ConfirmFormModal({ header, text, deleteCb, cancelDeleteCb }) {
   function Question() {
     return <p>{text}</p>;
   }
@@ -27,4 +27,4 @@ function ConfirmDeleteFormModal({ header, text, deleteCb, cancelDeleteCb }) {
   );
 }
 
-export default ConfirmDeleteFormModal;
+export default ConfirmFormModal;

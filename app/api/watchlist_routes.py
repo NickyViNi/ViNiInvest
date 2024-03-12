@@ -35,6 +35,9 @@ def create_watchlist():
     form["csrf_token"].data = request.cookies["csrf_token"]
 
     if form.validate_on_submit():
+        watchlist_in_db = Watchlist.query.filter(Watchlist.name == form.data["name"]).first()
+        if watchlist_in_db:
+            return {"name":  "This name is already taken"}, 409
         new_watchlist = Watchlist(
             name = form.data["name"],
             user_id = current_user.id

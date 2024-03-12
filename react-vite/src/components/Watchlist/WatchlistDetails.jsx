@@ -18,13 +18,13 @@ function WatchlistDetails ({watchlistId}) {
     return (
         <>
             { watchlistObj?.watchlist_stocks?.map(s => (
-              <div className="watchlist-details"
+              <div key={s?.id} className="watchlist-details"
                 title="Click to View Details"
-                onClick={() => navigate(`/stocks/${s.id}`)}
+                onClick={() => navigate(`/stocks/${s?.id}`)}
                 style={{cursor:"pointer"}}
               >
-                <span>{s.stock.name}</span>
-                <span>${s.stock.newest_price.close_price}</span>
+                <span>{s?.stock.name}</span>
+                <span>${s?.stock.newest_price.close_price}</span>
               </div>
             ))}
         </>
