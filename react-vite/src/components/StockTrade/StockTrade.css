@@ -170,3 +170,10 @@
 #stock-tile-container {
     cursor: pointer;
 }
+
+.stock-shoping-star-icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 110px;
+}

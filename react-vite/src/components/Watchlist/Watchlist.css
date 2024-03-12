@@ -103,3 +103,30 @@
 .update-watchlist-container {
     height: 350px;
 }
+
+.add-stock-to-a-watchlist-container h2 {
+ color: purple;
+ margin-bottom: 40px;
+}
+
+.add-stock-to-a-watchlist-container {
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-stock-to-a-watchlist-container button {
+    color: rgb(250, 144, 162);
+    background-color: var(--chart-blue);
+    border: 1px solid var(--chart-blue);
+    box-shadow: 3px 3px 2px lightgray;
+    border-radius: 10px;
+    padding: 4px 0px;
+    align-items: center;
+    margin-top: 20px
+}
+
+.add-stock-to-a-watchlist-container button:hover {
+    font-weight: bold;
+    box-shadow: 3px 3px 5px green;
+}

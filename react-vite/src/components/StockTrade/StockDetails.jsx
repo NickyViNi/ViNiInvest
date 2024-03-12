@@ -178,6 +178,7 @@ function StockDetails () {
       <AddToWatchlistModal
         watchlistArr={watchlistArr}
         stockId={stockId}
+        stockName={currentStock?.name}
       />
     )
   }
@@ -187,12 +188,13 @@ function StockDetails () {
 
   return (
     <div className="stock-detail-container">
-
-      <div style={{marginTop:"100px"}} className="shopping-btn" onClick={() => navigate(`/stocks`)} title="Click here view more stocks" >
-          <i className="fa-brands fa-shopify" ></i>
-      </div>
-      <div className="add-to-watchlist-btn">
-        <i className="fa-regular fa-star" onClick={showAddToWatchlistModal}></i>
+      <div className='stock-shoping-star-icon'>
+        <div className="shopping-btn" onClick={() => navigate(`/stocks`)} title="Click here view more stocks" >
+            <i className="fa-brands fa-shopify" ></i>
+        </div>
+        <div className="add-to-watchlist-btn">
+          <i className="fa-regular fa-star" onClick={showAddToWatchlistModal} title='Add to Watchlist'></i>
+        </div>
       </div>
       <div id="current-stock-line">
           <Line options={options} data={data} />
