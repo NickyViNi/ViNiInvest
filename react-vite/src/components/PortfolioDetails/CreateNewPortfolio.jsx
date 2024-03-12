@@ -27,7 +27,8 @@ const CreateNewPortfolio = () => {
             return setError(data.errors);
         }
 
-        setModalContent(<>
+        setModalContent(
+        <>
             <h2 className="success-alert">{`Successfully Created ${name} Portfolio`}</h2>
             <div><ShortLoading /></div>
         </>)

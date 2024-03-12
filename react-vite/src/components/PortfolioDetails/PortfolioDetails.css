@@ -53,6 +53,7 @@ tbody > tr:nth-of-type(even) {
 .portfolios-list-container > label {
     color: purple;
     margin-right: 5px;
+    font-weight: bold;
 }
 
 .portfolios-list-container > select {
@@ -79,12 +80,14 @@ tbody > tr:nth-of-type(even) {
     margin-bottom: 20px;
     color: rgb(249, 137, 156);
     align-items: center;
+    font-weight: bold;
 }
 
 .portfolio-managment > button,
 .fa-gear,
 .fa-trash-can,
-.fa-ban {
+.fa-ban,
+.fa-plus {
     margin-left: 15px;
     color: green;
     background-color: var(--chart-blue);
@@ -178,43 +181,4 @@ tbody > tr:nth-of-type(even) {
     display: flex;
     justify-content: center;
     gap: 50px
-}
-
-.watchlists-container {
-    align-self: flex-start;
-    margin-top: 150px;
-}
-
-.all-watchlists {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.watchlist-name {
-    display: flex;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 5px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid black;
-    padding-bottom: 5px;
-}
-
-.watchlist-body {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    border-radius: 5px;
-    padding: 5px;
-}
-
-.watchlist {
-    width: 400px;
-}
-
-.watchlist-details {
-    display: flex;
-    justify-content: space-between;
-    gap: 40px;
 }
