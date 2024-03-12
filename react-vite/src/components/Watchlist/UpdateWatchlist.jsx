@@ -34,7 +34,7 @@ function UpdateWatchlist ({watchlistId, watchlistName, stocksArr}) {
         <div className="update-watchlist-container">
             <h2>Update a Watchlist</h2>
             <form onSubmit={handleSubmit} className="create-new-watchlist-form">
-                <label>Watchlist Name</label>
+                <label>Watchlist Name:</label>
                 <input
                     type="text"
                     spellCheck={false}
@@ -43,8 +43,9 @@ function UpdateWatchlist ({watchlistId, watchlistName, stocksArr}) {
                     onChange={e => setName(e.target.value)}
                 />
                 {errors && <p className="modal-errors">{errors.name}</p>}
+                    <h4>Stocks List:</h4>
                 <div className="remove-stock-from-watchlist">
-                    {stocksArr?.map(s => <div id={s.stock_id} key={s.stock_id}>
+                    {stocksArr?.map(s => <div className="remove-stock-from-watchlist-map" id={s.stock_id} key={s.stock_id}>
                     <span>{s?.stock?.name}</span>
                     {/* <button onClick={() => removeStockFromWatchlist(e, s.stock_id)}>Remove</button> */}
                     <button onClick={e => {

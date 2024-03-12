@@ -94,14 +94,44 @@
 }
 
 .remove-stock-from-watchlist {
-    height: 100px;
-    scrollbar-color: lightGray transparent;
+    height: 125px;
+    scrollbar-color: var(--chart-blue) transparent;
     overflow-x: hidden;
     overflow-y: auto;
+
+    background-color: var(--chart-blue);
+    border: 1px solid var(--chart-blue);
+    box-shadow: 3px 3px 2px lightgray;
+    border-radius: 10px;
+    padding: 6px;
+    margin-top: -10px;
+}
+
+.remove-stock-from-watchlist-map {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+
+}
+
+.remove-stock-from-watchlist-map span {
+    color: rgb(37, 97, 0);
+    font-weight: bolder;
+}
+
+.remove-stock-from-watchlist-map button {
+    color: rgb(250, 144, 162);
+    background-color: var(--chart-blue);
+    border: 1px solid var(--chart-blue);
+    box-shadow: 3px 3px 2px lightgray;
+    border-radius: 10px;
+    padding: 5px;
+    align-items: center;
+    margin-bottom: 3px;
 }
 
 .update-watchlist-container {
-    height: 350px;
+    height: 400px;
 }
 
 .add-stock-to-a-watchlist-container h2 {
