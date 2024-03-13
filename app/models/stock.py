@@ -22,6 +22,8 @@ class Stock(db.Model):
     portfolio_stocks = db.relationship("Portfolio_stock", back_populates="stock_pk")
     watchlist_stocks = db.relationship("Watchlist_stock", back_populates="stock", cascade="all, delete-orphan")
 
+    stock_analyses = db.relationship("Analysis", back_populates="stock", cascade="all, delete-orphan")
+
 
     @classmethod
     def validate(cls, data):

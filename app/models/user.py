@@ -29,6 +29,8 @@ class User(db.Model, UserMixin):
     user_portfolios = db.relationship("Portfolio", back_populates="owner", cascade="all, delete-orphan")
     watchlists = db.relationship("Watchlist", back_populates="user", cascade="all, delete-orphan")
 
+    user_analyses = db.relationship("Analysis", back_populates="user", cascade="all, delete-orphan")
+
 
 
     @classmethod
