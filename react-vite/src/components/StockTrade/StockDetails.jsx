@@ -83,12 +83,11 @@ function StockDetails () {
     }
 
     getData();
-    const interval = setInterval(getData, 600000 * 60); // Refetch data every hour
+    const interval = setInterval(getData, 600000 * 60 * 24); // Refetch data every day
     return () => clearInterval(interval);
 
   }, [dispatch, stockId, currentStock.symbol]);
 
-  console.log("🌟🌟🌟🌟🌟🌟🌟🌟🌟", news, currentStock.symbol)
 
   if (!user) {
     alert("Please Log in");
@@ -205,6 +204,14 @@ function StockDetails () {
         stockName={currentStock?.name}
       />
     )
+  }
+
+  const showAnalysisForm = () => {
+
+  }
+
+  const showConfirmDeleteAnalysis = () => {
+
   }
 
   if (!isLoaded) return <div style={{marginTop:"100px"}}><Loading /></div>
@@ -383,6 +390,32 @@ function StockDetails () {
             </li>
           ))}
         </ul>
+      </div>
+      <div className='analyses-list-container'>
+        <h3 className="news-heading">Analyses:</h3>
+        {!currentStock.stock_analyses.find(sa => sa.user.id === user.id) && (
+          <div className='analysis-create' onClick={showAnalysisForm}>Create new analysis</div>
+        )}
+        <div className="analyses">
+          { currentStock.stock_analyses && currentStock.stock_analyses.map(sa => {
+            return (
+              <div className='analysis'>
+                <div className='analysis-user-profile'>
+                  <div><img src={sa.user.profile_image_url} alt="avatar" /></div>
+                  <div>{ sa.user.first_name }, { sa.user.last_name }</div>
+                </div>
+                {sa.user.id === user.id && (
+                  <div className='analysis-buttons'>
+                    <div onClick={showAnalysisForm}>Edit</div>
+                    <div onClick={showConfirmDeleteAnalysis}>Delete</div>
+                  </div>
+                )}
+                <div className='analysis-content'>{ sa.content }</div>
+                <div className='analysis-recommendation'>Recommend: { sa.recommendation }</div>
+              </div>
+            )
+          })}
+        </div>
       </div>
     </div>
   )

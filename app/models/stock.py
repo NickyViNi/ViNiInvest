@@ -33,7 +33,7 @@ class Stock(db.Model):
             return { "symbol": "Symbol is required" }, 400
         return True
 
-    def to_dict(self, prices=False, transactions=False, portfolio_stocks=False):
+    def to_dict(self, prices=False, transactions=False, portfolio_stocks=False, stock_analyses=True):
         result = {
             "id": self.id,
             "name": self.name,
@@ -60,5 +60,10 @@ class Stock(db.Model):
             result["portfolio_stocks"] = []
             for ps in self.portfolio_stocks:
                 result["portfolio_stocks"].append(ps.to_dict())
+
+        if stock_analyses:
+            result["stock_analyses"] = []
+            for sa in self.stock_analyses:
+                result["stock_analyses"].append(sa.to_dict())
 
         return result

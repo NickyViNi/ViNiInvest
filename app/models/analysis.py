@@ -26,6 +26,5 @@ class Analysis(db.Model):
             "stock_id": self.stock_id,
             "content": self.content,
             "recommendation": self.recommendation,
-            "user": self.user.to_dict(),
-            "stock": self.stock.to_dict()
+            "user": self.user.to_dict()
         }
