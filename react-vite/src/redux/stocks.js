@@ -2,6 +2,9 @@
 const GET_STOCKS = "stocks/getStocks";
 const GET_STOCK_BY_ID = "stocks/getStockById";
 const RESET_STOCKS = "stocks/resetStocks";
+const DELETE_ANALYSIS = "stocks/deleteAnalysis";
+const CREATE_ANALYSIS = "stocks/createAnalysis";
+// const EDIT_
 
 
 // (2) Action Creator
@@ -24,6 +27,15 @@ export const resetStocksAction = () => {
         type: RESET_STOCKS
     }
 }
+
+export const deleteAnalysisAction = (stockId, analysisId) => {
+    return {
+        type: DELETE_ANALYSIS,
+        stockId,
+        analysisId
+    }
+}
+
 
 // (3) Thunk
 export const getStocksThunk = () => async (dispatch) => {
@@ -50,6 +62,17 @@ export const getStockByIdThunk = (id) => async (dispatch) => {
     // return data;
 }
 
+export const deleteAnalysisThunk = (analysisId, stockId) => async (dispatch) => {
+    const res = await fetch(`/api/analyses/${analysisId}`, {
+        method: 'DELETE'
+    })
+    const data = await res.json();
+    if (!res.ok) {
+        return {errors: data}
+    }
+    dispatch(deleteAnalysisAction(stockId, analysisId));
+}
+
 // (4) Reducer
 const initialState = { allStocks: {}, currentStock: {} }
 const stockReducer = (state = initialState, action) => {
@@ -64,6 +87,12 @@ const stockReducer = (state = initialState, action) => {
                 ...state,
                 currentStock: action.stock
             }
+        }
+        case DELETE_ANALYSIS: {
+            const newState = {...state};
+            const analyses = newState.currentStock.stock_analyses;
+            newState.currentStock.stock_analyses = analyses.filter(analysis => analysis.id !== action.analysisId);
+            return newState;
         }
         case RESET_STOCKS: {
             return {...state,  allStocks: {}, currentStock: {} }

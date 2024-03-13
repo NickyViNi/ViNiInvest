@@ -1,6 +1,6 @@
 import { Line } from 'react-chartjs-2';
 import { useModal } from "../../context/Modal";
-import { getStockByIdThunk } from "../../redux/stocks";
+import { deleteAnalysisThunk, getStockByIdThunk } from "../../redux/stocks";
 import { getWatchlistsThunk } from "../../redux/watchlist";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -207,11 +207,29 @@ function StockDetails () {
   }
 
   const showAnalysisForm = () => {
+    setModalContent(
+      // <AnalysisForm
 
+      // />
+    );
   }
 
-  const showConfirmDeleteAnalysis = () => {
+  const deleteAnalysis = async (analysisId) => {
+     await dispatch(deleteAnalysisThunk(analysisId, currentStock.id));
+  }
 
+  const showConfirmDeleteAnalysis = (analysisId) => {
+    setModalContent(
+      <ConfirmFormModal
+        header={"Confirm Delete Analysis"}
+        text={"Are you sure you want to delete this analysis"}
+        deleteCb={() => {
+          deleteAnalysis(analysisId);
+          setModalContent(<h2>Successfully deleted analysis!</h2>)
+        }}
+        cancelDeleteCb={closeModal}
+      />
+    )
   }
 
   if (!isLoaded) return <div style={{marginTop:"100px"}}><Loading /></div>
@@ -407,7 +425,7 @@ function StockDetails () {
                 {sa.user.id === user.id && (
                   <div className='analysis-buttons'>
                     <div onClick={showAnalysisForm}>Edit</div>
-                    <div onClick={showConfirmDeleteAnalysis}>Delete</div>
+                    <div onClick={() => showConfirmDeleteAnalysis(sa.id)}>Delete</div>
                   </div>
                 )}
                 <div className='analysis-content'>{ sa.content }</div>
