@@ -84,8 +84,8 @@ function StockDetails () {
     }
 
     getData();
-    const interval = setInterval(getData, 600000 * 60 * 24); // Refetch data every day
-    return () => clearInterval(interval);
+    // const interval = setInterval(getData, 600000 * 60 * 24); // Refetch data every day
+    // return () => clearInterval(interval);
 
   }, [dispatch, stockId, currentStock.symbol]);
 
@@ -414,7 +414,7 @@ function StockDetails () {
           </ul>
         </div>
         <div className='analyses-list-container'>
-          <h3 className="news-heading">Analyses:</h3>
+          <h3 className="news-heading">Analyses About {currentStock.name}:</h3>
           {!currentStock.stock_analyses.find(sa => sa.user.id === user.id) && (
             <div className='analysis-create' onClick={()=>showAnalysisForm(null)}>Create new analysis</div>
           )}
@@ -424,7 +424,7 @@ function StockDetails () {
                 <div className='analysis'>
                   <div className='analysis-user-profile'>
                     <div><img src={sa.user.profile_image_url} alt="avatar" /></div>
-                    <div>{ sa.user.first_name }, { sa.user.last_name }</div>
+                    <div>{ sa.user.username }</div>
                   </div>
                   {sa.user.id === user.id && (
                     <div className='analysis-buttons'>

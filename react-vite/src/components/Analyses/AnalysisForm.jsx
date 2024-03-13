@@ -73,9 +73,9 @@ function AnalysisForm ( { stockId, userId, analysis } ) {
             <label>Recommendation</label>
             <select value={recommendation} onChange={e => setRecommendation(e.target.value)}>
                 <option value="" disabled>Select a recommendation</option>
-                <option value="buy">Buy</option>
-                <option value="sell">Sell</option>
-                <option value="hold">Hold</option>
+                <option value="Buy">Buy</option>
+                <option value="Sell">Sell</option>
+                <option value="Hold">Hold</option>
             </select>
             {errors.recommendation && <p className="recommendation-errors">{errors.recommendation}</p>}
 

@@ -196,7 +196,7 @@
 .news-list-item {
   width: 300px;
   margin: 10px; /* Space between items */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(195, 194, 194, 0.415);
   border-radius: 4px;
   padding: 10px;
 }
@@ -234,8 +234,11 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 150px;
     justify-content: space-between;
     align-items: space-between;
+    box-shadow: 0 2px 4px rgba(195, 194, 194, 0.577);
+    border-radius: 10px;
 }
 
 .analysis-content {
@@ -265,7 +268,7 @@
     align-self: center;
     font-weight: bold;
     color: green;
-    border: 1px solid green;
+    /* border: 1px solid green; */
     padding: 5px 10px;
     border-radius: 5px;
 }
