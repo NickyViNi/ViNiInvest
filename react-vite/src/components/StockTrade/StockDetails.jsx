@@ -211,180 +211,180 @@ function StockDetails () {
 
 
   return (
-    <>
-    <div className="stock-detail-container">
-      <div className='stock-shoping-star-icon'>
-        <div className="shopping-btn" onClick={() => navigate(`/stocks`)} title="Click here view more stocks" >
-            <i className="fa-brands fa-shopify" ></i>
+    <div className='stock-detail-news-container'>
+      <div className="stock-detail-container">
+        <div className='stock-shoping-star-icon'>
+          <div className="shopping-btn" onClick={() => navigate(`/stocks`)} title="Click here view more stocks" >
+              <i className="fa-brands fa-shopify" ></i>
+          </div>
+          <div className="add-to-watchlist-btn">
+            <i className="fa-regular fa-star" onClick={showAddToWatchlistModal} title='Add to Watchlist'></i>
+          </div>
         </div>
-        <div className="add-to-watchlist-btn">
-          <i className="fa-regular fa-star" onClick={showAddToWatchlistModal} title='Add to Watchlist'></i>
+        <div id="current-stock-line">
+            <Line options={options} data={data} />
         </div>
-      </div>
-      <div id="current-stock-line">
-          <Line options={options} data={data} />
-      </div>
-      <div id="trade-data-contaner">
-      <div id="place-order-container">
-          <div className="buy-sell-btns">
-            <div className="green" onClick={e => {
-              setType("buy");
-              const sell = document.querySelector(".red");
-              if (sell) sell.style.backgroundColor = "white";
-              e.target.style.backgroundColor = "pink";
-            }}>Buy</div>
-            <div className="separator"></div>
-            <div className="red" onClick={e => {
-              setType("sell");
-              const buy = document.querySelector(".green");
-              if (buy) buy.style.backgroundColor = "white";
-              e.target.style.backgroundColor = "pink";
-            }}>Sell</div>
-            {errors && <p className="modal-errors">{errors.type}</p>}
-          </div>
-          <div className="amount">
-            <label>Shares</label>
-            <input type="number"
-              value={shares}
-              onChange={e => setShares(e.target.value)}
-            />
-            {errors && <p className="modal-errors">{errors.shares}</p>}
-          </div>
-          <div className="amount">
-            <label>Price Per Share</label>
-            <input type="number"
-              disabled
-              placeholder={`$${currentStock.newest_price.close_price}`}
-            />
-          </div>
-          <div className="amount">
-            <label>Select a Portfolio</label>
-            <select name="portfolios" value={portfolioId} onChange={e => setPortfolioId(e.target.value)}>
-              <option value="">--Please choose a Portfolio--</option>
-              {portfolios.map(p => <option key={p.id} value={p.id}> {p.name} </option>)}
-            </select>
-          </div>
-          {errors?.portfolio && <p className="modal-errors">{errors?.portfolio}</p>}
-          {errors?.message && <p className="modal-errors">{errors?.message}</p>}
-          <button onClick={handleSubmitTransaction}>Place Order</button>
-          <div id="money-balance">${selectedPortfolio?.fake_money_balance?.toFixed(2)} Buying Power Available</div>
-      </div>
-
-      {/* <table id="stock-value-data">
-        <tbody>
-          <th>Your Market Value</th>
-          <td>$1000</td>
-        </tbody>
-        <tbody>
-          <th>Your Average Cost</th>
-          <td>$100</td>
-        </tbody>
-        <tbody>
-          <th>Shares</th>
-          <td>100</td>
-        </tbody>
-        <tbody>
-          <th>Total Return</th>
-          <td>1000</td>
-        </tbody>
-      </table> */}
-
-      <table id="stock-key-data">
-      <thead >
-          <tr>
-            <th scope="col" className="table-header2" colSpan={2}>{currentStock.name} {convertDate(currentStock.newest_price.date)} </th>
-          </tr>
-        </thead>
-        <tbody>
-          <th>Open Price</th>
-          <td>${currentStock.newest_price.open_price}</td>
-        </tbody>
-        <tbody>
-          <th>High Price</th>
-          <td>${currentStock.newest_price.high_price}</td>
-        </tbody>
-        <tbody>
-          <th>Low Price</th>
-          <td>${currentStock.newest_price.low_price}</td>
-        </tbody>
-        <tbody>
-          <th>Close Price</th>
-          <td>${currentStock.newest_price.close_price}</td>
-        </tbody>
-      </table>
-      </div>
-
-      { currentStock?.transactions?.length > 0 &&
-      <table id="current-stock-transaction-table">
-        <thead>
-          <tr>
-            <th scope="col" className="table-header" colSpan={6}>{currentStock.name} Transactions</th>
-          </tr>
-          <tr>
-            <th scope="col">Portfolio</th>
-            <th scope="col">Shares</th>
-            <th scope="col">Type</th>
-            <th scope="col">Price Per Unit</th>
-            <th scope="col">Date</th>
-            <th scope="col">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-            {currentStock &&
-              currentStock?.transactions?.sort((a, b) =>b.id - a.id).map(t => <tr key={t.id}>
-                <th scope="row" onClick={() => navigate("/portfolios")} style={{cursor:"pointer"}} title="Click here go to portfolios">{t.portfolio.name}</th>
-                <td>{t.shares.toFixed(2)}</td>
-                <td>{t.type}</td>
-                <td>{t.price_per_unit}</td>
-                <td>{convertDateTime(t.created_at)}</td>
-                <td>{t.is_completed ? "Completed" : "Pending"}</td>
-                {!t.is_completed && <> <td className="update-transaction-btn" onClick={e => updateTransaction(e, t)}>{t.is_completed ? "" : <button>Update</button>}</td>
-                <td className="delete-transaction-btn">
-                  {t.is_completed ? "" :
-                  <OpenModalButton
-                    buttonText="Delete"
-                    modalComponent={
-                      <ConfirmFormModal
-                        header="Confirm Delete Transaction"
-                        text="Are you sure you want to delete this transaction?"
-                        deleteCb={(e) => deleteTransaction(e, t.id, t.portfolio_id)}
-                        cancelDeleteCb={closeModal}
-                      />
-                    }
-                  />
-                  }
-                </td>
-                <td className="confirm-transaction-btn">{t.is_completed ? "" :
-                <OpenModalButton
-                buttonText="Confirm"
-                modalComponent={
-                  <ConfirmFormModal
-                    header="Confirm Transaction"
-                    text="Click 'Yes' to complete your transaction."
-                    deleteCb={(e) => confirmTransaction(e, t.id, t.portfolio_id)}
-                    cancelDeleteCb={closeModal}
-                  />
-                }
-                />}</td> </>}
-              </tr>)
-            }
-          </tbody>
-      </table> }
-    </div>
-    <div className='news-list-container'>
-      <h3 className="news-heading">Latest News About {currentStock?.name}</h3>
-      <ul className="news-list">
-        {news.slice(0, 10).map(article => (
-          <li key={article.id} className="news-list-item">
-            <div className="news-info">
-              <img src={article.image_url} alt={article.title} />
-              <a href={article.article_url} target="_blank" rel="noopener noreferrer">{article.title}</a>
+        <div id="trade-data-contaner">
+        <div id="place-order-container">
+            <div className="buy-sell-btns">
+              <div className="green" onClick={e => {
+                setType("buy");
+                const sell = document.querySelector(".red");
+                if (sell) sell.style.backgroundColor = "white";
+                e.target.style.backgroundColor = "pink";
+              }}>Buy</div>
+              <div className="separator"></div>
+              <div className="red" onClick={e => {
+                setType("sell");
+                const buy = document.querySelector(".green");
+                if (buy) buy.style.backgroundColor = "white";
+                e.target.style.backgroundColor = "pink";
+              }}>Sell</div>
+              {errors && <p className="modal-errors">{errors.type}</p>}
             </div>
-          </li>
-        ))}
-      </ul>
+            <div className="amount">
+              <label>Shares</label>
+              <input type="number"
+                value={shares}
+                onChange={e => setShares(e.target.value)}
+              />
+              {errors && <p className="modal-errors">{errors.shares}</p>}
+            </div>
+            <div className="amount">
+              <label>Price Per Share</label>
+              <input type="number"
+                disabled
+                placeholder={`$${currentStock.newest_price.close_price}`}
+              />
+            </div>
+            <div className="amount">
+              <label>Select a Portfolio</label>
+              <select name="portfolios" value={portfolioId} onChange={e => setPortfolioId(e.target.value)}>
+                <option value="">--Please choose a Portfolio--</option>
+                {portfolios.map(p => <option key={p.id} value={p.id}> {p.name} </option>)}
+              </select>
+            </div>
+            {errors?.portfolio && <p className="modal-errors">{errors?.portfolio}</p>}
+            {errors?.message && <p className="modal-errors">{errors?.message}</p>}
+            <button onClick={handleSubmitTransaction}>Place Order</button>
+            <div id="money-balance">${selectedPortfolio?.fake_money_balance?.toFixed(2)} Buying Power Available</div>
+        </div>
+
+        {/* <table id="stock-value-data">
+          <tbody>
+            <th>Your Market Value</th>
+            <td>$1000</td>
+          </tbody>
+          <tbody>
+            <th>Your Average Cost</th>
+            <td>$100</td>
+          </tbody>
+          <tbody>
+            <th>Shares</th>
+            <td>100</td>
+          </tbody>
+          <tbody>
+            <th>Total Return</th>
+            <td>1000</td>
+          </tbody>
+        </table> */}
+
+        <table id="stock-key-data">
+        <thead >
+            <tr>
+              <th scope="col" className="table-header2" colSpan={2}>{currentStock.name} {convertDate(currentStock.newest_price.date)} </th>
+            </tr>
+          </thead>
+          <tbody>
+            <th>Open Price</th>
+            <td>${currentStock.newest_price.open_price}</td>
+          </tbody>
+          <tbody>
+            <th>High Price</th>
+            <td>${currentStock.newest_price.high_price}</td>
+          </tbody>
+          <tbody>
+            <th>Low Price</th>
+            <td>${currentStock.newest_price.low_price}</td>
+          </tbody>
+          <tbody>
+            <th>Close Price</th>
+            <td>${currentStock.newest_price.close_price}</td>
+          </tbody>
+        </table>
+        </div>
+
+        { currentStock?.transactions?.length > 0 &&
+        <table id="current-stock-transaction-table">
+          <thead>
+            <tr>
+              <th scope="col" className="table-header" colSpan={6}>{currentStock.name} Transactions</th>
+            </tr>
+            <tr>
+              <th scope="col">Portfolio</th>
+              <th scope="col">Shares</th>
+              <th scope="col">Type</th>
+              <th scope="col">Price Per Unit</th>
+              <th scope="col">Date</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+              {currentStock &&
+                currentStock?.transactions?.sort((a, b) =>b.id - a.id).map(t => <tr key={t.id}>
+                  <th scope="row" onClick={() => navigate("/portfolios")} style={{cursor:"pointer"}} title="Click here go to portfolios">{t.portfolio.name}</th>
+                  <td>{t.shares.toFixed(2)}</td>
+                  <td>{t.type}</td>
+                  <td>{t.price_per_unit}</td>
+                  <td>{convertDateTime(t.created_at)}</td>
+                  <td>{t.is_completed ? "Completed" : "Pending"}</td>
+                  {!t.is_completed && <> <td className="update-transaction-btn" onClick={e => updateTransaction(e, t)}>{t.is_completed ? "" : <button>Update</button>}</td>
+                  <td className="delete-transaction-btn">
+                    {t.is_completed ? "" :
+                    <OpenModalButton
+                      buttonText="Delete"
+                      modalComponent={
+                        <ConfirmFormModal
+                          header="Confirm Delete Transaction"
+                          text="Are you sure you want to delete this transaction?"
+                          deleteCb={(e) => deleteTransaction(e, t.id, t.portfolio_id)}
+                          cancelDeleteCb={closeModal}
+                        />
+                      }
+                    />
+                    }
+                  </td>
+                  <td className="confirm-transaction-btn">{t.is_completed ? "" :
+                  <OpenModalButton
+                  buttonText="Confirm"
+                  modalComponent={
+                    <ConfirmFormModal
+                      header="Confirm Transaction"
+                      text="Click 'Yes' to complete your transaction."
+                      deleteCb={(e) => confirmTransaction(e, t.id, t.portfolio_id)}
+                      cancelDeleteCb={closeModal}
+                    />
+                  }
+                  />}</td> </>}
+                </tr>)
+              }
+            </tbody>
+        </table> }
+      </div>
+      <div className='news-list-container'>
+        <h3 className="news-heading">Latest News About {currentStock?.name}:</h3>
+        <ul className="news-list">
+          {news.slice(0, 10).map(article => (
+            <li key={article.id} className="news-list-item">
+              <div className="news-info">
+                <img src={article.image_url} alt={article.title} />
+                <a href={article.article_url} target="_blank" rel="noopener noreferrer">{article.title}</a>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
-    </>
   )
 }
 
