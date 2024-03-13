@@ -29,6 +29,7 @@ import convertDateTime from "../../helpers/convertDateTime";
 import ConfirmFormModal from "../ConfirmFormModal.jsx/ConfirmFormModal";
 import AddToWatchlistModal from "../AddToWatchlistModal/AddToWatchlistModal";
 import UpdateTransactionForm from "../UpdateTransactionForm/UpdateTransactionForm";
+import AnalysisForm from '../Analyses/AnalysisForm';
 
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -206,11 +207,13 @@ function StockDetails () {
     )
   }
 
-  const showAnalysisForm = () => {
+  const showAnalysisForm = (sa) => {
     setModalContent(
-      // <AnalysisForm
-
-      // />
+      <AnalysisForm
+        stockId={stockId}
+        userId={user.id}
+        analysis={sa}
+      />
     );
   }
 
@@ -424,7 +427,7 @@ function StockDetails () {
                 </div>
                 {sa.user.id === user.id && (
                   <div className='analysis-buttons'>
-                    <div onClick={showAnalysisForm}>Edit</div>
+                    <div onClick={() => showAnalysisForm(sa)}>Edit</div>
                     <div onClick={() => showConfirmDeleteAnalysis(sa.id)}>Delete</div>
                   </div>
                 )}
