@@ -1,7 +1,7 @@
 from flask import Blueprint, request, redirect
 from flask_login import login_required, current_user
-from ..models import db, Stock, Transaction, Portfolio, Portfolio_stock
-from ..forms import TransactionForm
+from ..models import db, Stock, Transaction, Portfolio, Portfolio_stock, Analysis
+from ..forms import TransactionForm, AnalysisForm
 
 stock_routes = Blueprint("stocks", __name__)
 
@@ -82,5 +82,41 @@ def stock_order(stock_id, portfolio_id):
                 filter_orders.append(order)
         result["transactions"] = filter_orders
         return result
+
+    return form.errors, 400
+
+@stock_routes.route("/<int:stock_id>/analysis")
+@login_required
+def analysis(stock_id):
+    """"Get all analyses"""
+    analyses = Analysis.query.all(stock_id)
+
+    return [a.to_dict() for a in analyses], 200
+
+
+@stock_routes.route("/<int:stock_id>/analysis", methods=["POST"])
+@login_required
+def create_analysis(stock_id):
+    """Create an Analysis"""
+    form = AnalysisForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+
+    if form.validate_on_submit():
+        stock = Stock.query.get(stock_id)
+
+        if not stock:
+            return {"message": "Stock couldn't be found"}, 404
+
+        new_analysis = Analysis(
+            content=form.data["content"],
+            recommendation=form.data["recommendation"],
+            stock_id=stock_id,
+            user_id=current_user.id
+        )
+
+        db.session.add(new_analysis)
+        db.session.commit()
+
+        return new_analysis.to_dict(), 200
 
     return form.errors, 400

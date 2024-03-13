@@ -7,3 +7,4 @@ from .portfolio_stock import Portfolio_stock
 from .price import Price
 from .watchlist import Watchlist
 from .watchlist_stock import Watchlist_stock
+from .analysis import Analysis
