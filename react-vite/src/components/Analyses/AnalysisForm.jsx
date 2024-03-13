@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createAnalysisThunk } from "../../redux/stocks";
+import { createAnalysisThunk, editAnalysisThunk } from "../../redux/stocks";
 import { useModal } from "../../context/Modal";
 
 function AnalysisForm ( { stockId, userId, analysis } ) {
@@ -16,8 +16,9 @@ function AnalysisForm ( { stockId, userId, analysis } ) {
 
 
     const handleSubmit = async (e) => {
+        e.preventDefault();
         if (!recommendation.length) return setErrors({"recommendation": "You must select a recommendation!"})
-        if (!content.length) return setErrors({"content": "Content is required!"})
+        if (content.length < 50) return setErrors({"content": "Content must be at least 50 characters!"})
 
         e.preventDefault();
 
@@ -29,7 +30,7 @@ function AnalysisForm ( { stockId, userId, analysis } ) {
         let serverResponse;
         if (analysis) {
             serverResponse = await dispatch(
-                editAnalysisThunk(stockId, payload);
+                editAnalysisThunk(analysis.id, payload)
             );
         } else {
             serverResponse = await dispatch(
@@ -40,9 +41,15 @@ function AnalysisForm ( { stockId, userId, analysis } ) {
         if (serverResponse) {
             setErrors(serverResponse);
         } else {
-            setModalContent(
-                <h2>Successfully created analysis!</h2>
-            )
+            if (analysis) {
+                setModalContent(
+                    <h2>Successfully updated analysis!</h2>
+                )
+            } else {
+                setModalContent(
+                    <h2>Successfully created analysis!</h2>
+                )
+            }
         }
     };
 

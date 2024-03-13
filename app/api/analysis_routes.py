@@ -22,8 +22,6 @@ def update_analysis(id):
     form = AnalysisForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
 
-    if analysis.user_id != current_user.id:
-        return { "message": "Forbidden" }, 403
 
     if form.validate_on_submit():
         updated_analysis = Analysis.query.get(id)
@@ -31,8 +29,11 @@ def update_analysis(id):
         if not updated_analysis:
             return { "message": "analysis couldn't be found" }, 404
 
-        updated_analysis["content"] = form.data["content"]
-        updated_analysis["recommendation"] = form.data["recommendation"]
+        if updated_analysis.user_id != current_user.id:
+            return { "message": "Forbidden" }, 403
+
+        updated_analysis.content = form.data["content"]
+        updated_analysis.recommendation = form.data["recommendation"]
 
         db.session.commit()
         return updated_analysis.to_dict(), 200

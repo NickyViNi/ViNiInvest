@@ -103,8 +103,8 @@ export const createAnalysisThunk = (stockId, payload) => async (dispatch) => {
     dispatch(createAnalysisAction(data));
 }
 
-export const editAnalysisThunk = (stockId, payload) => async (dispatch) => {
-    const res = await fetch(`/api/stocks/${stockId}/analysis`, {
+export const editAnalysisThunk = (analysisId, payload) => async (dispatch) => {
+    const res = await fetch(`/api/analyses/${analysisId}`, {
         method: "PUT",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(payload)
@@ -149,9 +149,14 @@ const stockReducer = (state = initialState, action) => {
         }
         case EDIT_ANALYSIS: {
             const newState = {...state};
-            const analysis = newState.currentStock.stock_analyses.find(analysis => analysis.id !== action.analysis.id;
-            if ()) {
-                newState.currentStock.stock_analyses.push(action.analysis);
+            const analyses = newState.currentStock.stock_analyses;
+            for (let i = 0; i < analyses.length; i++) {
+                const analysis = analyses[i];
+                if (analysis.id === action.analysis.id) {
+                    newState.currentStock.stock_analyses = newState.currentStock.stock_analyses.filter(analysis=>analysis.id !== action.analysis.id)
+                    newState.currentStock.stock_analyses.unshift(action.analysis);
+                    break;
+                }
             }
             return newState;
         }

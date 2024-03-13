@@ -415,7 +415,7 @@ function StockDetails () {
       <div className='analyses-list-container'>
         <h3 className="news-heading">Analyses:</h3>
         {!currentStock.stock_analyses.find(sa => sa.user.id === user.id) && (
-          <div className='analysis-create' onClick={showAnalysisForm}>Create new analysis</div>
+          <div className='analysis-create' onClick={()=>showAnalysisForm(null)}>Create new analysis</div>
         )}
         <div className="analyses">
           { currentStock.stock_analyses && currentStock.stock_analyses.map(sa => {
