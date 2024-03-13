@@ -1,0 +1,51 @@
+.create-analysis-form-container {
+    height: 500px;
+}
+
+.create-analysis-form-container h2 {
+    color: purple;
+    text-align: center;
+}
+
+.create-analysis-form {
+    min-height: none;
+    gap: 20px;
+}
+
+.create-analysis-form > textarea{
+    /* margin-top: -86px; */
+    /* margin-bottom: 20px; */
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 5px 12px;
+    border-color: rgb(4, 165, 214);
+    height: 200px;
+}
+
+.create-analysis-form > select{
+    /* margin-top: -86px; */
+    margin-bottom: 20px;
+    height: fit-content;
+    color: rgb(249, 137, 156);
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 5px 12px;
+    border-color: rgb(4, 165, 214);
+}
+
+.create-analysis-form > button{
+    margin-top: -15px;
+    margin-bottom: 20px;
+    height: 30px;
+}
+
+.recommendation-errors {
+    margin-top: -30px;
+    color: red;
+}
+
+.content-errors {
+    margin-top: -10px;
+    margin-bottom: -10px;
+    color: red;
+}

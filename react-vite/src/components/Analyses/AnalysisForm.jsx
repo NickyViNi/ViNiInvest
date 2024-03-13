@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createAnalysisThunk, editAnalysisThunk } from "../../redux/stocks";
 import { useModal } from "../../context/Modal";
+import "./Analysis.css";
 
 function AnalysisForm ( { stockId, userId, analysis } ) {
 
@@ -54,36 +55,34 @@ function AnalysisForm ( { stockId, userId, analysis } ) {
     };
 
     return (
-      <>
-        <h1>Create Analysis</h1>
+      <div className="create-analysis-form-container">
+        {analysis ? <h2>Update Analysis</h2> : <h2>Create Analysis</h2>}
         {errors.length > 0 &&
           errors.map((message) => <p key={message}>{message}</p>)}
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Content</label>
-                <textarea
-                    type="text"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    required
-                />
-            {errors.content && <p>{errors.content}</p>}
-            </div>
-            <div>
-                <label>Recommendation</label>
-                <select value={recommendation} onChange={e => setRecommendation(e.target.value)}>
-                    <option value="" disabled>Select a recommendation</option>
-                    <option value="buy">Buy</option>
-                    <option value="sell">Sell</option>
-                    <option value="hold">Hold</option>
-                </select>
-                {errors.recommendation && <p>{errors.recommendation}</p>}
-            </div>
-            <div>
-                <button type="submit">Submit</button>
-            </div>
+        <form onSubmit={handleSubmit} className="create-analysis-form">
+
+            <label>Content</label>
+            <textarea
+                type="text"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                required
+            />
+            {errors.content && <p className="content-errors">{errors.content}</p>}
+
+            <label>Recommendation</label>
+            <select value={recommendation} onChange={e => setRecommendation(e.target.value)}>
+                <option value="" disabled>Select a recommendation</option>
+                <option value="buy">Buy</option>
+                <option value="sell">Sell</option>
+                <option value="hold">Hold</option>
+            </select>
+            {errors.recommendation && <p className="recommendation-errors">{errors.recommendation}</p>}
+
+            <button type="submit" className="handle-submit-btn">Submit</button>
+
         </form>
-      </>
+      </div>
     );
 }
 
