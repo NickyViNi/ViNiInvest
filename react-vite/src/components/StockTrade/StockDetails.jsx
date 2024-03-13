@@ -399,43 +399,45 @@ function StockDetails () {
             </tbody>
         </table> }
       </div>
-      <div className='news-list-container'>
-        <h3 className="news-heading">Latest News About {currentStock?.name}:</h3>
-        <ul className="news-list">
-          {news.slice(0, 10).map(article => (
-            <li key={article.id} className="news-list-item">
-              <div className="news-info">
-                <img src={article.image_url} alt={article.title} />
-                <a href={article.article_url} target="_blank" rel="noopener noreferrer">{article.title}</a>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className='analyses-list-container'>
-        <h3 className="news-heading">Analyses:</h3>
-        {!currentStock.stock_analyses.find(sa => sa.user.id === user.id) && (
-          <div className='analysis-create' onClick={()=>showAnalysisForm(null)}>Create new analysis</div>
-        )}
-        <div className="analyses">
-          { currentStock.stock_analyses && currentStock.stock_analyses.map(sa => {
-            return (
-              <div className='analysis'>
-                <div className='analysis-user-profile'>
-                  <div><img src={sa.user.profile_image_url} alt="avatar" /></div>
-                  <div>{ sa.user.first_name }, { sa.user.last_name }</div>
+      <div className='news-analysis-container'>
+        <div className='news-list-container'>
+          <h3 className="news-heading">Latest News About {currentStock?.name}:</h3>
+          <ul className="news-list">
+            {news.slice(0, 10).map(article => (
+              <li key={article.id} className="news-list-item">
+                <div className="news-info">
+                  <img src={article.image_url} alt={article.title} />
+                  <a href={article.article_url} target="_blank" rel="noopener noreferrer">{article.title}</a>
                 </div>
-                {sa.user.id === user.id && (
-                  <div className='analysis-buttons'>
-                    <div onClick={() => showAnalysisForm(sa)}>Edit</div>
-                    <div onClick={() => showConfirmDeleteAnalysis(sa.id)}>Delete</div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className='analyses-list-container'>
+          <h3 className="news-heading">Analyses:</h3>
+          {!currentStock.stock_analyses.find(sa => sa.user.id === user.id) && (
+            <div className='analysis-create' onClick={()=>showAnalysisForm(null)}>Create new analysis</div>
+          )}
+          <div className="analyses">
+            { currentStock.stock_analyses && currentStock.stock_analyses.map(sa => {
+              return (
+                <div className='analysis'>
+                  <div className='analysis-user-profile'>
+                    <div><img src={sa.user.profile_image_url} alt="avatar" /></div>
+                    <div>{ sa.user.first_name }, { sa.user.last_name }</div>
                   </div>
-                )}
-                <div className='analysis-content'>{ sa.content }</div>
-                <div className='analysis-recommendation'>Recommend: { sa.recommendation }</div>
-              </div>
-            )
-          })}
+                  {sa.user.id === user.id && (
+                    <div className='analysis-buttons'>
+                      <div onClick={() => showAnalysisForm(sa)}>Edit</div>
+                      <div onClick={() => showConfirmDeleteAnalysis(sa.id)}>Delete</div>
+                    </div>
+                  )}
+                  <div className='analysis-content'>{ sa.content }</div>
+                  <div className='analysis-recommendation'>Recommend: { sa.recommendation }</div>
+                </div>
+              )
+            })}
+          </div>
         </div>
       </div>
     </div>

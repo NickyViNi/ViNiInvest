@@ -20,6 +20,7 @@
     padding: 5px 12px;
     border-color: rgb(4, 165, 214);
     height: 200px;
+    cursor: text;
 }
 
 .create-analysis-form > select{
