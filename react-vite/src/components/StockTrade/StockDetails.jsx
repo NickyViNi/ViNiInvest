@@ -76,10 +76,7 @@ function StockDetails () {
        .then(data => data.results)
        .catch(error => console.error(`Error fetching news for ${currentStock.symbol}:`, error))
 
-      const newsResults = await Promise.all(newsRes);
-      // Combine all articles into one array
-      const newsArr = newsResults.flat();
-      setNews(newsArr)
+      setNews(newsRes)
       setIsLoaded(true);
     }
 
@@ -403,7 +400,7 @@ function StockDetails () {
         <div className='news-list-container'>
           <h3 className="news-heading">Latest News About {currentStock?.name}:</h3>
           <ul className="news-list">
-            {news.slice(0, 10).map(article => (
+            {news?.slice(0, 10).map(article => (
               <li key={article.id} className="news-list-item">
                 <div className="news-info">
                   <img src={article.image_url} alt={article.title} />
@@ -421,18 +418,18 @@ function StockDetails () {
           <div className="analyses">
             { currentStock.stock_analyses && currentStock.stock_analyses.map(sa => {
               return (
-                <div className='analysis'>
+                <div className='analysis' key={sa.id}>
                   <div className='analysis-user-profile'>
                     <div><img src={sa.user.profile_image_url} alt="avatar" /></div>
                     <div>{ sa.user.username }</div>
                   </div>
+                  <div className='analysis-content'>{ sa.content }</div>
                   {sa.user.id === user.id && (
                     <div className='analysis-buttons'>
-                      <div onClick={() => showAnalysisForm(sa)}>Edit</div>
-                      <div onClick={() => showConfirmDeleteAnalysis(sa.id)}>Delete</div>
+                      <div onClick={() => showAnalysisForm(sa)}><i className="fa-solid fa-pen-to-square" title="Update"></i></div>
+                      <div onClick={() => showConfirmDeleteAnalysis(sa.id)}><i className="fa-solid fa-trash" title="Delete"></i></div>
                     </div>
                   )}
-                  <div className='analysis-content'>{ sa.content }</div>
                   <div className='analysis-recommendation'>Recommend: { sa.recommendation }</div>
                 </div>
               )
