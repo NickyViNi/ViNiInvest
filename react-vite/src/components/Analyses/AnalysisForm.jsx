@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { createAnalysisThunk, editAnalysisThunk } from "../../redux/stocks";
 import { useModal } from "../../context/Modal";
 import "./Analysis.css";
 
-function AnalysisForm ( { stockId, userId, analysis } ) {
+function AnalysisForm ( { stockId, analysis } ) {
 
-    const navigate = useNavigate();
+
     const dispatch = useDispatch();
     const {setModalContent} = useModal();
 

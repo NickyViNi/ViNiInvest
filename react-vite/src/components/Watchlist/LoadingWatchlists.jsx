@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { deleteWatchlistThunk, getWatchlistsThunk } from "../../redux/watchlist";
 import WatchlistDetails from "./WatchlistDetails";
 import { useModal } from "../../context/Modal";
@@ -8,12 +7,10 @@ import CreateNewWatchlist from "./CreateNewWatchlist";
 import "./Watchlist.css"
 import OpenModalButton from "../OpenModalButton";
 import ConfirmFormModal from "../ConfirmFormModal.jsx/ConfirmFormModal";
-import { deletePortfolioThunk } from "../../redux/portfolio";
 import UpdateWatchlist from "./UpdateWatchlist";
 
 function LoadingWatchlist () {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [watchlistId, setWatchlistId] = useState();
     const { setModalContent, closeModal } = useModal();
     const allWatchlists = useSelector(state => state.watchlists.allWatchlists);

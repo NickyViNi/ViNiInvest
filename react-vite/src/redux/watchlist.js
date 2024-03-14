@@ -154,7 +154,7 @@ export const deleteStockInWatchlistThunk = (watchlistId, stockId) => async (disp
     return data;
 }
 
-export const addStockToWatchlistThunk = (watchlistId, stockId) => async (dispatch) => {
+export const addStockToWatchlistThunk = (watchlistId, stockId) => async (_dispatch) => {
     const res = await fetch(`/api/watchlists/${watchlistId}/stocks/${stockId}`)
 
     const data = await res.json();

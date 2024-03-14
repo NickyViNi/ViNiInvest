@@ -6,7 +6,7 @@ import { deleteStockInWatchlistThunk, updateWatchlistThunk } from "../../redux/w
 function UpdateWatchlist ({watchlistId, watchlistName, stocksArr}) {
 
     const dispatch = useDispatch();
-    const { setModalContent, closeModal } = useModal();
+    const { setModalContent } = useModal();
     const [name, setName] = useState(watchlistName);
     const [errors, setErrors] = useState();
     const [stocksToRemove, setStocksToRemove] = useState({});

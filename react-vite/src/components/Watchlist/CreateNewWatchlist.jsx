@@ -8,7 +8,7 @@ function CreateNewWatchlist () {
     const dispatch = useDispatch();
     const [name, setName] = useState();
     const [errors, setErrors] = useState();
-    const { setModalContent, closeModal } = useModal();
+    const { setModalContent } = useModal();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
