@@ -142,9 +142,10 @@ const stockReducer = (state = initialState, action) => {
         }
         case CREATE_ANALYSIS: {
             const newState = {...state};
-            if (newState.currentStock.stock_analyses.find(analysis => analysis.id !== action.analysis.id)) {
-                newState.currentStock.stock_analyses.push(action.analysis);
-            }
+            // if (newState.currentStock.stock_analyses.find(analysis => analysis.id !== action.analysis.id)) {
+            //     newState.currentStock.stock_analyses.push(action.analysis);
+            // }
+            newState.currentStock.stock_analyses.push(action.analysis);
             return newState;
         }
         case EDIT_ANALYSIS: {
@@ -153,8 +154,9 @@ const stockReducer = (state = initialState, action) => {
             for (let i = 0; i < analyses.length; i++) {
                 const analysis = analyses[i];
                 if (analysis.id === action.analysis.id) {
-                    newState.currentStock.stock_analyses = newState.currentStock.stock_analyses.filter(analysis=>analysis.id !== action.analysis.id)
-                    newState.currentStock.stock_analyses.unshift(action.analysis);
+                    // newState.currentStock.stock_analyses = newState.currentStock.stock_analyses.filter(analysis=>analysis.id !== action.analysis.id)
+                    // newState.currentStock.stock_analyses.push(action.analysis);
+                    newState.currentStock.stock_analyses[i] = action.analysis;
                     break;
                 }
             }
