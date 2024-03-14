@@ -235,7 +235,22 @@ function StockDetails () {
 
   const showAnalysisContent = (analysis) => {
     setModalContent(
-      <div>{analysis.content}</div>
+      <div className='analysis-modal' key={analysis.id}>
+        <div className='analysis-user-profile'>
+          <div><img src={analysis.user.profile_image_url} alt="avatar" /></div>
+          <div>{ analysis.user.username }</div>
+        </div>
+        <div className='analysis-recommendation-modal'>Recommend: { analysis.recommendation }</div>
+        <div className='analysis-content'>
+          { analysis.content }
+        </div>
+        {analysis.user.id === user.id && (
+          <div className='analysis-buttons'>
+            <div onClick={() => showAnalysisForm(analysis)}><i className="fa-solid fa-pen-to-square" title="Update"></i></div>
+            <div onClick={() => showConfirmDeleteAnalysis(analysis.id)}><i className="fa-solid fa-trash" title="Delete"></i></div>
+          </div>
+        )}
+      </div>
     )
   }
 
@@ -433,17 +448,16 @@ function StockDetails () {
                   <div className='analysis-recommendation'>Recommend: { sa.recommendation }</div>
                   <div className='analysis-content'>
                     { sa.content.length >90 ?
-                    <>{sa.content.slice(0, 90)} <span onClick={() => showAnalysisContent(sa)}> ... See More</span></> : sa.content }
+                    <>{sa.content.slice(0, 90)} <span onClick={() => showAnalysisContent(sa)} id="see-more"> ... See More</span></> : sa.content }
                   </div>
-                  {sa.user.id === user.id && (
+                  {/* {sa.user.id === user.id && (
                     <div className='analysis-buttons'>
                       <div onClick={() => showAnalysisForm(sa)}><i className="fa-solid fa-pen-to-square" title="Update"></i></div>
                       <div onClick={() => showConfirmDeleteAnalysis(sa.id)}><i className="fa-solid fa-trash" title="Delete"></i></div>
                     </div>
-                  )}
+                  )} */}
                 </div>
-              )
-            })}
+              )})}
           </div>
         </div>
       </div>

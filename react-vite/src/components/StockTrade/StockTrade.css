@@ -6,7 +6,7 @@
 #stocks-list-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin: 50px 30px 30px 40px;
+    margin: 50px 30px 50px 30px;
 }
 
 #stock-search-bar {
@@ -221,13 +221,13 @@
 .stock-detail-news-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin-left: 60px;
+    /* margin-left: 30px; */
 }
 
 .analyses {
     display: flex;
     /* flex-direction: column; */
-    gap: 40px;
+    gap: 30px;
 }
 
 .analysis {
@@ -242,9 +242,24 @@
     height: fit-content;
 }
 
+/* show all analysis content */
+.analysis-modal {
+    max-height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-color: lightGrey transparent;
+}
+
+.analysis-recommendation-modal {
+    font-weight: bold;
+    color: green;
+    padding: 13px;
+}
+
 .analysis-content {
     font-style: italic;
-    padding: 3px 13px 8px 13px;
+    padding: 3px 10px 8px 10px;
+    word-break: break-word;
 }
 
 .analysis-buttons {
@@ -258,6 +273,7 @@
     /* border: 1px solid black; */
     padding: 5px 10px;
     color: pink;
+    margin-top: -20px;
 }
 
 .analysis-buttons div:hover {
@@ -267,9 +283,10 @@
 }
 
 .analysis-recommendation {
-    align-self: center;
     font-weight: bold;
     color: green;
+    font-size: small;
+    padding-left: 10px;
 }
 
 .analysis-user-profile {
@@ -300,4 +317,17 @@
 .analysis-create:hover {
     color: green;
     font-weight: bold;
+}
+
+#see-more {
+    font-size: small;
+    font-weight: bolder;
+}
+
+.news-analysis-container {
+    margin-left: 30px;
+}
+
+.stock-detail-container {
+    margin-left: 30px;
 }
