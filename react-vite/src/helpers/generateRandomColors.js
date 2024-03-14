@@ -20,5 +20,3 @@ const isLightColor = (color, threshold) => {
     const brightness = (rgb[0] * 0.2126) + (rgb[1] * 0.7152) + (rgb[2] * 0.0722);
     return brightness >= threshold;
 }
-
-// console.log(generateRandomColors(6))

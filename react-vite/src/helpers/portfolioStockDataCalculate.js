@@ -18,7 +18,7 @@ export const stockDataCalculate = (stocks) => {
 export function calculateAverageCostPerShare(transactions, portfolioArray) {
   const stockData = {};
 
-  for (const transaction of transactions) {
+  if (transactions) { for (const transaction of transactions) {
 
     const stockName = transaction.stock.name;
     const price_per_unit = transaction.price_per_unit;
@@ -38,7 +38,7 @@ export function calculateAverageCostPerShare(transactions, portfolioArray) {
       stockData[stockName].totalShares -= sellAmount;
       stockData[stockName].totalCost -= price_per_unit * sellAmount;
     }
-  }
+  } }
 
   const averageCostPerShare = {};
   for (const stockName in stockData) {

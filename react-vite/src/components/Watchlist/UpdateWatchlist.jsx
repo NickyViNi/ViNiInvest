@@ -17,7 +17,6 @@ function UpdateWatchlist ({watchlistId, watchlistName, stocksArr}) {
         const data = await dispatch(updateWatchlistThunk(watchlistId, {name}));
         const stockIdsToRemoveArr = Object.values(stocksToRemove);
 
-        // console.log(stockIdsToRemoveArr)
         for (let i = 0; i < stockIdsToRemoveArr.length; i++) {
             const stockId = stockIdsToRemoveArr[i];
            await dispatch(deleteStockInWatchlistThunk(watchlistId, stockId));

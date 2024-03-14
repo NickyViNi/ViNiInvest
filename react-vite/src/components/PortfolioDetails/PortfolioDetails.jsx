@@ -81,8 +81,6 @@ const PortfolioDetails = () => {
   // calculate Average Cost PerShare:
   calculateAverageCostPerShare(portfolioTransactions, portfolioStocksArray);
 
-  // console.log("⭐️🌟🌟⭐️⭐️⭐️⭐️⭐️⭐️", portfolioStocksArray)
-
 
   if (!isLoaded) return <div style={{marginTop:"100px"}}><Loading /></div>
 

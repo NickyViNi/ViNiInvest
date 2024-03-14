@@ -279,7 +279,6 @@ function StockDetails () {
     ]
   }
 
-  console.log((Object.values(recommendationObj)).reduce((a, c) => (+a) + (+c), 0), "aaaaaaa")
 
   if (!isLoaded) return <div style={{marginTop:"100px"}}><Loading /></div>
 
