@@ -331,3 +331,8 @@
 .stock-detail-container {
     margin-left: 30px;
 }
+
+.doughnut-chart {
+    height: 200px;
+    width: 200px;
+}

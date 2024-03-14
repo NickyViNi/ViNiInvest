@@ -12,5 +12,12 @@ export const recommendationCalculate = (analyses) => {
         }
     })
 
+    const values = Object.values(recommend);
+    const total = values.reduce((a, c) => a + c, 0);
+    if (total > 0 ) {
+        recommend.Buy = (recommend.Buy / total).toFixed(2);
+        recommend.Sell = (recommend.Sell / total).toFixed(2);
+        recommend.Hold = (recommend.Hold / total).toFixed(2);
+    }
     return recommend;
 }

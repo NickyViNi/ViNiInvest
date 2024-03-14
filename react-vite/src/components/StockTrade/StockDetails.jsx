@@ -1,4 +1,5 @@
 import { Line } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import { useModal } from "../../context/Modal";
 import { deleteAnalysisThunk, getStockByIdThunk } from "../../redux/stocks";
 import { getWatchlistsThunk } from "../../redux/watchlist";
@@ -18,6 +19,7 @@ import {
   LinearScale,
   PointElement,
   LineElement,
+  ArcElement,
   Title,
   Tooltip,
   Legend
@@ -30,9 +32,11 @@ import ConfirmFormModal from "../ConfirmFormModal.jsx/ConfirmFormModal";
 import AddToWatchlistModal from "../AddToWatchlistModal/AddToWatchlistModal";
 import UpdateTransactionForm from "../UpdateTransactionForm/UpdateTransactionForm";
 import AnalysisForm from '../Analyses/AnalysisForm';
+import { recommendationCalculate } from '../../helpers/recommendationCalculate';
+import { generateRandomColors } from '../../helpers/generateRandomColors';
 
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Title, Tooltip, Legend);
 
 
 function StockDetails () {
@@ -254,6 +258,29 @@ function StockDetails () {
     )
   }
 
+  //recommendation doughnut:
+  const recommendationObj = recommendationCalculate(currentStock?.stock_analyses);
+  const doughnutOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'right',
+      }
+    },
+  };
+  const doughnutData = {
+    labels: Object.keys(recommendationObj),
+    datasets: [
+      {
+        data: Object.values(recommendationObj),
+        backgroundColor: ["#90EE90", "Orange", "Pink"],
+        hoverOffset: 4
+      }
+    ]
+  }
+
+  console.log(Object.keys(recommendationObj), "aaaaa", Object.values(recommendationObj))
+
   if (!isLoaded) return <div style={{marginTop:"100px"}}><Loading /></div>
 
 
@@ -434,6 +461,9 @@ function StockDetails () {
         </div>
         <div className='analyses-list-container'>
           <h3 className="news-heading">Analyses About {currentStock.name}:</h3>
+          <div className='doughnut-chart'>
+            <Doughnut data={doughnutData} options={doughnutOptions} />
+          </div>
           {!currentStock.stock_analyses.find(sa => sa.user.id === user.id) && (
             <div className='analysis-create' onClick={()=>showAnalysisForm(null)}>Create new analysis</div>
           )}
