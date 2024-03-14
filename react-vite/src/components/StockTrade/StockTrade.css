@@ -239,11 +239,12 @@
     align-items: space-between;
     box-shadow: 0 2px 4px rgba(195, 194, 194, 0.577);
     border-radius: 10px;
+    height: fit-content;
 }
 
 .analysis-content {
     font-style: italic;
-    padding: 15px;
+    padding: 3px 13px 8px 13px;
 }
 
 .analysis-buttons {
@@ -269,9 +270,6 @@
     align-self: center;
     font-weight: bold;
     color: green;
-    /* border: 1px solid green; */
-    padding: 5px 10px;
-    border-radius: 5px;
 }
 
 .analysis-user-profile {
@@ -279,7 +277,7 @@
     gap: 20px;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(252, 150, 99);
 }
 
 .analysis-user-profile img {
