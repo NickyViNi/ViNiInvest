@@ -1,12 +1,12 @@
 .watchlists-container {
     align-self: flex-start;
-    margin-top: 150px;
+    /* margin-top: 150px; */
 }
 
 .all-watchlists {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 5px;
 }
 
 .watchlist-name {

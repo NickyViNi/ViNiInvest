@@ -122,9 +122,9 @@ tbody > tr:nth-of-type(even) {
 
 
 .transactions-table {
-    margin: 20px;
-    /* display: flex;
-    justify-content: center; */
+    display: flex;
+    gap: 70px;
+    align-items: self-start;
 }
 
 /* create a new portfolio: */

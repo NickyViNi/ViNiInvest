@@ -196,10 +196,10 @@ const PortfolioDetails = () => {
               }
             </tbody>
           </table> }
+          <div className="watchlists-container">
+            <LoadingWatchlist />
+          </div>
         </div>
-      </div>
-      <div className="watchlists-container">
-        <LoadingWatchlist />
       </div>
     </div>
   )
