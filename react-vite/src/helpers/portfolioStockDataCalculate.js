@@ -15,7 +15,38 @@ export const stockDataCalculate = (stocks) => {
 }
 
 
+export function calculateAverageCostPerShare(transactions) {
+  const stockData = {};
 
+  for (const transaction of transactions) {
+
+    const stockName = transaction.stock.name;
+    const price_per_unit = transaction.price_per_unit;
+    const shares = transaction.shares;
+    const transactionType = transaction.type;
+
+    if (!stockData[stockName]) {
+      stockData[stockName] = { totalCost: 0, totalShares: 0 };
+    }
+
+    if (transactionType === "buy") {
+      stockData[stockName].totalCost += price_per_unit * shares;
+      stockData[stockName].totalShares += shares;
+    } else if (transactionType === "sell") {
+      // Handle potential sell transactions exceeding bought shares (assuming FIFO method for selling)
+      const sellAmount = Math.min(shares, stockData[stockName].totalShares);
+      stockData[stockName].totalShares -= sellAmount;
+    }
+  }
+
+  const averageCostPerShare = {};
+  for (const stockName in stockData) {
+    const { totalCost, totalShares } = stockData[stockName];
+    averageCostPerShare[stockName] = totalShares > 0 ? totalCost / totalShares : 0;
+  }
+
+  return averageCostPerShare;
+}
 
 
 

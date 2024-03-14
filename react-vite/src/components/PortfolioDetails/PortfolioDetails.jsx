@@ -52,7 +52,7 @@ const PortfolioDetails = () => {
     return <Navigate to='/' replace={true} />;
   }
 
-
+  console.log("⭐️🌟🌟⭐️⭐️⭐️⭐️⭐️⭐️", portfolioTransactions)
 
   let currentStockDataObj = {}
   if (portfolioStocksArray) {
@@ -132,12 +132,13 @@ const PortfolioDetails = () => {
           { currentStockData.length > 0 && <table className="portfolio-stocks">
               <thead>
                 <tr>
-                  <th scope="col" className="table-header" colSpan={3} >Stocks (Completed)</th>
+                  <th scope="col" className="table-header" colSpan={3} >Stock Statistics</th>
                 </tr>
               <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Shares</th>
                 <th scope="col">Market Value</th>
+                {/* <th scope="col">Total Return</th> */}
               </tr>
               </thead>
               <tbody>
