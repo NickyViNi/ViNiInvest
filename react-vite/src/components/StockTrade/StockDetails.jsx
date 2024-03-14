@@ -279,7 +279,7 @@ function StockDetails () {
     ]
   }
 
-  console.log(Object.keys(recommendationObj), "aaaaa", Object.values(recommendationObj))
+  console.log((Object.values(recommendationObj)).reduce((a, c) => (+a) + (+c), 0), "aaaaaaa")
 
   if (!isLoaded) return <div style={{marginTop:"100px"}}><Loading /></div>
 
@@ -460,9 +460,11 @@ function StockDetails () {
           </ul>
         </div>
         <div className='analyses-list-container'>
+          <div className='analysis-head-doughnut'>
           <h3 className="news-heading">Analyses About {currentStock.name}:</h3>
-          <div className='doughnut-chart'>
+          {(Object.values(recommendationObj)).reduce((a, c) => (+a) + (+c), 0) > 0 &&  <div className='doughnut-chart'>
             <Doughnut data={doughnutData} options={doughnutOptions} />
+          </div>}
           </div>
           {!currentStock.stock_analyses.find(sa => sa.user.id === user.id) && (
             <div className='analysis-create' onClick={()=>showAnalysisForm(null)}>Create new analysis</div>

@@ -1,5 +1,5 @@
 export const recommendationCalculate = (analyses) => {
-    const recommend = { "Buy": 0, "Sell": 0, "Hold": 0 };
+    const recommend = {"Buy": 0, "Sell": 0, "Hold": 0};
     analyses?.forEach(a => {
         if (a.recommendation.toLowerCase() === "buy") {
             recommend.Buy += 1
