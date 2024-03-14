@@ -322,6 +322,7 @@
 #see-more {
     font-size: small;
     font-weight: bolder;
+    cursor: pointer;
 }
 
 .news-analysis-container {

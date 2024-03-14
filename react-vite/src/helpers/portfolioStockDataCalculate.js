@@ -15,7 +15,7 @@ export const stockDataCalculate = (stocks) => {
 }
 
 
-export function calculateAverageCostPerShare(transactions) {
+export function calculateAverageCostPerShare(transactions, portfolioArray) {
   const stockData = {};
 
   for (const transaction of transactions) {
@@ -36,6 +36,7 @@ export function calculateAverageCostPerShare(transactions) {
       // Handle potential sell transactions exceeding bought shares (assuming FIFO method for selling)
       const sellAmount = Math.min(shares, stockData[stockName].totalShares);
       stockData[stockName].totalShares -= sellAmount;
+      stockData[stockName].totalCost -= price_per_unit * sellAmount;
     }
   }
 
@@ -45,7 +46,18 @@ export function calculateAverageCostPerShare(transactions) {
     averageCostPerShare[stockName] = totalShares > 0 ? totalCost / totalShares : 0;
   }
 
-  return averageCostPerShare;
+  const stocksName = Object.keys(averageCostPerShare);
+  for ( let stockName of stocksName) {
+    for (let i = 0; i < portfolioArray.length; i++) {
+      if ( stockName == portfolioArray[i].stock.name) {
+        portfolioArray[i].cost_per_share = averageCostPerShare[stockName];
+        break;
+      }
+    }
+  }
+
+  // return averageCostPerShare;
+  return portfolioArray;
 }
 
 

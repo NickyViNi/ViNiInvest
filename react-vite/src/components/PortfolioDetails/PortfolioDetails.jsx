@@ -5,7 +5,7 @@ import { deletePortfolioThunk, getPortfolioByIdThunk, getPortfoliosThunk } from 
 import "./PortfolioDetails.css";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import { stockDataCalculate } from "../../helpers/portfolioStockDataCalculate";
+import { calculateAverageCostPerShare, stockDataCalculate } from "../../helpers/portfolioStockDataCalculate";
 import { generateRandomColors } from "../../helpers/generateRandomColors";
 import { useModal } from "../../context/Modal";
 import CreateNewPortfolio from "./CreateNewPortfolio";
@@ -52,8 +52,6 @@ const PortfolioDetails = () => {
     return <Navigate to='/' replace={true} />;
   }
 
-  console.log("⭐️🌟🌟⭐️⭐️⭐️⭐️⭐️⭐️", portfolioTransactions)
-
   let currentStockDataObj = {}
   if (portfolioStocksArray) {
     currentStockDataObj = stockDataCalculate(portfolioStocksArray);
@@ -79,6 +77,11 @@ const PortfolioDetails = () => {
     }
     setModalContent(<h2 className="success-alert">{`Successfully Sold all Stocks in ${portfolioName} Portfolio`}</h2>)
   }
+
+  // calculate Average Cost PerShare:
+  calculateAverageCostPerShare(portfolioTransactions, portfolioStocksArray);
+
+  // console.log("⭐️🌟🌟⭐️⭐️⭐️⭐️⭐️⭐️", portfolioStocksArray)
 
 
   if (!isLoaded) return <div style={{marginTop:"100px"}}><Loading /></div>
@@ -132,13 +135,15 @@ const PortfolioDetails = () => {
           { currentStockData.length > 0 && <table className="portfolio-stocks">
               <thead>
                 <tr>
-                  <th scope="col" className="table-header" colSpan={3} >Stock Statistics</th>
+                  <th scope="col" className="table-header" colSpan={6} >Stock Statistics</th>
                 </tr>
               <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Shares</th>
+                <th scope="col">Market Price (/share)</th>
                 <th scope="col">Market Value</th>
-                {/* <th scope="col">Total Return</th> */}
+                <th scope="col">Cost (/share)</th>
+                <th scope="col">Total Return</th>
               </tr>
               </thead>
               <tbody>
@@ -150,7 +155,10 @@ const PortfolioDetails = () => {
                     style={{cursor: "pointer"}}
                   >{c.stock?.name}</th>
                   <td>{c.quantity.toFixed(2)}</td>
+                  <td>{c.stock?.newest_price.close_price}</td>
                   <td>{(c.quantity * c.stock?.newest_price.close_price).toFixed(2)}</td>
+                  <td>{c.cost_per_share.toFixed(2)}</td>
+                  <td>{(c.quantity * (c.stock?.newest_price.close_price - c.cost_per_share)).toFixed(2)}</td>
                   </tr>)
                 }
               </tbody>
