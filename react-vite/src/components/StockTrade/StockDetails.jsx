@@ -470,7 +470,7 @@ function StockDetails () {
             <div className='analysis-create' onClick={()=>showAnalysisForm(null)}>Create new analysis</div>
           )}
           <div className="analyses">
-            { currentStock.stock_analyses && currentStock.stock_analyses.map(sa => {
+            { currentStock.stock_analyses && currentStock.stock_analyses.sort((a, b) => b.id - a.id ).map(sa => {
               return (
                 <div className='analysis' key={sa.id}>
                   <div className='analysis-user-profile'>
