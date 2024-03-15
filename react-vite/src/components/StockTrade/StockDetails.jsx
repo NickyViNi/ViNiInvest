@@ -446,7 +446,7 @@ function StockDetails () {
       </div>
       <div className='news-analysis-container'>
         <div className='news-list-container'>
-          <h3 className="news-heading">Latest News About {currentStock?.name}:</h3>
+          <h3 className="news-heading">{currentStock?.name} Latest News:</h3>
           <ul className="news-list">
             {news?.slice(0, 10).map(article => (
               <li key={article.id} className="news-list-item">
@@ -460,7 +460,7 @@ function StockDetails () {
         </div>
         <div className='analyses-list-container'>
           <div className='analysis-head-doughnut'>
-          <h3 className="news-heading">Analyses About {currentStock.name}:</h3>
+          <h3 className="news-heading">{currentStock.name} Analyses:</h3>
           {(Object.values(recommendationObj)).reduce((a, c) => (+a) + (+c), 0) > 0 &&  <div className='doughnut-chart'>
             <Doughnut data={doughnutData} options={doughnutOptions} />
           </div>}
@@ -478,8 +478,8 @@ function StockDetails () {
                   </div>
                   <div className='analysis-recommendation'>Recommend: { sa.recommendation }</div>
                   <div className='analysis-content'>
-                    { sa.content.length >90 ?
-                    <>{sa.content.slice(0, 90)} <span onClick={() => showAnalysisContent(sa)} id="see-more"> ... See More</span></> : sa.content }
+                    { sa.content.length >65 ?
+                    <>{sa.content.slice(0, 65)} <span onClick={() => showAnalysisContent(sa)} id="see-more"> ... See More</span></> : sa.content }
                   </div>
                   {/* {sa.user.id === user.id && (
                     <div className='analysis-buttons'>

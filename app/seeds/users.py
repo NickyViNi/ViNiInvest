@@ -4,6 +4,7 @@ from sqlalchemy.sql import text
 
 
 def seed_users():
+    image_url = "https://viniinvest-bucket.s3.us-west-2.amazonaws.com/"
     users = [
         {
             "first_name": "Nicky",
@@ -11,15 +12,23 @@ def seed_users():
             "username": "nickyli",
             "password": "password",
             "email": "nickyli@user.io",
-            "profile_image_url": "https://viniinvest-bucket.s3.us-west-2.amazonaws.com/linnabellavatar.jpg"
+            "profile_image_url": f"{image_url}lanber1.jpg"
+        },
+        {
+            "first_name": "Esther",
+            "last_name": "Zhang",
+            "username": "estherz",
+            "password": "password",
+            "email": "estherzhang@user.io",
+            "profile_image_url": f"{image_url}bing2.jpg"
         },
         {
             "first_name": "Vince",
             "last_name": "Deng",
-            "username": "vincedeng",
+            "username": "vinced",
             "password": "password",
             "email": "vincedeng@user.io",
-            "profile_image_url": "https://viniinvest-bucket.s3.us-west-2.amazonaws.com/dafei.jpg"
+            "profile_image_url": f"{image_url}landui1.jpg"
         },
         {
             "first_name": "Hao",
@@ -27,7 +36,7 @@ def seed_users():
             "username": "haolam",
             "password": "password",
             "email": "haolam@user.io",
-            "profile_image_url": "https://viniinvest-bucket.s3.us-west-2.amazonaws.com/tuoni.jpg"
+            "profile_image_url": f"{image_url}lanni1.jpg"
         },
         {
             "first_name": "Nick",
@@ -35,8 +44,40 @@ def seed_users():
             "username": "nickleger",
             "password": "password",
             "email": "nickleger@user.io",
-            "profile_image_url": "https://viniinvest-bucket.s3.us-west-2.amazonaws.com/oulu.jpg"
-        }
+            "profile_image_url": f"{image_url}tuobing1.jpg"
+        },
+        {
+            "first_name": "Fiona",
+            "last_name": "Li",
+            "username": "fionaLi",
+            "password": "password",
+            "email": "fionali@user.io",
+            "profile_image_url": f"{image_url}lanbing1.jpg"
+        },
+        {
+            "first_name": "Ran",
+            "last_name": "Wang",
+            "username": "ranwang",
+            "password": "password",
+            "email": "ranwang@user.io",
+            "profile_image_url": f"{image_url}lanlu1.jpg"
+        },
+        {
+            "first_name": "Chase",
+            "last_name": "Agee",
+            "username": "chaseagee",
+            "password": "password",
+            "email": "chaseagee@user.io",
+            "profile_image_url": f"{image_url}tuoni1.jpg"
+        },
+        {
+            "first_name": "Eunice",
+            "last_name": "Huang",
+            "username": "euniceh",
+            "password": "password",
+            "email": "eunicehuang@user.io",
+            "profile_image_url": f"{image_url}bing1.jpg"
+        },
      ]
 
     [db.session.add(User(**user)) for user in users]

@@ -260,6 +260,8 @@
     font-style: italic;
     padding: 3px 10px 8px 10px;
     word-break: break-word;
+    line-height: 1.8;
+    text-indent: 20px;
 }
 
 .analysis-buttons {
