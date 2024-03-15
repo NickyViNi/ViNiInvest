@@ -48,17 +48,52 @@ def seed_stocks():
         {
             "name": "Meta Platforms",
             "symbol": "META",
-            "category": "stocks"
+            "category": "stock"
         },
         {
             "name": "Costco",
             "symbol": "COST",
-            "category": "stocks"
+            "category": "stock"
+        },
+         {
+            "name": "Broadcom",
+            "symbol": "AVGO",
+            "category": "stock"
         },
         {
-            "name": "Walmart",
-            "symbol": "WMT",
-            "category": "stocks"
+            "name": "Netflix",
+            "symbol": "NFLX",
+            "category": "stock"
+        },
+        {
+            "name": "Salesforce",
+            "symbol": "CRM",
+            "category": "stock"
+        },
+        {
+            "name": "Arista",
+            "symbol": "ANET",
+            "category": "stock"
+        },
+        {
+            "name": "Airbnb",
+            "symbol": "ABNB",
+            "category": "stock"
+        },
+        {
+            "name": "PayPal",
+            "symbol": "PYPL",
+            "category": "stock"
+        },
+        {
+            "name": "Adobe",
+            "symbol": "ADBE",
+            "category": "stock"
+        },
+        {
+            "name": "AMD",
+            "symbol": "AMD",
+            "category": "stock"
         },
         {
             "name": "Technology Select Sector SPDR",
