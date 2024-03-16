@@ -86,6 +86,102 @@ def seed_analysis_stocks():
 
             In summary, Apple Inc. remains a solid investment choice for investors seeking exposure to the technology sector. While risks exist, the company's strengths outweigh its weaknesses, positioning it well for long-term growth and value creation.""",
             "recommendation": "Buy"
+        },
+        {
+            "user_id": 2,
+            "stock_id": 2,
+            "content": "Tesla's position in the electric vehicle (EV) market remains strong, with continued demand for its vehicles worldwide. The company's innovative approach to EV technology, including advancements in battery technology and autonomous driving, sets it apart from competitors. However, concerns persist about production scalability and supply chain constraints. Despite these challenges, Tesla's brand loyalty and aggressive expansion into energy storage and solar solutions bode well for its long-term growth.",
+            "recommendation": "Buy"
+        },
+        {
+            "user_id": 3,
+            "stock_id": 2,
+            "content": "Tesla's recent financial performance has been impressive, driven by strong vehicle deliveries and increasing adoption of renewable energy solutions. The company's Gigafactories and commitment to sustainable transportation position it as a leader in the EV market. However, Tesla faces scrutiny over safety concerns, regulatory issues, and competition from traditional automakers entering the EV space. Despite these challenges, Tesla's innovative technology and visionary leadership make it a promising investment for the future.",
+            "recommendation": "Hold"
+        },
+        {
+            "user_id": 4,
+            "stock_id": 2,
+            "content": "Tesla's stock has experienced significant volatility, reflecting investor sentiment around the company's growth prospects and execution challenges. While Tesla's leadership in EVs and energy solutions is undeniable, concerns persist about production bottlenecks and supply chain disruptions. Additionally, regulatory uncertainties and increased competition pose risks to Tesla's market position. Investors should closely monitor these factors while considering Tesla's long-term potential.",
+            "recommendation": "Sell"
+        },
+        {
+            "user_id": 5,
+            "stock_id": 2,
+            "content": "Tesla's trajectory in the electric vehicle market continues to be a topic of debate among investors. The company's ambitious goals, including ramping up production and expanding into new markets, have fueled optimism among some, while others remain skeptical about its ability to deliver consistent profits. Regulatory challenges, competition, and geopolitical tensions add further complexity to Tesla's outlook. Investors should carefully evaluate these factors before making investment decisions.",
+            "recommendation": "Hold"
+        },
+        {
+            "user_id": 5,
+            "stock_id": 3,
+            "content": "Amazon's dominance in e-commerce and cloud computing remains unparalleled, with robust revenue growth and expanding market reach. The company's Prime membership program, AWS cloud services, and strategic acquisitions continue to drive its success. However, Amazon faces scrutiny over antitrust concerns, labor practices, and regulatory challenges. Despite these headwinds, Amazon's strong financial position and relentless focus on innovation make it a compelling investment choice.",
+            "recommendation": "Buy"
+        },
+        {
+            "user_id": 2,
+            "stock_id": 3,
+            "content": "Amazon's recent performance reflects its resilience and adaptability in a rapidly changing market landscape. The company's diverse revenue streams, including e-commerce, cloud services, and advertising, provide a strong foundation for growth. However, concerns persist about regulatory scrutiny, competition, and labor relations. Despite these challenges, Amazon's customer-centric approach and long-term vision make it an attractive investment opportunity.",
+            "recommendation": "Hold"
+        },
+        {
+            "user_id": 3,
+            "stock_id": 3,
+            "content": "Amazon's stock continues to be a favorite among investors, driven by its dominant position in multiple industries and relentless focus on innovation. The company's investments in fulfillment infrastructure, delivery logistics, and technology development underscore its commitment to long-term growth. However, regulatory challenges, rising competition, and geopolitical uncertainties pose risks to Amazon's business model. Investors should monitor these factors while considering Amazon's potential for future returns.",
+            "recommendation": "Buy"
+        },
+        {
+            "user_id": 4,
+            "stock_id": 3,
+            "content": "Amazon's leadership in e-commerce and cloud computing remains unrivaled, with strong revenue growth and expanding market share. The company's Prime ecosystem, AWS cloud services, and investments in logistics and technology continue to drive its success. However, concerns about regulatory scrutiny, antitrust issues, and labor practices persist. Despite these challenges, Amazon's innovative culture and customer-centric approach position it well for long-term growth.",
+            "recommendation": "Buy"
+        },
+        {
+            "user_id": 1,
+            "stock_id": 4,
+            "content": "Microsoft's position as a leading technology company is underscored by its diverse portfolio of products and services, including Azure cloud services, Office productivity suite, and gaming division. The company's strong financial performance and strategic acquisitions have fueled its growth in recent years. However, competition from rivals like Amazon and Google, as well as regulatory scrutiny, pose risks to Microsoft's market position. Despite these challenges, Microsoft's strong fundamentals and focus on innovation make it a solid investment choice.",
+            "recommendation": "Buy"
+        },
+        {
+            "user_id": 2,
+            "stock_id": 4,
+            "content": "Microsoft's recent performance reflects its continued success in cloud computing, productivity software, and gaming. The company's Azure cloud platform, Office 365 suite, and Xbox gaming division contribute significantly to its revenue and profit. However, Microsoft faces competition from rivals like Amazon and Google, as well as regulatory challenges in various markets. Despite these headwinds, Microsoft's strong financial position and commitment to innovation make it a compelling investment opportunity.",
+            "recommendation": "Hold"
+        },
+        {
+            "user_id": 3,
+            "stock_id": 4,
+            "content": "Microsoft's stock remains a favorite among investors, driven by its leadership in cloud computing, productivity software, and gaming. The company's Azure cloud platform, Office suite, and Xbox division continue to deliver strong financial results. However, competition from rivals like Amazon and Google, as well as regulatory scrutiny, pose risks to Microsoft's growth prospects. Despite these challenges, Microsoft's strong balance sheet and strategic investments make it an attractive long-term investment.",
+            "recommendation": "Buy"
+        },
+        {
+            "user_id": 4,
+            "stock_id": 4,
+            "content": "Microsoft's continued focus on cloud computing, productivity software, and gaming has positioned it as a leader in the technology industry. The company's Azure cloud platform, Office suite, and Xbox gaming division drive significant revenue and profit. However, Microsoft faces challenges from competitors like Amazon and Google, as well as regulatory scrutiny in various markets. Despite these headwinds, Microsoft's strong financial performance and commitment to innovation make it a solid investment choice.",
+            "recommendation": "Sell"
+        },
+        {
+            "user_id": 5,
+            "stock_id": 5,
+            "content": "Alphabet Inc., Class C shares, continues to demonstrate its dominance in the technology sector through its innovative products and strong financial performance. The company's core business, Google, remains the leader in online search and digital advertising, driving significant revenue and profit. Moreover, Alphabet's investments in emerging technologies such as artificial intelligence and autonomous vehicles showcase its commitment to long-term growth. Despite regulatory scrutiny and competition from rivals, Alphabet's diverse revenue streams and strong balance sheet make it a compelling investment option.",
+            "recommendation": "Buy"
+        },
+        {
+            "user_id": 6,
+            "stock_id": 5,
+            "content": "Alphabet Inc., Class C shares, continues to impress investors with its strong performance and innovative approach to technology. The company's core business, Google, remains the dominant force in online search and digital advertising, providing a steady stream of revenue. Additionally, Alphabet's investments in areas such as cloud computing, artificial intelligence, and autonomous vehicles position it for future growth. Despite regulatory challenges and competition from rivals, Alphabet's strong financial position and diverse portfolio make it a solid long-term investment.",
+            "recommendation": "Sell"
+        },
+        {
+            "user_id": 7,
+            "stock_id": 5,
+            "content": "Alphabet Inc., Class C shares, continues to navigate the ever-changing technology landscape with agility and innovation. The company's core business, Google, remains the market leader in online search and digital advertising, driving robust revenue and profit. Furthermore, Alphabet's investments in moonshot projects and emerging technologies demonstrate its commitment to staying ahead of the curve. Despite regulatory hurdles and competition, Alphabet's strong fundamentals and visionary leadership make it a compelling investment opportunity for long-term growth.",
+            "recommendation": "Hold"
+        },
+        {
+            "user_id": 8,
+            "stock_id": 5,
+            "content": "Alphabet Inc., Class C shares, stand out as a beacon of innovation and resilience in the technology sector. The company's core business, Google, continues to dominate online search and digital advertising, fueling Alphabet's strong financial performance. Moreover, Alphabet's investments in areas such as cloud computing, artificial intelligence, and healthcare technology offer promising avenues for future growth. Despite regulatory challenges and competition, Alphabet's track record of innovation and diverse revenue streams make it a compelling investment choice for investors seeking exposure to the tech industry.",
+            "recommendation": "Buy"
         }
     ]
 
