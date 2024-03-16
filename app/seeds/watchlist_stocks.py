@@ -19,7 +19,24 @@ def seed_watchlist_stocks():
             "watchlist_id": 1,
             "stock_id": 4
         },
-         {
+        {
+            "watchlist_id": 1,
+            "stock_id": 5
+        },
+        {
+            "watchlist_id": 1,
+            "stock_id": 6
+        },
+        {
+            "watchlist_id": 1,
+            "stock_id": 7
+        },
+        {
+            "watchlist_id": 1,
+            "stock_id": 8
+        },
+
+        {
             "watchlist_id": 2,
             "stock_id": 5
         },
@@ -35,37 +52,54 @@ def seed_watchlist_stocks():
             "watchlist_id": 2,
             "stock_id": 8
         },
-         {
-            "watchlist_id": 3,
+        {
+            "watchlist_id": 2,
             "stock_id": 9
         },
         {
-            "watchlist_id": 3,
+            "watchlist_id": 2,
             "stock_id": 10
         },
         {
-            "watchlist_id": 3,
+            "watchlist_id": 2,
             "stock_id": 11
         },
         {
-            "watchlist_id": 3,
+            "watchlist_id": 2,
             "stock_id": 12
+        },
+
+        {
+            "watchlist_id": 3,
+            "stock_id": 13
+        },
+        {
+            "watchlist_id": 3,
+            "stock_id": 14
+        },
+        {
+            "watchlist_id": 3,
+            "stock_id": 15
+        },
+        {
+            "watchlist_id": 3,
+            "stock_id": 16
         },
          {
             "watchlist_id": 4,
-            "stock_id": 5
+            "stock_id": 17
         },
         {
             "watchlist_id": 4,
-            "stock_id": 7
+            "stock_id": 18
         },
         {
             "watchlist_id": 4,
-            "stock_id": 8
+            "stock_id": 19
         },
         {
             "watchlist_id": 4,
-            "stock_id": 13
+            "stock_id": 20
         }
     ]
 
