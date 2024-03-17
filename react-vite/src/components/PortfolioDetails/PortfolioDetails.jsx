@@ -155,7 +155,7 @@ const PortfolioDetails = () => {
                   <td>{c.quantity.toFixed(2)}</td>
                   <td>{c.stock?.newest_price.close_price}</td>
                   <td>{(c.quantity * c.stock?.newest_price.close_price).toFixed(2)}</td>
-                  <td>{c.cost_per_share.toFixed(2)}</td>
+                  <td>{c.cost_per_share?.toFixed(2)}</td>
                   <td>{(c.quantity * (c.stock?.newest_price.close_price - c.cost_per_share)).toFixed(2)}</td>
                   </tr>)
                 }
