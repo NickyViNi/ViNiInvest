@@ -193,10 +193,10 @@
     margin: 0;
     list-style: none;
 
-    max-height: 350px;
+    /* max-height: 350px;
     overflow-x: hidden;
     overflow-y: auto;
-    scrollbar-color: lightGrey transparent;
+    scrollbar-color: lightGrey transparent; */
     /* padding-right: 15px; */
 }
 
