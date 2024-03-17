@@ -34,6 +34,7 @@ import UpdateTransactionForm from "../UpdateTransactionForm/UpdateTransactionFor
 import AnalysisForm from '../Analyses/AnalysisForm';
 import { recommendationCalculate } from '../../helpers/recommendationCalculate';
 import { generateRandomColors } from '../../helpers/generateRandomColors';
+import { isPendingTransaction } from '../../helpers/isPendingTransaction';
 
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Title, Tooltip, Legend);
@@ -387,30 +388,31 @@ function StockDetails () {
         </table>
         </div>
 
-        { currentStock?.transactions?.length > 0 &&
+        { currentStock?.transactions?.length > 0 && isPendingTransaction(currentStock.transactions) &&
         <table id="current-stock-transaction-table">
           <thead>
-            <tr className="scroll-tr">
-              <th scope="col" className="table-header" colSpan={6}>{currentStock.name} Transactions</th>
+            <tr>
+              <th scope="col" className="table-header" colSpan={8}>{currentStock.name} Transactions (Pending)</th>
             </tr>
-            <tr className="scroll-tr">
+            <tr>
               <th scope="col">Portfolio</th>
               <th scope="col">Shares</th>
               <th scope="col">Type</th>
               <th scope="col">Price Per Unit</th>
               <th scope="col">Date</th>
-              <th scope="col">Status</th>
+              <th scope="col">Update</th>
+              <th scope="col">Delete</th>
+              <th scope="col">Confirm</th>
             </tr>
           </thead>
-          <tbody className='scroll-tbody'>
+          <tbody>
               {currentStock &&
-                currentStock?.transactions?.sort((a, b) =>b.id - a.id).map(t => <tr key={t.id} className="scroll-tr">
+                currentStock?.transactions?.sort((a, b) =>b.id - a.id).map(t => !t.is_completed && <tr key={t.id}>
                   <th scope="row" onClick={() => navigate("/portfolios")} style={{cursor:"pointer"}} title="Click here go to portfolios">{t.portfolio.name}</th>
                   <td>{t.shares.toFixed(2)}</td>
                   <td>{t.type}</td>
                   <td>{t.price_per_unit}</td>
                   <td>{convertDateTime(t.created_at)}</td>
-                  <td>{t.is_completed ? "Completed" : "Pending"}</td>
                   {!t.is_completed && <> <td className="update-transaction-btn" onClick={e => updateTransaction(e, t)}>{t.is_completed ? "" : <button>Update</button>}</td>
                   <td className="delete-transaction-btn">
                     {t.is_completed ? "" :
@@ -439,6 +441,35 @@ function StockDetails () {
                     />
                   }
                   />}</td> </>}
+                </tr>)
+              }
+            </tbody>
+        </table> }
+
+        { currentStock?.transactions?.length > 0 &&
+        <table id="current-stock-transaction-table">
+          <thead>
+            <tr className="scroll-tr">
+              <th scope="col" className="table-header" colSpan={6}>{currentStock.name} Transactions (Completed)</th>
+            </tr>
+            <tr className="scroll-tr">
+              <th scope="col">Portfolio</th>
+              <th scope="col">Shares</th>
+              <th scope="col">Type</th>
+              <th scope="col">Price Per Unit</th>
+              <th scope="col">Date</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody className='scroll-tbody'>
+              {currentStock &&
+                currentStock?.transactions?.sort((a, b) =>b.id - a.id).map(t => <tr key={t.id} className="scroll-tr">
+                  <th scope="row" onClick={() => navigate("/portfolios")} style={{cursor:"pointer"}} title="Click here go to portfolios">{t.portfolio.name}</th>
+                  <td>{t.shares.toFixed(2)}</td>
+                  <td>{t.type}</td>
+                  <td>{t.price_per_unit}</td>
+                  <td>{convertDateTime(t.created_at)}</td>
+                  <td>{t.is_completed ? "Completed" : "Pending"}</td>
                 </tr>)
               }
             </tbody>

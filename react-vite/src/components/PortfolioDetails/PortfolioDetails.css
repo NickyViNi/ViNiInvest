@@ -25,7 +25,7 @@ thead {
 
 th,
 td {
-  border: 1px solid rgb(160 160 160);
+  /* border: 1px solid rgb(160 160 160); */
   padding: 8px 10px;
 }
 
@@ -46,13 +46,12 @@ td:last-of-type {
 } */
 .scroll-tr {
   display: table;
-  width: 45vw;
+  width: 48vw;
   table-layout:fixed;
 }
 
-
 tbody > tr:nth-of-type(even) {
-  background-color: rgba(213, 239, 222, 0.256);
+  background-color: rgba(208, 246, 221, 0.371);
 }
 
 .table-header {
