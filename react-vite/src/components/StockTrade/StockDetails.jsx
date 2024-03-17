@@ -390,10 +390,10 @@ function StockDetails () {
         { currentStock?.transactions?.length > 0 &&
         <table id="current-stock-transaction-table">
           <thead>
-            <tr>
+            <tr className="scroll-tr">
               <th scope="col" className="table-header" colSpan={6}>{currentStock.name} Transactions</th>
             </tr>
-            <tr>
+            <tr className="scroll-tr">
               <th scope="col">Portfolio</th>
               <th scope="col">Shares</th>
               <th scope="col">Type</th>
@@ -402,9 +402,9 @@ function StockDetails () {
               <th scope="col">Status</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className='scroll-tbody'>
               {currentStock &&
-                currentStock?.transactions?.sort((a, b) =>b.id - a.id).map(t => <tr key={t.id}>
+                currentStock?.transactions?.sort((a, b) =>b.id - a.id).map(t => <tr key={t.id} className="scroll-tr">
                   <th scope="row" onClick={() => navigate("/portfolios")} style={{cursor:"pointer"}} title="Click here go to portfolios">{t.portfolio.name}</th>
                   <td>{t.shares.toFixed(2)}</td>
                   <td>{t.type}</td>

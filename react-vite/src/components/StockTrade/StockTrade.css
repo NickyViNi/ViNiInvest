@@ -121,6 +121,7 @@
     border-style: hidden ;
     margin: 20px 0;
     box-shadow: 2px 2px 5px lightblue;
+    text-align: center;
 }
 
 .table-header {

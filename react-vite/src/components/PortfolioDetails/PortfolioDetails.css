@@ -33,6 +33,25 @@ td:last-of-type {
   text-align: center;
 }
 
+.scroll-tbody {
+  display: block;
+  max-height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+/* thead {
+  position: sticky;
+  top:0;
+  z-index: 1;
+} */
+
+.scroll-tr {
+  display: table;
+  width: 100%;
+  table-layout:fixed;
+}
+
+
 tbody > tr:nth-of-type(even) {
   background-color: rgb(237 238 242);
 }
@@ -177,6 +196,7 @@ tbody > tr:nth-of-type(even) {
     border-style: hidden ;
     margin: 20px 0;
     box-shadow: 2px 2px 5px lightblue;
+    /* max-width: 700px; */
 }
 
 .portfolios-watchlists-container {

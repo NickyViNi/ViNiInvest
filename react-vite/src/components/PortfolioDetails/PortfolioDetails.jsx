@@ -132,10 +132,10 @@ const PortfolioDetails = () => {
           </div>}
           { currentStockData.length > 0 && <table className="portfolio-stocks">
               <thead>
-                <tr>
+                <tr className="scroll-tr">
                   <th scope="col" className="table-header" colSpan={6} >Stock Statistics</th>
                 </tr>
-              <tr>
+              <tr className="scroll-tr">
                 <th scope="col">Name</th>
                 <th scope="col">Shares</th>
                 <th scope="col">Market Price (/share)</th>
@@ -144,9 +144,9 @@ const PortfolioDetails = () => {
                 <th scope="col">Total Return</th>
               </tr>
               </thead>
-              <tbody>
+              <tbody className="scroll-tbody">
                 {portfolioStocksArray.length > 0 &&
-                 portfolioStocksArray.map(c => c.quantity > 0 && <tr key={c.id}>
+                 portfolioStocksArray.map(c => c.quantity > 0 && <tr key={c.id} className="scroll-tr">
                   <th
                     scope="row"
                     onClick={() => navigate(`/stocks/${c.stock_id}`)} title="Click to view details"
@@ -166,10 +166,10 @@ const PortfolioDetails = () => {
 
           <div className="transactions-table"> { portfolioTransactions?.length > 0 && <table className="portfolio-transactions">
             <thead>
-              <tr>
+              <tr className="scroll-tr">
                 <th scope="col" className="table-header" colSpan={6}>Transactions</th>
               </tr>
-              <tr>
+              <tr className="scroll-tr">
                 <th scope="col">Stock Name</th>
                 <th scope="col">Shares</th>
                 <th scope="col">Type</th>
@@ -178,9 +178,9 @@ const PortfolioDetails = () => {
                 <th scope="col">Status</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="scroll-tbody">
               {currentPortfolio &&
-                currentPortfolio?.transactions?.sort((a, b) =>b.id - a.id).map(c => <tr key={c?.id}>
+                currentPortfolio?.transactions?.sort((a, b) =>b.id - a.id).map(c => <tr key={c?.id} className="scroll-tr">
                   <th scope="row"
                   onClick={() => navigate(`/stocks/${c.stock_id}`)} title="Click to view details"
                   style={{cursor: "pointer"}}
