@@ -241,6 +241,179 @@ def seed_transactions():
             "created_at": datetime.fromisoformat("2023-12-06T13:14:25")
         },
 
+        {
+            "portfolio_id": 2,
+            "stock_id": 7,
+            "shares": 0.1,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 903.64,
+            "created_at": datetime.fromisoformat("2023-12-06T13:14:25")
+        },
+        {
+            "portfolio_id": 2,
+            "stock_id": 12,
+            "shares": 10,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 480.33,
+            "created_at": datetime.fromisoformat("2024-01-17T13:14:25")
+        },
+        {
+            "portfolio_id": 2,
+            "stock_id": 12,
+            "shares": 10,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 492.19,
+            "created_at": datetime.fromisoformat("2024-01-23T13:14:25")
+        },
+        {
+            "portfolio_id": 2,
+            "stock_id": 12,
+            "shares": 10,
+            "type": "sell",
+            "is_completed": True,
+            "price_per_unit": 575.79,
+            "created_at": datetime.fromisoformat("2024-01-29T13:14:25")
+        },
+        {
+            "portfolio_id": 2,
+            "stock_id": 12,
+            "shares": 10,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 554.52,
+            "created_at": datetime.fromisoformat("2024-02-13T13:14:25")
+        },
+        {
+            "portfolio_id": 2,
+            "stock_id": 13,
+            "shares": 10,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 251.12,
+            "created_at": datetime.fromisoformat("2024-01-05T13:14:25")
+        },
+        {
+            "portfolio_id": 2,
+            "stock_id": 13,
+            "shares": 10,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 281.15,
+            "created_at": datetime.fromisoformat("2024-02-13T13:14:25")
+        },
+        {
+            "portfolio_id": 2,
+            "stock_id": 14,
+            "shares": 10,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 229.4,
+            "created_at": datetime.fromisoformat("2024-01-03T13:14:25")
+        },
+
+        {
+            "portfolio_id": 3,
+            "stock_id": 15,
+            "shares": 100,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 134.98,
+            "created_at": datetime.fromisoformat("2024-01-17T13:14:25")
+        },
+        {
+            "portfolio_id": 3,
+            "stock_id": 15,
+            "shares": 10,
+            "type": "sell",
+            "is_completed": True,
+            "price_per_unit": 157.69,
+            "created_at": datetime.fromisoformat("2024-02-15T13:14:25")
+        },
+        {
+            "portfolio_id": 3,
+            "stock_id": 16,
+            "shares": 100,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 50.39,
+            "created_at": datetime.fromisoformat("2023-10-27T13:14:25")
+        },
+        {
+            "portfolio_id": 3,
+            "stock_id": 16,
+            "shares": 50,
+            "type": "sell",
+            "is_completed": True,
+            "price_per_unit": 65.82,
+            "created_at": datetime.fromisoformat("2024-01-19T13:14:25")
+        },
+        {
+            "portfolio_id": 3,
+            "stock_id": 17,
+            "shares": 10,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 508.12,
+            "created_at": datetime.fromisoformat("2023-10-27T13:14:25")
+        },
+        {
+            "portfolio_id": 3,
+            "stock_id": 17,
+            "shares": 10,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 567.05,
+            "created_at": datetime.fromisoformat("2024-01-04T13:14:25")
+        },
+        {
+            "portfolio_id": 3,
+            "stock_id": 18,
+            "shares": 10,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 116.82,
+            "created_at": datetime.fromisoformat("2023-12-06T13:14:25")
+        },
+
+        {
+            "portfolio_id": 4,
+            "stock_id": 19,
+            "shares": 100,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 160.19,
+            "created_at": datetime.fromisoformat("2023-10-26T13:14:25")
+        },
+        {
+            "portfolio_id": 4,
+            "stock_id": 19,
+            "shares": 100,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 184.12,
+            "created_at": datetime.fromisoformat("2024-01-05T13:14:25")
+        },
+        {
+            "portfolio_id": 4,
+            "stock_id": 20,
+            "shares": 100,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 147.79,
+            "created_at": datetime.fromisoformat("2023-10-26T13:15:25")
+        },
+        {
+            "portfolio_id": 4,
+            "stock_id": 20,
+            "shares": 100,
+            "type": "buy",
+            "is_completed": True,
+            "price_per_unit": 179.96,
+            "created_at": datetime.fromisoformat("2024-01-05T13:16:25")
+        },
 
      ]
 
