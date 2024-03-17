@@ -415,9 +415,11 @@ def seed_transactions():
             "created_at": datetime.fromisoformat("2024-01-05T13:16:25")
         },
 
-     ]
+    ]
 
-    [db.session.add(Transaction(**transaction)) for transaction in transactions]
+    sorted_transactions = sorted(transactions, key=lambda x: x["created_at"])
+
+    [db.session.add(Transaction(**transaction)) for transaction in sorted_transactions]
     db.session.commit()
 
 
