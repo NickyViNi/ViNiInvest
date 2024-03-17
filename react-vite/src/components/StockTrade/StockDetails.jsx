@@ -33,7 +33,6 @@ import AddToWatchlistModal from "../AddToWatchlistModal/AddToWatchlistModal";
 import UpdateTransactionForm from "../UpdateTransactionForm/UpdateTransactionForm";
 import AnalysisForm from '../Analyses/AnalysisForm';
 import { recommendationCalculate } from '../../helpers/recommendationCalculate';
-import { generateRandomColors } from '../../helpers/generateRandomColors';
 import { isPendingTransaction } from '../../helpers/isPendingTransaction';
 
 
