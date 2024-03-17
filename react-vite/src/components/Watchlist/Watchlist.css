@@ -9,6 +9,14 @@
     gap: 5px;
 }
 
+.scroll-watchlists {
+    max-height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-right: 20px;
+    scrollbar-color: lightGrey transparent;
+}
+
 .watchlist-name {
     display: flex;
     justify-content: space-between;
@@ -19,12 +27,22 @@
     padding-bottom: 5px;
 }
 
+#watchlist-name {
+    font-weight: bold;
+}
+
 .watchlist-body {
     display: flex;
     flex-direction: column;
     gap: 10px;
     border-radius: 5px;
     padding: 5px;
+
+    max-height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-color: lightGrey transparent;
+    padding-right: 15px;
 }
 
 .watchlist {

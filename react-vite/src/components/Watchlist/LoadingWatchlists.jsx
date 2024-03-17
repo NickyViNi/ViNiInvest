@@ -42,11 +42,12 @@ function LoadingWatchlist () {
             onClick={() => setModalContent(<CreateNewWatchlist />)}>
           </i>
         </div>
+        <div className="scroll-watchlists">
         { watchlistArray.map(w => {
           return (
             <div className="watchlist" key={w?.id}>
               <div className="watchlist-name">
-                <div>{ w?.name }</div>
+                <div id="watchlist-name">{ w?.name }</div>
                 <div className="watchlist-icons">
                   <div className="update-watchlist">
                     <OpenModalButton
@@ -82,6 +83,7 @@ function LoadingWatchlist () {
             </div>
           )
         } )}
+        </div>
       </div>
     )
 }

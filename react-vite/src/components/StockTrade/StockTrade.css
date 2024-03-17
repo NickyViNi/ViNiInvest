@@ -191,6 +191,12 @@
     padding: 0;
     margin: 0;
     list-style: none;
+
+    max-height: 350px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-color: lightGrey transparent;
+    /* padding-right: 15px; */
 }
 
 .news-list-item {
@@ -228,6 +234,12 @@
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
+
+    max-height: 250px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-color: lightGrey transparent;
+    padding-right: 15px;
 }
 
 .analysis {
