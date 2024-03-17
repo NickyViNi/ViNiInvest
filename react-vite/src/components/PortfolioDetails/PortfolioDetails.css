@@ -44,16 +44,15 @@ td:last-of-type {
   top:0;
   z-index: 1;
 } */
-
 .scroll-tr {
   display: table;
-  width: 100%;
+  width: 45vw;
   table-layout:fixed;
 }
 
 
 tbody > tr:nth-of-type(even) {
-  background-color: rgb(237 238 242);
+  background-color: rgba(213, 239, 222, 0.256);
 }
 
 .table-header {
