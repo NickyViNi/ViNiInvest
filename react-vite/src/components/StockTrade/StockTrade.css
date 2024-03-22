@@ -73,11 +73,13 @@
 .buy-sell-btns .red {
     color: red;
     border-radius: 4px;
+    cursor: pointer;
 }
 
 .buy-sell-btns .green {
     color: green;
     border-radius: 4px;
+    cursor: pointer;
 }
 
 .amount {
