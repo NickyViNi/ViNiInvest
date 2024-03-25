@@ -21,7 +21,7 @@ def seed_analysis_stocks():
             "user_id": 4,
             "stock_id": 1,
             "content": "Apple Inc. faces both opportunities and challenges in the current market landscape. On one hand, the company's expansion into wearables and services has diversified its revenue sources and reduced dependence on iPhone sales. Additionally, Apple's strong balance sheet and cash reserves provide ample room for investments and acquisitions. However, concerns about a potential slowdown in global smartphone sales and increasing competition from Chinese manufacturers pose risks to Apple's growth trajectory. Despite these headwinds, Apple's loyal customer base and brand strength remain unparalleled. Thus, I recommend selling Apple stock for now.",
-            "recommendation": "Selling"
+            "recommendation": "Sell"
         },
         {
             "user_id": 5,
