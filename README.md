@@ -43,12 +43,6 @@
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?logo=git&logoColor=white)
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?logo=github&logoColor=white)
 
-## Database Schema Design
-
-![viniinvest-database-schema]
-
-[viniinvest-database-schema]: ./react-vite/public/images/vini_invest_schema.jpg
-
 ## Installation Guide
 
 1. Clone this repository (only main branch).
@@ -90,12 +84,23 @@
 
 7. To run the React frontend in development, `cd` into the __react-vite__
    directory and run `npm i` to install dependencies. Next, run `npm run build`
-   to create the `dist` folder. The starter has modified the `npm run build`
-   command to include the `--watch` flag. This flag will rebuild the __dist__
-   folder whenever you change your code, keeping the production version up to
-   date.
+   to create the `dist` folder. Finally run `npm run dev`
+   command to start the serve.
+
+## Index
+[Feature List](https://github.com/NickyViNi/ViNiInvest/wiki/Feature-List) | [Database Schema](https://github.com/NickyViNi/ViNiInvest/wiki/Database-Schema) | [User Stories](https://github.com/NickyViNi/ViNiInvest/wiki/User-Stories) | [Wireframes](https://github.com/NickyViNi/ViNiInvest/wiki/Wireframes)
 
 ## Demo
+
+### Portfolio Page
+
+<img src="https://viniinvest-bucket.s3.us-west-2.amazonaws.com/vini-invest-gif/Portfolio1.gif" />
+
+### Stock Detail Page
+<img src="https://viniinvest-bucket.s3.us-west-2.amazonaws.com/vini-invest-gif/stock2.gif" />
+
+### Watchlist Page
+<img src="https://viniinvest-bucket.s3.us-west-2.amazonaws.com/vini-invest-gif/watchlist1.gif" />
 
 ## Technologies
 * Framework and DB
@@ -135,9 +140,5 @@
   * Used for design and sketch database schema, assign associations amongst tables
 * Chart.js
   * Simple yet flexible JavaScript charting library for the modern web
-
-
-## Features
- - See github wiki page
 
 ## API Documentation
