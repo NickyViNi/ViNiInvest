@@ -20,8 +20,6 @@ function AnalysisForm ( { stockId, analysis } ) {
         if (!recommendation.length) return setErrors({"recommendation": "You must select a recommendation!"})
         if (content.length < 50) return setErrors({"content": "Content must be at least 50 characters!"})
 
-        e.preventDefault();
-
         const payload = {
             recommendation,
             content

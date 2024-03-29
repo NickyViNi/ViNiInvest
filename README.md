@@ -1,6 +1,16 @@
-# Flask React Project
+# ViNiInvest
 
-ViNiInvest -- Run your money, invest in Stocks, Options, and ETFs Commissions-free.
+- Inspired by the Robinhood investment website, I developed a small stock simulation trading website, especially suitable for novices to start their stock investment journey!
+
+- As a lightweight investment website， we focus on a few core features:
+
+  - Portfolio: You can create different types of portfolios. When you trade, select a specific portfolio and your trades will be aggregated into your portfolio.
+
+  - Stock: You have the option to browse for particular stocks that align with your preferences. Upon accessing the stock's page, you can input its details, designate it as a favorite, and initiate trading. Each stock is accompanied by a price chart and your transaction history pertaining to it. Additionally, you can access analysts' opinions on the stock and even share your own analysis report. Furthermore, you can stay updated with news relevant to the stock.
+
+  - Transaction: To initiate a stock trade, you must access the details page of the stock, where you'll find the trading form. Once you've submitted your order, you'll need to confirm the transaction by clicking. You'll have the option to modify or delete the transaction before confirming it. Once confirmed, orders cannot be altered or canceled. Conversely, when you wish to divest from the stock, you can opt to sell it.
+
+  - Watchlist: On the details page of a particular stock, you have the option to include it in your customized watchlist. Multiple watchlists can be established to organize and monitor various stocks accordingly. Your portfolio page provides an overview of all your watchlists, where you can manage them by editing their contents, altering their names, or deleting redundant watchlists.
 
 ## Website Link: https://viniinvest.onrender.com
 
