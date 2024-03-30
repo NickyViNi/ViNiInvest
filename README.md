@@ -142,3 +142,19 @@
   * Simple yet flexible JavaScript charting library for the modern web
 
 ## API Documentation
+### Auth
+| Request                        | Purpose                | Return Value  |
+| :----------------------------- | :--------------------: | :------------------------------ |
+| GET /api/auth/        | This fetch is sent upon initial app load and on subsequent refreshes.<br>It returns an object representing the current user, if user is logged in.                                 | {<br>&nbsp;&nbsp;&nbsp;'id': INT,<br>&nbsp;&nbsp;&nbsp;'username': STRING,<br>&nbsp;&nbsp;&nbsp;'email': STRING,<br>}<br><br>Status: 200<br>|
+| POST /api/auth/unauthorized      | This endpoint will be routed to in the case that a protected route does not pass validations for the current user.<br>It returns an object with an errors property, which is an array with the value 'Unauthorized'          | {<br>&nbsp;&nbsp;&nbsp;'errors': ARRAY[STRINGS]<br>}<br><br>Status: 401<br>|
+| POST /api/auth/signup        | This fetch sends the form data signup from data to the backend to process the creation of a new user.<br>It returns an object representing the current user, after logging them in, if account creation succeeds.                                 | {<br>&nbsp;&nbsp;&nbsp;'id': INT,<br>&nbsp;&nbsp;&nbsp;'username': STRING,<br>&nbsp;&nbsp;&nbsp;'email': STRING,<br>}<br><br>Status: 200<br>|
+| POST /api/auth/login | This fetch attempts to login a user with the provided credentials.<br>It returns an object representing the current user, if validation succeeds.                                 | {<br>&nbsp;&nbsp;&nbsp;'id': INT,<br>&nbsp;&nbsp;&nbsp;'username': STRING,<br>&nbsp;&nbsp;&nbsp;'email': STRING,<br>}<br><br>Status: 200<br>|
+| POST /api/auth/logout | This fetch will logout the current user.<br>It returns an object with the message 'User logged Out' if it succeeds.                                 | {<br>&nbsp;&nbsp;&nbsp;'message': STRING<br>}<br><br>Status: 200<br>|
+
+### Portfolio
+| Request                        | Purpose                | Return Value  |
+| :----------------------------- | :--------------------: | :------------------------------ |
+| GET /api/portfolios/        | This fetch will return an object of portfolos array.                                 | {<br>&nbsp;Portfolios: [<br>&nbsp;&nbsp;&nbsp;'id': INT,<br>&nbsp;&nbsp;&nbsp;'created_at': STRING,<br>&nbsp;&nbsp;&nbsp;'fake_money_balance': INT, <br>&nbsp;&nbsp;&nbsp;'name': STRING, <br>&nbsp;&nbsp;&nbsp;'portfolio_stocks': [], <br>]}<br><br>Status: 200<br>|
+
+
+### Stock
