@@ -94,15 +94,15 @@
 
 ### Portfolio Page
 
-![alt text](<https://viniinvest-bucket.s3.us-west-2.amazonaws.com/vini-invest-gif/Portfolio1.gif>)
+<!-- ![alt text](<https://viniinvest-bucket.s3.us-west-2.amazonaws.com/vini-invest-gif/Portfolio1.gif>) -->
 
-<!-- <img src="https://viniinvest-bucket.s3.us-west-2.amazonaws.com/vini-invest-gif/Portfolio1.gif" /> -->
+<img src="https://viniinvest-bucket.s3.us-west-2.amazonaws.com/vini-invest-gif/Portfolio1.gif" width="600px" />
 
 ### Stock Detail Page
-<img src="https://viniinvest-bucket.s3.us-west-2.amazonaws.com/vini-invest-gif/stock2.gif" />
+<img src="https://viniinvest-bucket.s3.us-west-2.amazonaws.com/vini-invest-gif/stock2.gif" width="600px" />
 
 ### Watchlist Page
-<img src="https://viniinvest-bucket.s3.us-west-2.amazonaws.com/vini-invest-gif/watchlist1.gif" />
+<img src="https://viniinvest-bucket.s3.us-west-2.amazonaws.com/vini-invest-gif/watchlist1.gif" width="600px" />
 
 ## Technologies
 * Framework and DB
