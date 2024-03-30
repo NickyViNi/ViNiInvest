@@ -94,7 +94,9 @@
 
 ### Portfolio Page
 
-<img src="https://viniinvest-bucket.s3.us-west-2.amazonaws.com/vini-invest-gif/Portfolio1.gif" />
+![alt text](<https://viniinvest-bucket.s3.us-west-2.amazonaws.com/vini-invest-gif/Portfolio1.gif>)
+
+<!-- <img src="https://viniinvest-bucket.s3.us-west-2.amazonaws.com/vini-invest-gif/Portfolio1.gif" /> -->
 
 ### Stock Detail Page
 <img src="https://viniinvest-bucket.s3.us-west-2.amazonaws.com/vini-invest-gif/stock2.gif" />
